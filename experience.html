@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parcours | Rosaire KAKPO - Formation & Accomplissements</title>
+<meta name="description" content="Parcours de Rosaire KAKPO : Licence Systèmes Informatiques, MIABE Hackathon (8e place), Innerbuild (3e place), Arduino Days 2026, Baccalauréat CPEG La Rigueur.">
+<meta name="keywords" content="formation développeur Bénin, MIABE Hackathon, Innerbuild, Les Cours Sonou, parcours étudiant informatique">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://votredomaine.com/experience.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="responsive-mobile.css">
+</head>
+<body>
+
+<canvas id="pcanvas"></canvas>
+<div class="cursor" id="cur"></div>
+<div class="cursor-r" id="curR"></div>
+
+<!-- LOADER -->
+<div id="ldr">
+  <div class="ldr-logo">RK<em>.dev</em></div>
+  <div class="ldr-bar"><div class="ldr-fill" id="lFill"></div></div>
+  <div class="ldr-msg" id="lMsg">Démarrage du système...</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo-wrap" href="index.html">
+    <div class="logo-mark">
+      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="38" height="38" rx="8" fill="#A020F0" fill-opacity=".12"/>
+        <path d="M9 29 L9 9 L20 9 Q28 9 28 16 Q28 21 22 22.5 L29 29 L23 29 L17 23 L14 23 L14 29 Z M14 13 L14 19 L19.5 19 Q23.5 19 23.5 16 Q23.5 13 19.5 13 Z" fill="#A020F0"/>
+        <circle cx="30" cy="10" r="4" fill="#A020F0"/>
+        <circle cx="30" cy="10" r="2" fill="#A020F0"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-wordmark">ROSAIRE<span>.</span></div>
+      <div class="logo-sub">Frontend &amp; AI Dev</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html" data-i18n="nav.about">À propos</a></li>
+    <li><a href="projects.html" data-i18n="nav.projects">Projets</a></li>
+    <li><a href="skills.html" data-i18n="nav.skills">Compétences</a></li>
+    <li><a href="experience.html" data-i18n="nav.exp">Parcours</a></li>
+    <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">EN</button>
+    <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+    <button class="ctrl-btn" onclick="openAdmin()"><i class="fa-solid fa-gauge"></i></button>
+    <button class="nav-cta" onclick="window.location.href='contact.html'" data-i18n="nav.cta">Travailler ensemble</button>
+  </div>
+</nav>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-tag" data-i18n="exp.tag">Parcours</div>
+      <h2 class="sec-h2">Mon <em>Parcours</em></h2>
+      <p style="font-size:15px;line-height:1.8;color:var(--text2);max-width:720px;margin-top:20px;">Ma formation et mes réalisations reflètent mon engagement envers l'excellence technique et l'innovation digitale.</p>
+    </div>
+    <div class="timeline rv">
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">2025 — 2026</div>
+        <div class="t-role">Licence 1 en Systèmes Informatiques et Logiciels</div>
+        <div class="t-org">Institut Universitaire Les Cours Sonou</div>
+        <p class="t-desc" data-i18n="exp.e1">Formation approfondie en développement logiciel, systèmes informatiques et programmation moderne. Spécialisation en développement web frontend et création d'interfaces utilisateur.</p>
+        <div class="t-tags"><span class="chip">Systèmes</span><span class="chip">Logiciels</span><span class="chip">Programmation</span><span class="chip">Web</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot b"></div>
+        <div class="t-date">2025 — 2026</div>
+        <div class="t-role">Licence 1 en Anglais</div>
+        <div class="t-org">FLLAC - UAC</div>
+        <p class="t-desc" data-i18n="exp.e2">Formation complémentaire en langue anglaise pour renforcer mes compétences en communication internationale et accéder à la documentation technique anglophone.</p>
+        <div class="t-tags"><span class="chip">Anglais</span><span class="chip">Communication</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">2025 — 2026</div>
+        <div class="t-role">Certification MIABE Hackathon - 8e place</div>
+        <div class="t-org">MIABE Hackathon</div>
+        <p class="t-desc" data-i18n="exp.e3">Finaliste au MIABE Hackathon avec le projet "Tontine Chain", une plateforme de tontine sécurisée par blockchain pour le Bénin. Développement d'une solution innovante pour la finance collaborative.</p>
+        <div class="t-tags"><span class="chip">Blockchain</span><span class="chip">Fintech</span><span class="chip">React</span><span class="chip">Web3</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot b"></div>
+        <div class="t-date">2025 — 2026</div>
+        <div class="t-role">Challenge Innerbuild Season 1 - 3e place</div>
+        <div class="t-org">Innerbuild</div>
+        <p class="t-desc" data-i18n="exp.e4">Obtention de la 3e place au challenge Innerbuild Season 1. Développement et présentation d'un projet innovant démontrant mes compétences techniques et créatives.</p>
+        <div class="t-tags"><span class="chip">Innovation</span><span class="chip">Développement</span><span class="chip">Design</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">2025 — 2026</div>
+        <div class="t-role">Participation Arduino Days 2026</div>
+        <div class="t-org">Sèmè City Open Park</div>
+        <p class="t-desc">Participation au challenge Arduino Days 2026 à Sèmè City Open Park. Exploration des technologies embarquées et de l'Internet des objets (IoT).</p>
+        <div class="t-tags"><span class="chip">Arduino</span><span class="chip">IoT</span><span class="chip">Hardware</span></div>
+      </div>
+      <div class="t-item">
+        <div class="t-dot b"></div>
+        <div class="t-date">2024 — 2025</div>
+        <div class="t-role">Baccalauréat Session Normale</div>
+        <div class="t-org">CPEG "La Rigueur"</div>
+        <p class="t-desc">Obtention du baccalauréat, première étape vers une carrière dans le développement web et les technologies de l'information.</p>
+        <div class="t-tags"><span class="chip">Baccalauréat</span></div>
+      </div>
+    </div>
+    <div style="margin-top:80px;text-align:center;">
+      <p style="font-size:15px;color:var(--text2);line-height:1.8;max-width:620px;margin:0 auto 32px;">Mon parcours est celui d'un passionné de technologie en formation continue, déterminé à exceller dans le développement web et l'innovation digitale.</p>
+      <a href="contact.html" class="btn-p">Collaborons ensemble</a>
+    </div>
+
+    <!-- CERTIFICATES SECTION -->
+    <div style="margin-top:100px;">
+      <div class="rv" style="text-align:center;margin-bottom:50px;">
+        <div class="sec-tag" style="justify-content:center;">Certificats & Accomplissements</div>
+        <h2 class="sec-h2">Mes <em>Réalisations</em></h2>
+        <p style="font-size:15px;color:var(--text2);margin-top:20px;max-width:600px;margin-left:auto;margin-right:auto;">Preuves concrètes de mon engagement et de mes succès dans les challenges techniques.</p>
+      </div>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;margin-top:50px;">
+        <!-- Certificate 1: Innerbuild -->
+        <div class="rv" style="background:var(--surf);border:1px solid var(--brd2);border-radius:16px;padding:24px;transition:all .4s;cursor:pointer;" onclick="window.open('images/img2.jpeg','_blank')">
+          <div style="position:relative;width:100%;height:320px;border-radius:12px;overflow:hidden;margin-bottom:20px;background:var(--bg2);">
+            <img src="images/img2.jpeg" alt="Certificat Innerbuild Season 1" style="width:100%;height:100%;object-fit:contain;">
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:40px;height:40px;background:var(--og);border:1px solid var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--orange);">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div style="flex:1;">
+              <div style="font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:2px;">Challenge Innerbuild Season 1</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:2px;">3E PLACE</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.6;">Certificat attestant de ma 3e place au challenge Innerbuild Season 1. Reconnaissance de mes compétences en innovation et développement.</p>
+        </div>
+
+        <!-- Certificate 2: MIABE Hackathon Photo -->
+        <div class="rv" style="background:var(--surf);border:1px solid var(--brd2);border-radius:16px;padding:24px;transition:all .4s;cursor:pointer;" onclick="window.open('images/img3.jpeg','_blank')">
+          <div style="position:relative;width:100%;height:320px;border-radius:12px;overflow:hidden;margin-bottom:20px;background:var(--bg2);">
+            <img src="images/img3.jpeg" alt="Finalistes MIABE Hackathon" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:40px;height:40px;background:var(--og);border:1px solid var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--orange);">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div style="flex:1;">
+              <div style="font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:2px;">MIABE Hackathon - Finalistes</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:2px;">8E PLACE</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.6;">Photo de groupe des finalistes du MIABE Hackathon avec le projet "Tontine Chain", plateforme blockchain pour le Bénin.</p>
+        </div>
+
+        <!-- Certificate 3: MIABE Hackathon Certificate PDF -->
+        <div class="rv" style="background:var(--surf);border:1px solid var(--brd2);border-radius:16px;padding:24px;transition:all .4s;cursor:pointer;" onclick="window.open('images/certificate-rosaire-kakpo.pdf','_blank')">
+          <div style="position:relative;width:100%;height:320px;border-radius:12px;overflow:hidden;margin-bottom:20px;background:linear-gradient(135deg,var(--og) 0%,var(--surf2) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+            <i class="fa-solid fa-file-pdf" style="font-size:80px;color:var(--orange);opacity:.9;"></i>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;">Certificat PDF</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:40px;height:40px;background:var(--og);border:1px solid var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--orange);">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <div style="flex:1;">
+              <div style="font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:2px;">Certificat MIABE Hackathon</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange);letter-spacing:2px;">CERTIFICATION OFFICIELLE</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text2);line-height:1.6;">Certificat officiel de formation MIABE Hackathon attestant de ma participation et de mes compétences acquises.</p>
+          <div style="margin-top:12px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--orange);font-family:'JetBrains Mono',monospace;">
+            <i class="fa-solid fa-download"></i>
+            <span>Cliquez pour télécharger</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAVIGATION -->
+<section class="page-nav">
+  <div class="wrap">
+    <div class="page-nav-inner">
+      <a href="skills.html" class="page-nav-link prev">
+        <div class="pnl-ico"><i class="fa-solid fa-arrow-left"></i></div>
+        <div>
+          <div class="pnl-sub">Précédent</div>
+          <div class="pnl-title">Compétences</div>
+        </div>
+      </a>
+      <div class="page-nav-center">Parcours</div>
+      <a href="contact.html" class="page-nav-link next">
+        <div class="pnl-ico"><i class="fa-solid fa-arrow-right"></i></div>
+        <div>
+          <div class="pnl-sub">Suivant</div>
+          <div class="pnl-title">Contact</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">ROSAIRE<span>.</span>KAKPO</div>
+  <div class="ft-copy">© 2026 — Cotonou, Bénin</div>
+  <div class="ft-soc">
+    <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+    <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+  </div>
+</footer>
+
+<!-- TERMINAL FAB -->
+<button class="term-fab" id="termFab" onclick="toggleTerminal()"><i class="fa-solid fa-terminal"></i></button>
+
+<!-- TERMINAL -->
+<div id="term">
+  <div class="term-hd">
+    <div class="tdots"><div class="tdot" style="background:#FF5F56"></div><div class="tdot" style="background:#FFBD2E"></div><div class="tdot" style="background:#27C93F"></div></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:2px">RK — Terminal v2.0</span>
+    <button style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px" onclick="toggleTerminal()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="term-body" id="termBody"></div>
+  <div class="term-in-row">
+    <span class="term-prompt-txt">rosaire@rk:~$</span>
+    <input class="term-in" id="termIn" placeholder="Tapez 'help'..." autocomplete="off">
+  </div>
+</div>
+
+<!-- CMD PALETTE -->
+<div id="cmd" onclick="if(event.target===this)closeCmd()">
+  <div class="cmd-box">
+    <div class="cmd-in-row">
+      <i class="fa-solid fa-magnifying-glass" style="color:var(--text3);font-size:14px"></i>
+      <input class="cmd-in" id="cmdIn" placeholder="Rechercher..." oninput="fCmd(this.value)">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);background:var(--bg);border:1px solid var(--brd);padding:2px 6px;border-radius:4px">ESC</span>
+    </div>
+    <div class="cmd-res" id="cmdRes"></div>
+  </div>
+</div>
+
+<!-- AI CHATBOT -->
+<button id="ai-bubble" onclick="toggleAI()"><i class="fa-solid fa-robot"></i></button>
+<div id="ai-chat">
+  <div class="ai-hd">
+    <div><div class="ai-hd-name">RK — Assistant IA</div><div class="ai-hd-sub">Propulsé par intelligence artificielle</div></div>
+    <button class="ai-close" onclick="toggleAI()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="ai-msgs" id="aiMsgs">
+    <div class="ai-msg bot" data-i18n="ai.welcome">Bonjour ! Je suis l'assistant IA de Rosaire. Posez-moi vos questions sur ses projets, compétences ou services.</div>
+  </div>
+  <div class="ai-sugg">
+    <button class="ai-sugg-btn" onclick="askAI('Quels sont vos services ?')">Services</button>
+    <button class="ai-sugg-btn" onclick="askAI('Parlez-moi des projets')">Projets</button>
+    <button class="ai-sugg-btn" onclick="askAI('Comment vous contacter ?')">Contact</button>
+    <button class="ai-sugg-btn" onclick="askAI('Quelles sont vos compétences ?')">Skills</button>
+  </div>
+  <div class="ai-in-row">
+    <input class="ai-in" id="aiIn" placeholder="Votre question..." onkeydown="if(event.key==='Enter')sendAI()">
+    <button class="ai-send" onclick="sendAI()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin-panel">
+  <div class="adm-header">
+    <div class="adm-title">Portfolio <span>Admin</span></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:2px">ROSAIRE KAKPO — DASHBOARD</span>
+      <button class="adm-close" onclick="closeAdmin()"><i class="fa-solid fa-xmark" style="margin-right:5px"></i>Fermer</button>
+    </div>
+  </div>
+  <div class="adm-body">
+    <div class="adm-grid">
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Visiteurs (mois)</div><div class="adm-kpi-val">1<b>,</b>284</div><div class="adm-kpi-chg">+23% ce mois</div></div>
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Projets actifs</div><div class="adm-kpi-val">3<b>+</b></div><div class="adm-kpi-chg">+1 en cours</div></div>
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Messages reçus</div><div class="adm-kpi-val">47</div><div class="adm-kpi-chg">+8 cette semaine</div></div>
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Taux conversion</div><div class="adm-kpi-val">12<b>%</b></div><div class="adm-kpi-chg">+2% vs mois dernier</div></div>
+    </div>
+    <div class="adm-section">
+      <div class="adm-sec-title"><i class="fa-solid fa-timeline" style="color:var(--orange)"></i>Parcours</div>
+      <table class="adm-table">
+        <thead><tr><th>Période</th><th>Rôle</th><th>Organisation</th></tr></thead>
+        <tbody>
+          <tr><td>2024–Now</td><td>Frontend Dev &amp; UX Lead</td><td>Freelance International</td></tr>
+          <tr><td>2023</td><td>Formateur &amp; Mentor</td><td>Les Cours Sonou</td></tr>
+          <tr><td>2023</td><td>Finaliste Hackathon</td><td>MIABE — Cotonou</td></tr>
+          <tr><td>2022–2023</td><td>Speaker</td><td>Arduino Days Bénin</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+/* ========================================
+   RESPONSIVE MOBILE OPTIMIZATIONS
+======================================== */
+
+/* Tablettes et petits écrans (max-width: 1100px) */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .portrait-col{display:none}
+  .about-grid,.contact-grid,.skills-layout{grid-template-columns:1fr;gap:40px}
+  .proj-grid{grid-template-columns:1fr}.proj-big{grid-column:span 1}
+  .svc-grid{grid-template-columns:1fr 1fr;gap:16px}
+  nav{padding:0 24px;height:64px}
+  .nav-links{display:none}
+  .wrap{padding:0 24px}
+  .hero-nums{gap:32px;flex-wrap:wrap}
+  .a-portrait{height:400px}
+  .a-data{position:static;margin-top:20px}
+  .timeline{padding-left:24px}
+  footer{padding:24px;flex-direction:column;text-align:center;gap:16px}
+  .page-nav-inner{flex-direction:column;gap:16px}
+  .page-nav-link{max-width:100%;width:100%}
+}
+
+/* Mobiles (max-width: 768px) */
+@media(max-width:768px){
+  nav{padding:0 16px}
+  .wrap{padding:0 16px}
+  #hero{padding-top:64px;min-height:auto;padding-bottom:60px}
+  .hero-btns{flex-direction:column;width:100%}
+  .btn-p,.btn-s{width:100%;justify-content:center}
+  #about,#projects,#skills,#experience,#contact,#hire{padding:80px 0}
+  .svc-grid{grid-template-columns:1fr}
+  .timeline{padding-left:20px}
+  .t-item{padding-left:32px;margin-bottom:40px}
+}
+
+/* Petits mobiles (max-width: 480px) */
+@media(max-width:480px){
+  nav{height:60px;padding:0 12px}
+  .logo-sub{display:none}
+  .wrap{padding:0 16px}
+  #hero{padding-top:60px;padding-bottom:40px}
+  #about,#projects,#skills,#experience,#contact,#hire{padding:60px 0}
+  .timeline{padding-left:16px}
+  .t-item{padding-left:28px}
+}

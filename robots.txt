@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://votredomaine.com/sitemap.xml
+
+# Disallow admin and private files
+Disallow: /assets/admin/
+Disallow: /*.pdf$

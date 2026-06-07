@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos | Rosaire KAKPO - Développeur Frontend Cotonou</title>
+<meta name="description" content="Découvrez le parcours de Rosaire KAKPO, étudiant en Licence Systèmes Informatiques et développeur frontend à Cotonou. Formation MIABE Hackathon, challenge Innerbuild.">
+<meta name="keywords" content="Rosaire KAKPO, développeur frontend Bénin, étudiant informatique Cotonou, MIABE Hackathon, Les Cours Sonou">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="À propos de Rosaire KAKPO">
+<meta property="og:description" content="Étudiant en informatique et développeur frontend passionné à Cotonou, Bénin.">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://votredomaine.com/about.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="responsive-mobile.css">
+</head>
+<body>
+
+<canvas id="pcanvas"></canvas>
+<div class="cursor" id="cur"></div>
+<div class="cursor-r" id="curR"></div>
+
+<!-- LOADER -->
+<div id="ldr">
+  <div class="ldr-logo">RK<em>.dev</em></div>
+  <div class="ldr-bar"><div class="ldr-fill" id="lFill"></div></div>
+  <div class="ldr-msg" id="lMsg">Démarrage du système...</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo-wrap" href="index.html">
+    <div class="logo-mark">
+      <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="38" height="38" rx="8" fill="#A020F0" fill-opacity=".12"/>
+        <path d="M9 29 L9 9 L20 9 Q28 9 28 16 Q28 21 22 22.5 L29 29 L23 29 L17 23 L14 23 L14 29 Z M14 13 L14 19 L19.5 19 Q23.5 19 23.5 16 Q23.5 13 19.5 13 Z" fill="#A020F0"/>
+        <circle cx="30" cy="10" r="4" fill="#A020F0"/>
+        <circle cx="30" cy="10" r="2" fill="#A020F0"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-wordmark">ROSAIRE<span>.</span></div>
+      <div class="logo-sub">Frontend &amp; AI Dev</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html" data-i18n="nav.about">À propos</a></li>
+    <li><a href="projects.html" data-i18n="nav.projects">Projets</a></li>
+    <li><a href="skills.html" data-i18n="nav.skills">Compétences</a></li>
+    <li><a href="experience.html" data-i18n="nav.exp">Parcours</a></li>
+    <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+  </ul>
+  <div class="nav-controls">
+    <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">EN</button>
+    <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+    <button class="ctrl-btn" onclick="openAdmin()"><i class="fa-solid fa-gauge"></i></button>
+    <button class="nav-cta" onclick="window.location.href='contact.html'" data-i18n="nav.cta">Travailler ensemble</button>
+  </div>
+</nav>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-tag" data-i18n="about.tag">Identité</div>
+      <h2 class="sec-h2">À propos de <em>moi</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="a-portrait rv">
+        <div class="a-img"><img src="images/img4.jpeg" alt="Portrait Rosaire KAKPO" style="width:100%;height:100%;object-fit:contain;border-radius:12px;"><p data-i18n="about.photo">Portrait — Rosaire KAKPO</p></div>
+        <div class="a-deco"></div>
+        <div class="a-data">
+          <div class="hud-lbl">Localisation</div>
+          <div style="display:flex;align-items:center;gap:7px;margin-top:4px"><i class="fa-solid fa-location-dot" style="color:var(--orange);font-size:13px"></i><span style="font-size:13px;color:var(--text);font-weight:500">Cotonou, Bénin</span></div>
+        </div>
+      </div>
+      <div class="a-text rv">
+        <h3 class="a-h3">Développeur Frontend &amp;<br><em>Passionné de Technologie</em></h3>
+        <p class="a-p" data-i18n="about.p1">Formé à l'Institut Universitaire Les Cours Sonou et certifié au MIABE Hackathon, j'ai également participé au challenge Arduino Days 2026 à Sèmè City Open Park.</p>
+        <p class="a-p" data-i18n="about.p2">Passionné par l'intersection entre la technologie de pointe et l'innovation africaine, je construis des expériences numériques qui allient performance, esthétique et modernité.</p>
+        <p class="a-p">Actuellement en Licence 1 Systèmes Informatiques et Logiciels, je me spécialise dans la création d'interfaces utilisateur exceptionnelles et d'expériences web modernes. Avec 1 an d'expérience, je continue d'apprendre et de perfectionner mes compétences.</p>
+        <p class="a-p">J'ai été finaliste au MIABE Hackathon (8e place) avec Tontine Chain, une plateforme de tontine sécurisée par blockchain pour le Bénin. J'ai également remporté la 3e place au challenge Innerbuild Season 1.</p>
+        <div class="mission-blk">
+          <div class="mission-lbl" data-i18n="about.mission_lbl">Mission</div>
+          <p class="mission-q" data-i18n="about.mission">"Créer les interfaces qui définiront l'économie numérique africaine de demain — futuristes, accessibles et profondément humaines."</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip"><i class="fa-brands fa-react"></i>React</span>
+          <span class="chip"><i class="fa-solid fa-bolt"></i>Next.js</span>
+          <span class="chip"><i class="fa-brands fa-figma"></i>UX Design</span>
+          <span class="chip"><i class="fa-solid fa-robot"></i>IA</span>
+          <span class="chip"><i class="fa-solid fa-store"></i>E-commerce</span>
+          <span class="chip"><i class="fa-solid fa-fire"></i>Firebase</span>
+        </div>
+        <div class="avail">
+          <div class="avail-dot"></div>
+          <p class="avail-t" data-i18n="about.avail"><strong>Actuellement disponible</strong> pour missions freelance</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAVIGATION -->
+<section class="page-nav">
+  <div class="wrap">
+    <div class="page-nav-inner">
+      <a href="index.html" class="page-nav-link prev">
+        <div class="pnl-ico"><i class="fa-solid fa-arrow-left"></i></div>
+        <div>
+          <div class="pnl-sub">Précédent</div>
+          <div class="pnl-title">Accueil</div>
+        </div>
+      </a>
+      <div class="page-nav-center">À propos</div>
+      <a href="projects.html" class="page-nav-link next">
+        <div class="pnl-ico"><i class="fa-solid fa-arrow-right"></i></div>
+        <div>
+          <div class="pnl-sub">Suivant</div>
+          <div class="pnl-title">Projets</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">ROSAIRE<span>.</span>KAKPO</div>
+  <div class="ft-copy">© 2026 — Cotonou, Bénin</div>
+  <div class="ft-soc">
+    <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+    <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+  </div>
+</footer>
+
+<!-- TERMINAL FAB -->
+<button class="term-fab" id="termFab" onclick="toggleTerminal()"><i class="fa-solid fa-terminal"></i></button>
+
+<!-- TERMINAL -->
+<div id="term">
+  <div class="term-hd">
+    <div class="tdots"><div class="tdot" style="background:#FF5F56"></div><div class="tdot" style="background:#FFBD2E"></div><div class="tdot" style="background:#27C93F"></div></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:2px">RK — Terminal v2.0</span>
+    <button style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px" onclick="toggleTerminal()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="term-body" id="termBody"></div>
+  <div class="term-in-row">
+    <span class="term-prompt-txt">rosaire@rk:~$</span>
+    <input class="term-in" id="termIn" placeholder="Tapez 'help'..." autocomplete="off">
+  </div>
+</div>
+
+<!-- CMD PALETTE -->
+<div id="cmd" onclick="if(event.target===this)closeCmd()">
+  <div class="cmd-box">
+    <div class="cmd-in-row">
+      <i class="fa-solid fa-magnifying-glass" style="color:var(--text3);font-size:14px"></i>
+      <input class="cmd-in" id="cmdIn" placeholder="Rechercher..." oninput="fCmd(this.value)">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);background:var(--bg);border:1px solid var(--brd);padding:2px 6px;border-radius:4px">ESC</span>
+    </div>
+    <div class="cmd-res" id="cmdRes"></div>
+  </div>
+</div>
+
+<!-- AI CHATBOT -->
+<button id="ai-bubble" onclick="toggleAI()"><i class="fa-solid fa-robot"></i></button>
+<div id="ai-chat">
+  <div class="ai-hd">
+    <div><div class="ai-hd-name">RK — Assistant IA</div><div class="ai-hd-sub">Propulsé par intelligence artificielle</div></div>
+    <button class="ai-close" onclick="toggleAI()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="ai-msgs" id="aiMsgs">
+    <div class="ai-msg bot" data-i18n="ai.welcome">Bonjour ! Je suis l'assistant IA de Rosaire. Posez-moi vos questions sur ses projets, compétences ou services.</div>
+  </div>
+  <div class="ai-sugg">
+    <button class="ai-sugg-btn" onclick="askAI('Quels sont vos services ?')">Services</button>
+    <button class="ai-sugg-btn" onclick="askAI('Parlez-moi des projets')">Projets</button>
+    <button class="ai-sugg-btn" onclick="askAI('Comment vous contacter ?')">Contact</button>
+    <button class="ai-sugg-btn" onclick="askAI('Quelles sont vos compétences ?')">Skills</button>
+  </div>
+  <div class="ai-in-row">
+    <input class="ai-in" id="aiIn" placeholder="Votre question..." onkeydown="if(event.key==='Enter')sendAI()">
+    <button class="ai-send" onclick="sendAI()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin-panel">
+  <div class="adm-header">
+    <div class="adm-title">Portfolio <span>Admin</span></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:2px">ROSAIRE KAKPO — DASHBOARD</span>
+      <button class="adm-close" onclick="closeAdmin()"><i class="fa-solid fa-xmark" style="margin-right:5px"></i>Fermer</button>
+    </div>
+  </div>
+  <div class="adm-body">
+    <div class="adm-grid">
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Visiteurs (mois)</div><div class="adm-kpi-val">1<b>,</b>284</div><div class="adm-kpi-chg">+23% ce mois</div></div>
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Projets actifs</div><div class="adm-kpi-val">3<b>+</b></div><div class="adm-kpi-chg">+1 en cours</div></div>
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Messages reçus</div><div class="adm-kpi-val">47</div><div class="adm-kpi-chg">+8 cette semaine</div></div>
+      <div class="adm-kpi"><div class="adm-kpi-lbl">Taux conversion</div><div class="adm-kpi-val">12<b>%</b></div><div class="adm-kpi-chg">+2% vs mois dernier</div></div>
+    </div>
+    <div class="adm-grid2">
+      <div class="adm-section">
+        <div class="adm-sec-title"><i class="fa-solid fa-envelope" style="color:var(--orange)"></i>Messages récents</div>
+        <table class="adm-table">
+          <thead><tr><th>Nom</th><th>Sujet</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr><td>Marie D.</td><td>Site e-commerce</td><td><span class="adm-badge adm-b-pend">En attente</span></td></tr>
+            <tr><td>Kofi A.</td><td>App mobile</td><td><span class="adm-badge adm-b-ok">Répondu</span></td></tr>
+            <tr><td>Sarah M.</td><td>UX Design</td><td><span class="adm-badge adm-b-ok">Répondu</span></td></tr>
+            <tr><td>Jean-Paul</td><td>Marketplace</td><td><span class="adm-badge adm-b-pend">En attente</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="adm-section">
+        <div class="adm-sec-title"><i class="fa-solid fa-chart-bar" style="color:var(--orange)"></i>Compétences (visibilité)</div>
+        <div class="adm-bar-wrap"><div class="adm-bar-lbl"><span>React / Next.js</span><span>95%</span></div><div class="adm-bar-track"><div class="adm-bar-fill" style="width:0%" data-w="95%"></div></div></div>
+        <div class="adm-bar-wrap"><div class="adm-bar-lbl"><span>TypeScript</span><span>88%</span></div><div class="adm-bar-track"><div class="adm-bar-fill" style="width:0%" data-w="88%"></div></div></div>
+        <div class="adm-bar-wrap"><div class="adm-bar-lbl"><span>UX Design</span><span>85%</span></div><div class="adm-bar-track"><div class="adm-bar-fill" style="width:0%" data-w="85%"></div></div></div>
+        <div class="adm-bar-wrap"><div class="adm-bar-lbl"><span>E-commerce</span><span>90%</span></div><div class="adm-bar-track"><div class="adm-bar-fill" style="width:0%" data-w="90%"></div></div></div>
+        <div class="adm-bar-wrap"><div class="adm-bar-lbl"><span>IA Intégration</span><span>78%</span></div><div class="adm-bar-track"><div class="adm-bar-fill" style="width:0%" data-w="78%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
