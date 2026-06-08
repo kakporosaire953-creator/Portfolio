@@ -9,8 +9,9 @@ Allow: /skills.html
 Allow: /experience.html
 Allow: /contact.html
 
-# Sitemap
+# Sitemap principal
 Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap.xml
+Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap-index.xml
 
 # Disallow admin and private files
 Disallow: /assets/admin/

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rosaire KAKPO - Développeur Frontend</title>
+    <description>Portfolio et projets de Rosaire KAKPO, développeur frontend spécialisé en e-commerce à Cotonou, Bénin</description>
+    <link>https://kakporosaire953-creator.github.io/Portfolio/</link>
+    <atom:link href="https://kakporosaire953-creator.github.io/Portfolio/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>fr-FR</language>
+    <lastBuildDate>Thu, 19 Dec 2024 10:00:00 +0000</lastBuildDate>
+    <managingEditor>kakporosaire953@gmail.com (Rosaire KAKPO)</managingEditor>
+    
+    <item>
+      <title>Portfolio Rosaire KAKPO - Développeur Frontend</title>
+      <description>Développeur frontend spécialisé en React, Next.js et e-commerce. Basé à Cotonou, Bénin.</description>
+      <link>https://kakporosaire953-creator.github.io/Portfolio/</link>
+      <guid>https://kakporosaire953-creator.github.io/Portfolio/</guid>
+      <pubDate>Thu, 19 Dec 2024 10:00:00 +0000</pubDate>
+    </item>
+    
+    <item>
+      <title>Projets développeur frontend Bénin</title>
+      <description>Découvrez mes projets : Tontine Chain, interfaces e-commerce, applications React modernes.</description>
+      <link>https://kakporosaire953-creator.github.io/Portfolio/projects.html</link>
+      <guid>https://kakporosaire953-creator.github.io/Portfolio/projects.html</guid>
+      <pubDate>Thu, 19 Dec 2024 10:00:00 +0000</pubDate>
+    </item>
+    
+  </channel>
+</rss>
