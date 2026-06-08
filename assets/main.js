@@ -214,7 +214,7 @@ const cmdItems=[
   {i:'fa-handshake',l:'Services / Hire',h:'contact.html',a:()=>window.location.href='contact.html#hire'},
   {i:'fa-envelope',l:'Contact',h:'contact.html',a:()=>window.location.href='contact.html'},
   {i:'fa-terminal',l:'Terminal',h:'',a:()=>toggleTerminal()},
-  {i:'fa-gauge',l:'Dashboard Admin',h:'',a:()=>openAdmin()},
+  {i:'fa-gauge',l:'Dashboard Admin 🔐',h:'(Protégé)',a:()=>openAdmin()},
   {i:'fa-robot',l:'Assistant IA',h:'',a:()=>toggleAI()},
   {i:'fa-brands fa-github',l:'GitHub',h:'',a:()=>window.open('https://github.com/kakporosaire953-creator','_blank')},
 ];
@@ -259,11 +259,51 @@ function askAI(q){
 }
 
 /* =========  ADMIN DASHBOARD  ========= */
+// Configuration de sécurité - Changez ce code PIN pour votre sécurité
+const ADMIN_PIN = 'RK2024';
+let adminAuthenticated = false;
+
 function openAdmin(){
+  if (!adminAuthenticated) {
+    promptAdminAuth();
+    return;
+  }
   document.getElementById('admin-panel').classList.add('open');
   setTimeout(()=>{document.querySelectorAll('.adm-bar-fill').forEach(b=>{b.style.width=b.dataset.w;});},300);
 }
-function closeAdmin(){document.getElementById('admin-panel').classList.remove('open');}
+
+function promptAdminAuth() {
+  const pin = prompt('🔐 Code d\'accès Admin requis:\n\n(Seul le propriétaire du portfolio peut accéder)');
+  
+  if (pin === null) return; // Utilisateur a annulé
+  
+  if (pin === ADMIN_PIN) {
+    adminAuthenticated = true;
+    sessionStorage.setItem('adminAuth', 'true');
+    openAdmin();
+  } else {
+    alert('❌ Code incorrect. Accès refusé.');
+  }
+}
+
+// Vérifier l'authentification au chargement
+function checkAdminAuth() {
+  const stored = sessionStorage.getItem('adminAuth');
+  if (stored === 'true') {
+    adminAuthenticated = true;
+  }
+}
+
+// Révoquer l'accès quand on ferme l'admin
+function closeAdmin(){
+  document.getElementById('admin-panel').classList.remove('open');
+  // Optional: déconnecter après fermeture pour plus de sécurité
+  // adminAuthenticated = false;
+  // sessionStorage.removeItem('adminAuth');
+}
+
+// Initialiser la vérification au chargement
+document.addEventListener('DOMContentLoaded', checkAdminAuth);
 
 /* =========  PARTICLES  ========= */
 function initParts(){
