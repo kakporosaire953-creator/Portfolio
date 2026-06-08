@@ -2,6 +2,108 @@
 
 Portfolio professionnel de Rosaire KAKPO, développeur frontend spécialisé en e-commerce et UX design, basé à Cotonou, Bénin.
 
+🌐 **Site en ligne:** https://rosaire-kakpo-portfolio.vercel.app
+
+## 🚀 Démarrage Rapide
+
+### En local
+```bash
+git clone https://github.com/kakporosaire953-creator/Portfolio.git
+cd Portfolio
+python -m http.server 8000
+# Ouvrir http://localhost:8000
+```
+
+### Déployer sur Vercel (1 clic)
+1. Aller sur [vercel.com](https://vercel.com)
+2. Importer le repo GitHub
+3. Cliquer "Deploy"
+4. ✅ C'est en ligne !
+
+## ✨ Fonctionnalités
+
+- 🎨 **Design moderne** avec animations scroll premium
+- 🌓 **Thème dark/light** avec persistence localStorage
+- 🌐 **Multilingue** FR/EN avec système i18n
+- 📱 **100% Responsive** (Desktop → Mobile)
+- ⚡ **Menu mobile** avec hamburger animé
+- 🖥️ **Terminal interactif** avec commandes CLI
+- 🤖 **Assistant IA** contextuel
+- 📊 **Dashboard admin** avec KPIs
+- 🎯 **SEO optimisé** (meta tags, sitemap, structured data)
+
+## 📂 Structure
+
+```
+Portfolio/
+├── index.html              # Page d'accueil
+├── about.html              # À propos
+├── projects.html           # Projets
+├── skills.html             # Compétences
+├── experience.html         # Parcours
+├── contact.html            # Contact
+├── 404.html                # Page erreur
+├── assets/
+│   ├── style.css           # Styles principaux
+│   ├── main.js             # JavaScript principal
+│   ├── scroll-animations.js # Animations scroll
+│   └── scroll-animations.css
+├── responsive-mobile.css   # Styles responsive
+├── images/                 # Photos & certificats
+├── sitemap.xml            # Plan du site
+├── robots.txt             # SEO
+├── .htaccess              # Configuration Apache
+└── vercel.json            # Configuration Vercel
+```
+
+## 🎯 À Faire Après Déploiement
+
+### 1. Google Search Console (5 min)
+- Aller sur https://search.google.com/search-console
+- Ajouter votre site
+- Soumettre `sitemap.xml`
+
+### 2. Google Analytics (10 min)
+- Aller sur https://analytics.google.com
+- Créer propriété
+- Ajouter le code tracking dans `<head>`
+
+### 3. Optimiser Images (15 min)
+- Compresser avec https://tinypng.com
+- Objectif : < 200 KB par image
+
+## 🛠️ Technologies
+
+- HTML5 sémantique
+- CSS3 (Grid, Flexbox, Custom Properties)
+- JavaScript ES6+ vanilla
+- Canvas API pour animations
+- Font Awesome 6.5
+- Fonts : Clash Display, DM Sans, JetBrains Mono
+
+## 📱 Responsive
+
+3 breakpoints :
+- **Desktop** : > 1100px
+- **Tablette** : 768px - 1100px  
+- **Mobile** : < 768px
+- **Petit mobile** : < 480px
+
+## 📞 Contact
+
+- **Email** : kakporosaire953@gmail.com
+- **WhatsApp** : +229 68 81 20 19
+- **LinkedIn** : [Rosaire KAKPO](https://www.linkedin.com/in/rosaire-kakpo-9b31963b6)
+- **GitHub** : [kakporosaire953-creator](https://github.com/kakporosaire953-creator)
+
+## 📄 License
+
+MIT License - Copyright (c) 2026 Rosaire KAKPO
+
+---
+
+Développé avec passion à Cotonou, Bénin 🇧🇯
+
 ## À propos
 
 Je suis étudiant en Licence 1 Systèmes Informatiques et Logiciels à l'Institut Universitaire Les Cours Sonou, passionné par le développement web moderne et les technologies frontend.
@@ -92,6 +194,7 @@ Portfolio/
 ### Prérequis
 - Serveur web (Apache, Nginx, ou serveur local)
 - Navigateur moderne (Chrome, Firefox, Safari, Edge)
+- Git (pour cloner le repository)
 
 ### Déploiement local
 
@@ -117,6 +220,34 @@ php -S localhost:8000
 ```
 http://localhost:8000
 ```
+
+### Déploiement en production
+
+#### Option 1: Vercel (Recommandé)
+```bash
+# Installer Vercel CLI
+npm i -g vercel
+
+# Déployer
+vercel
+
+# Production
+vercel --prod
+```
+
+URL de démo : https://rosaire-kakpo-portfolio.vercel.app
+
+#### Option 2: Netlify
+1. Connecter votre repo GitHub à Netlify
+2. Configuration build:
+   - Build command: (aucune)
+   - Publish directory: `.`
+3. Deploy
+
+#### Option 3: Serveur Apache
+1. Uploader tous les fichiers via FTP
+2. S'assurer que `.htaccess` est actif
+3. Configurer le SSL (Let's Encrypt recommandé)
 
 ## Configuration
 

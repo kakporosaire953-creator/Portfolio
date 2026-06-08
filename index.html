@@ -15,12 +15,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Rosaire KAKPO | Développeur Frontend & E-commerce">
 <meta property="og:description" content="Développeur frontend spécialisé en e-commerce et UX design à Cotonou, Bénin.">
-<meta property="og:image" content="https://votredomaine.com/images/img1.jpeg">
+<meta property="og:image" content="https://rosaire-kakpo-portfolio.vercel.app/images/img1.jpeg">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rosaire KAKPO | Développeur Frontend">
 <meta name="twitter:description" content="Développeur frontend à Cotonou, Bénin.">
+
+<meta name="google-site-verification" content="FHL2kd7DIbGoVKCBQP6hPeDY-mPND1-yTCBs9xuW7e8" />
 
 <!-- Mobile -->
 <meta name="theme-color" content="#A020F0">
@@ -39,8 +41,8 @@
   "name": "Rosaire KAKPO",
   "jobTitle": "Développeur Frontend",
   "description": "Développeur frontend spécialisé en e-commerce et UX design",
-  "url": "https://votredomaine.com",
-  "image": "https://votredomaine.com/images/img1.jpeg",
+  "url": "https://rosaire-kakpo-portfolio.vercel.app",
+  "image": "https://rosaire-kakpo-portfolio.vercel.app/images/img1.jpeg",
   "email": "kakporosaire953@gmail.com",
   "telephone": "+22968812019",
   "address": {
@@ -65,7 +67,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Rosaire KAKPO Portfolio",
-  "url": "https://votredomaine.com",
+  "url": "https://rosaire-kakpo-portfolio.vercel.app",
   "description": "Portfolio professionnel de Rosaire KAKPO, développeur frontend à Cotonou, Bénin",
   "author": {
     "@type": "Person",
@@ -270,8 +272,36 @@
     <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
     <button class="ctrl-btn" onclick="openAdmin()"><i class="fa-solid fa-gauge"></i></button>
     <button class="nav-cta" onclick="document.getElementById('hire-home').scrollIntoView({behavior:'smooth'})" data-i18n="nav.cta">Travailler ensemble</button>
+    <button class="mobile-menu-toggle" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Menu Mobile -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-content">
+    <a href="index.html" data-i18n="nav.home">Accueil</a>
+    <a href="about.html" data-i18n="nav.about">À propos</a>
+    <a href="projects.html" data-i18n="nav.projects">Projets</a>
+    <a href="skills.html" data-i18n="nav.skills">Compétences</a>
+    <a href="experience.html" data-i18n="nav.exp">Parcours</a>
+    <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu-controls">
+      <button class="ctrl-btn" onclick="toggleLang()">
+        <span id="mobileLangBtn">EN</span>
+      </button>
+      <button class="ctrl-btn" onclick="toggleTheme()">
+        <i class="fa-solid fa-moon" id="mobileThemeIcon"></i>
+      </button>
+      <button class="ctrl-btn" onclick="toggleTerminal()">
+        <i class="fa-solid fa-terminal"></i>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- ==================== HERO ==================== -->
 <section id="hero">

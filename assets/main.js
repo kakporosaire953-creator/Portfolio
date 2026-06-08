@@ -30,6 +30,33 @@ document.querySelectorAll('.nav-links a[href]').forEach(a=>{
   if(h===pg||(pg===''&&h==='index.html')){a.classList.add('nav-active');}
 });
 
+/* =========  MOBILE MENU  ========= */
+let mobileMenuOpen = false;
+function toggleMobileMenu() {
+  mobileMenuOpen = !mobileMenuOpen;
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('mobileMenuBtn');
+  menu.classList.toggle('open', mobileMenuOpen);
+  btn.classList.toggle('active', mobileMenuOpen);
+  // Empêcher le scroll du body quand le menu est ouvert
+  document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+}
+
+// Fermer le menu si on clique sur un lien
+document.querySelectorAll('.mobile-menu-content a').forEach(link => {
+  link.addEventListener('click', () => {
+    if(mobileMenuOpen) toggleMobileMenu();
+  });
+});
+
+// Marquer le lien actif dans le menu mobile
+document.querySelectorAll('.mobile-menu-content a[href]').forEach(a => {
+  const h = a.getAttribute('href');
+  if(h === pg || (pg === '' && h === 'index.html')) {
+    a.classList.add('nav-active');
+  }
+});
+
 /* =========  SCROLL REVEAL  ========= */
 const rvObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
@@ -146,8 +173,8 @@ function runTerm(cmd){
   const out=termCmds[lc];
   if(out){
     tLine(true,cmd,out);
-    if(lc==='github')window.open('https://github.com','_blank');
-    if(lc==='linkedin')window.open('https://linkedin.com','_blank');
+    if(lc==='github')window.open('https://github.com/kakporosaire953-creator','_blank');
+    if(lc==='linkedin')window.open('https://www.linkedin.com/in/rosaire-kakpo-9b31963b6','_blank');
   } else {
     tLine(true,cmd,`Commande inconnue: "${cmd}" — Tapez <span style="color:var(--blue)">help</span>`,'warn');
   }
@@ -178,7 +205,7 @@ const cmdItems=[
   {i:'fa-terminal',l:'Terminal',h:'',a:()=>toggleTerminal()},
   {i:'fa-gauge',l:'Dashboard Admin',h:'',a:()=>openAdmin()},
   {i:'fa-robot',l:'Assistant IA',h:'',a:()=>toggleAI()},
-  {i:'fa-brands fa-github',l:'GitHub',h:'',a:()=>window.open('https://github.com','_blank')},
+  {i:'fa-brands fa-github',l:'GitHub',h:'',a:()=>window.open('https://github.com/kakporosaire953-creator','_blank')},
 ];
 function rCmd(items){
   const el=document.getElementById('cmdRes');
