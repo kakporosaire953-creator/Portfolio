@@ -403,18 +403,22 @@
 }
 
 /* ========================================
-   GALERIE OVERFLOW FIX
+   GALERIE - OPTIMISATION COMPLETE
 ======================================== */
 
 .gallery-section {
+  padding: 80px 0 !important;
+  background: var(--bg2) !important;
   overflow: hidden !important;
   width: 100% !important;
+  position: relative !important;
 }
 
 .gallery-track {
   overflow: hidden !important;
   position: relative !important;
   width: 100% !important;
+  margin-top: 40px !important;
 }
 
 .gallery-reel {
@@ -426,15 +430,102 @@
   will-change: transform !important;
 }
 
+.gallery-frame {
+  width: 230px !important;
+  height: 310px !important;
+  border-radius: 12px !important;
+  background: var(--surf) !important;
+  border: 1px solid var(--brd2) !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s !important;
+}
+
+.gallery-frame:hover {
+  transform: scale(1.05) translateY(-6px) !important;
+  border-color: var(--orange) !important;
+  box-shadow: 0 20px 50px rgba(255, 92, 26, 0.15) !important;
+}
+
+.gallery-frame img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 12px !important;
+  transition: transform 0.3s !important;
+}
+
+.gallery-frame:hover img {
+  transform: scale(1.1) !important;
+}
+
+/* Mobile adaptations galerie */
 @media(max-width:768px) {
+  .gallery-section {
+    padding: 60px 0 !important;
+  }
+  
   .gallery-frame {
-    min-width: 160px !important;
-    flex-shrink: 0 !important;
+    width: 180px !important;
+    height: 250px !important;
+    min-width: 180px !important;
   }
   
   .gallery-reel {
     gap: 16px !important;
   }
+  
+  /* Ralentir l'animation sur mobile */
+  .gallery-reel {
+    animation-duration: 60s !important;
+  }
+}
+
+@media(max-width:480px) {
+  .gallery-frame {
+    width: 160px !important;
+    height: 220px !important;
+    min-width: 160px !important;
+  }
+  
+  .gallery-reel {
+    gap: 12px !important;
+  }
+}
+
+/* Pausable au hover pour meilleur contrôle */
+.gallery-reel:hover {
+  animation-play-state: paused !important;
+}
+
+/* Amélioration des numéros de photos */
+.gallery-frame-num {
+  position: absolute !important;
+  bottom: 12px !important;
+  right: 12px !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #fff !important;
+  font-family: 'Clash Display', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Amélioration des coins décoratifs */
+.gf-tl, .gf-tr, .gf-bl, .gf-br2 {
+  opacity: 0.6 !important;
+  transition: opacity 0.3s !important;
+}
+
+.gallery-frame:hover .gf-tl,
+.gallery-frame:hover .gf-tr,
+.gallery-frame:hover .gf-bl,
+.gallery-frame:hover .gf-br2 {
+  opacity: 1 !important;
 }
 
 /* ========================================
@@ -559,44 +650,97 @@
 }
 
 /* ========================================
-   OPTIMISATION IMAGES PORTRAIT MOBILE
+   OPTIMISATION IMAGES PORTRAIT
 ======================================== */
 
-/* Petits écrans - cadrage visage prioritaire */
+/* Image page À propos - cadrage optimal pour tous écrans */
+.a-portrait .a-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 12px !important;
+  /* Cadrage optimal pour voir le visage */
+  object-position: center 30% !important;
+}
+
+/* Desktop - ajustement fin */
+@media(min-width:769px) {
+  .a-portrait .a-img img {
+    object-position: center 25% !important; /* Meilleur cadrage desktop */
+  }
+  
+  .a-portrait {
+    height: 450px !important; /* Hauteur optimale desktop */
+  }
+}
+
+/* Tablette */
+@media(max-width:768px) and (min-width:481px) {
+  .a-portrait .a-img img {
+    object-position: center 28% !important;
+  }
+  
+  .a-portrait {
+    height: 400px !important;
+  }
+}
+
+/* Mobile standard */
 @media(max-width:480px) {
   .a-portrait .a-img img {
-    object-position: center 35% !important; /* Centrer encore plus sur le visage */
+    object-position: center 35% !important; /* Focus sur le visage mobile */
+  }
+  
+  .a-portrait {
+    height: 350px !important;
+  }
+}
+
+/* Très petits écrans */
+@media(max-width:360px) {
+  .a-portrait .a-img img {
+    object-position: center 40% !important; /* Cadrage serré sur le visage */
   }
   
   .a-portrait {
     height: 320px !important;
-    margin-bottom: 24px !important;
-  }
-}
-
-/* Très petits écrans - ajustement final */
-@media(max-width:360px) {
-  .a-portrait .a-img img {
-    object-position: center 40% !important; /* Cadrage optimal très petit écran */
-  }
-  
-  .a-portrait {
-    height: 280px !important;
   }
 }
 
 /* Mode paysage mobile */
 @media(max-height:500px) and (orientation:landscape) {
   .a-portrait {
-    height: 250px !important;
+    height: 280px !important;
   }
   
   .a-portrait .a-img img {
-    object-position: center 20% !important;
+    object-position: center 25% !important;
   }
 }
 
+/* Container image - assurer le bon rendu */
+.a-img {
+  position: relative !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* Image de hero également - cohérence */
+.portrait-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+
+@media(min-width:769px) {
+  .portrait-img img {
+    object-position: center 25% !important; /* Cohérence avec about */
+  }
+}
+
 @media(max-width:768px) {
   .portrait-img img {
     object-position: center 30% !important; /* Même principe pour hero */
