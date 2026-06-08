@@ -297,7 +297,23 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center 20% !important;
+    object-position: center 25% !important; /* Positionner pour voir le visage */
+  }
+  
+  /* Image spécifique page à propos - cadrage optimal mobile */
+  .a-portrait .a-img img {
+    object-position: center 30% !important; /* Cadrage spécial pour cette image */
+  }
+  
+  /* Container de l'image about - hauteur adaptée */
+  .a-portrait {
+    height: 400px !important;
+  }
+  
+  .a-img {
+    position: relative !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
   }
   
   .gallery-frame {
@@ -539,5 +555,56 @@
   #ai-bubble {
     width: 56px !important;
     height: 56px !important;
+  }
+}
+
+/* ========================================
+   OPTIMISATION IMAGES PORTRAIT MOBILE
+======================================== */
+
+/* Petits écrans - cadrage visage prioritaire */
+@media(max-width:480px) {
+  .a-portrait .a-img img {
+    object-position: center 35% !important; /* Centrer encore plus sur le visage */
+  }
+  
+  .a-portrait {
+    height: 320px !important;
+    margin-bottom: 24px !important;
+  }
+}
+
+/* Très petits écrans - ajustement final */
+@media(max-width:360px) {
+  .a-portrait .a-img img {
+    object-position: center 40% !important; /* Cadrage optimal très petit écran */
+  }
+  
+  .a-portrait {
+    height: 280px !important;
+  }
+}
+
+/* Mode paysage mobile */
+@media(max-height:500px) and (orientation:landscape) {
+  .a-portrait {
+    height: 250px !important;
+  }
+  
+  .a-portrait .a-img img {
+    object-position: center 20% !important;
+  }
+}
+
+/* Image de hero également - cohérence */
+@media(max-width:768px) {
+  .portrait-img img {
+    object-position: center 30% !important; /* Même principe pour hero */
+  }
+}
+
+@media(max-width:480px) {
+  .portrait-img img {
+    object-position: center 35% !important;
   }
 }
