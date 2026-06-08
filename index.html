@@ -205,6 +205,15 @@
 .gip-title{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.5px;color:var(--text);margin-bottom:6px}
 .gip-desc{font-size:12px;color:var(--text2);line-height:1.6}
 
+/* Mobile adaptations */
+@media (max-width: 768px) {
+  .galaxy-wrap{height:480px}
+  .planet-lbl{opacity:1;visibility:visible;color:var(--orange);font-weight:600}
+  .planet-node{cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .planet-orb{width:48px;height:48px;font-size:10px}
+  .galaxy-info-panel{position:fixed;bottom:20px;left:20px;right:20px;transform:none;min-width:auto;max-width:calc(100vw - 40px);z-index:1000}
+}
+
 /* ======================================================
    SECTION 5 — AFRICAN INNOVATION MAP
 ====================================================== */

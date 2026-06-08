@@ -1,12 +1,23 @@
 /* =========  CURSOR  ========= */
 const cx=document.getElementById('cur'),cr=document.getElementById('curR');
 let mx=0,my=0,rx=window.innerWidth/2,ry=window.innerHeight/2;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cx.style.left=mx+'px';cx.style.top=my+'px';});
-setInterval(()=>{rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.left=rx+'px';cr.style.top=ry+'px';},14);
-document.querySelectorAll('button,a,.proj-card,.svc-card,.stack-row,.c-card,.chip').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cr.classList.add('big'));
-  el.addEventListener('mouseleave',()=>cr.classList.remove('big'));
-});
+
+// Désactiver curseur sur mobile pour économiser ressources
+const isMobile = window.innerWidth < 768;
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!isMobile) {
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cx.style.left=mx+'px';cx.style.top=my+'px';});
+  setInterval(()=>{rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.left=rx+'px';cr.style.top=ry+'px';},14);
+  document.querySelectorAll('button,a,.proj-card,.svc-card,.stack-row,.c-card,.chip').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cr.classList.add('big'));
+    el.addEventListener('mouseleave',()=>cr.classList.remove('big'));
+  });
+} else {
+  // Masquer curseurs sur mobile
+  if (cx) cx.style.display = 'none';
+  if (cr) cr.style.display = 'none';
+}
 
 /* =========  LOADER  ========= */
 const lMsgs=['Démarrage du système...','Chargement typographie...','Initialisation modules...','Interface prête'];
@@ -274,3 +285,73 @@ document.querySelectorAll('.btn-p,.btn-s,.nav-cta').forEach(btn=>{
   btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px)`;});
   btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
 });
+
+/* =========  MOBILE TOUCH INTERACTIONS  ========= */
+// Améliorer l'interaction tactile pour la galaxie de projets
+if (isMobile) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const planets = document.querySelectorAll('.planet-node');
+    const infoPanel = document.getElementById('galaxyInfo');
+    
+    planets.forEach(planet => {
+      planet.addEventListener('click', () => {
+        // Fermer autres planètes actives
+        planets.forEach(p => p.classList.remove('active'));
+        // Activer cette planète
+        planet.classList.add('active');
+        
+        // Afficher le panneau d'info
+        if (infoPanel) {
+          infoPanel.classList.add('show');
+        }
+      });
+      
+      // Rendre les labels toujours visibles sur mobile
+      const label = planet.querySelector('.planet-lbl');
+      if (label) {
+        label.style.opacity = '1';
+        label.style.color = 'var(--orange)';
+      }
+    });
+    
+    // Fermer le panneau si on clique ailleurs
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.planet-node') && !e.target.closest('.galaxy-info-panel')) {
+        planets.forEach(p => p.classList.remove('active'));
+        if (infoPanel) infoPanel.classList.remove('show');
+      }
+    });
+  });
+}
+
+/* =========  LAZY LOADING IMAGES  ========= */
+document.addEventListener('DOMContentLoaded', () => {
+  const images = document.querySelectorAll('img[src]');
+  
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.loading = 'lazy';
+          observer.unobserve(img);
+        }
+      });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+  }
+});
+
+/* =========  PREVENT HORIZONTAL SCROLL  ========= */
+if (isMobile) {
+  // Empêcher le scroll horizontal sur mobile
+  document.body.style.overflowX = 'hidden';
+  document.documentElement.style.overflowX = 'hidden';
+  
+  // Fixer le viewport sur mobile
+  const viewport = document.querySelector('meta[name=viewport]');
+  if (viewport) {
+    viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+  }
+}

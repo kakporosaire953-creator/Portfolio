@@ -131,19 +131,43 @@
   .logo-sub{font-size:8px}
   .mobile-menu{top:64px}
   
+  /* Navigation - masquer menu horizontal */
+  .nav-links{display:none !important}
+  .mobile-menu-toggle{display:flex !important}
+  
   .wrap{padding:0 16px}
   
+  /* Hero - layout colonne unique */
   #hero{padding-top:80px;min-height:auto;padding-bottom:60px}
+  .hero-inner{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:30px !important;
+    text-align:center !important;
+  }
+  .portrait-col{
+    order:2 !important;
+    display:block !important;
+    margin:0 auto !important;
+    max-width:280px !important;
+  }
+  .portrait-frame{
+    width:200px !important;
+    height:200px !important;
+    margin:0 auto !important;
+  }
+  
   .hero-h1{font-size:clamp(40px,10vw,56px);letter-spacing:-2px}
   .hero-italic{font-size:clamp(20px,5vw,28px)}
   .hero-desc{font-size:14px}
   .hero-btns{flex-direction:column;width:100%;gap:12px}
   .btn-p,.btn-s{width:100%;justify-content:center;font-size:13px;padding:12px 24px}
-  .hero-nums{gap:24px;flex-wrap:wrap}
+  .hero-nums{gap:24px;flex-wrap:wrap;justify-content:center}
   .num-val{font-size:32px}
   .num-lbl{font-size:11px}
   
-  .sec-h2{font-size:clamp(32px,8vw,48px)}
+  /* Typographie fluide */
+  .sec-h2{font-size:clamp(32px,8vw,48px) !important}
   .sec-tag{font-size:9px;letter-spacing:3px}
   
   #about,#projects,#skills,#experience,#contact,#hire,#ai-profile,#vision,#galaxy,#africa{
@@ -156,14 +180,22 @@
   .proj-grid{grid-template-columns:1fr;gap:1px}
   .proj-card{padding:32px 24px}
   
-  .svc-grid{grid-template-columns:1fr}
+  /* Services - grid auto-fit */
+  .svc-grid{
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap:16px
+  }
   .svc-card{padding:28px 24px}
   
   .timeline{padding-left:20px}
   .t-item{padding-left:32px;margin-bottom:40px}
   .t-role{font-size:22px}
   
+  /* Galerie - fix overflow */
+  .gallery-section{overflow:hidden !important}
+  .gallery-track{overflow:hidden !important}
   .gallery-frame{width:180px;height:250px}
+  
   .galaxy-wrap{height:360px}
   .vision-text{font-size:clamp(18px,5vw,28px)}
   
@@ -172,11 +204,22 @@
   footer{padding:20px 16px}
   .ft-logo{font-size:16px}
   
-  #term{width:calc(100vw - 32px);right:16px;bottom:16px}
+  /* Panneaux flottants - largeur adaptive */
+  #term{
+    width:calc(100vw - 32px) !important;
+    max-width:400px !important;
+    right:16px;
+    bottom:16px
+  }
   .term-fab{right:16px;bottom:16px}
   
   #ai-bubble{right:16px;bottom:80px}
-  #ai-chat{right:16px;bottom:140px;width:calc(100vw - 32px)}
+  #ai-chat{
+    right:16px;
+    bottom:140px;
+    width:calc(100vw - 32px) !important;
+    max-width:400px !important;
+  }
   
   #cmd .cmd-box{width:calc(100vw - 48px)}
 }
@@ -273,5 +316,228 @@
   body {
     overflow-x: hidden;
     max-width: 100vw;
+  }
+}
+
+/* ========================================
+   ADMIN DASHBOARD RESPONSIVE
+======================================== */
+
+@media(max-width:768px) {
+  /* Dashboard admin responsive */
+  .admin-panel {
+    padding: 16px !important;
+    max-height: calc(100vh - 100px) !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Tableau scrollable horizontalement */
+  .table-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0 -16px 16px -16px !important;
+    padding: 0 16px !important;
+  }
+  
+  .admin-table {
+    min-width: 500px !important;
+    font-size: 12px !important;
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 8px 12px !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Métriques en 2 colonnes sur mobile */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  
+  .metric-card {
+    padding: 16px 12px !important;
+    min-height: auto !important;
+  }
+  
+  .metric-value {
+    font-size: 24px !important;
+  }
+  
+  .metric-label {
+    font-size: 11px !important;
+  }
+}
+
+@media(max-width:480px) {
+  /* Métriques en 1 colonne sur très petits écrans */
+  .metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .admin-table {
+    font-size: 11px !important;
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 6px 8px !important;
+  }
+}
+
+/* ========================================
+   GALERIE OVERFLOW FIX
+======================================== */
+
+.gallery-section {
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+.gallery-track {
+  overflow: hidden !important;
+  position: relative !important;
+  width: 100% !important;
+}
+
+.gallery-reel {
+  display: flex !important;
+  gap: 20px !important;
+  animation: gallery-scroll 50s linear infinite !important;
+  width: max-content !important;
+  padding: 16px 0 24px !important;
+  will-change: transform !important;
+}
+
+@media(max-width:768px) {
+  .gallery-frame {
+    min-width: 160px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .gallery-reel {
+    gap: 16px !important;
+  }
+}
+
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+======================================== */
+
+/* Réduire les animations sur mobile */
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  * {
+    animation-duration: 0.6s !important;
+    transition-duration: 0.3s !important;
+  }
+  
+  .gallery-reel {
+    animation-duration: 35s !important;
+  }
+}
+
+/* Désactiver complètement les animations si demandé */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .gallery-reel {
+    animation: none !important;
+  }
+  
+  .vision-glow {
+    animation: none !important;
+  }
+}
+
+/* Canvas particle optimization */
+@media(max-width:768px) {
+  #pcanvas {
+    display: none !important; /* Désactiver particules sur mobile */
+  }
+}
+
+/* ========================================
+   TYPOGRAPHY RESPONSIVE
+======================================== */
+
+/* Titres principaux fluides */
+.hero-h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem) !important;
+  line-height: 1.1 !important;
+}
+
+.sec-h2 {
+  font-size: clamp(2rem, 6vw, 3.5rem) !important;
+  line-height: 1.2 !important;
+}
+
+.vision-text {
+  font-size: clamp(1.25rem, 4vw, 2.5rem) !important;
+  line-height: 1.4 !important;
+}
+
+/* Texte des services plus lisible */
+@media(max-width:768px) {
+  .svc-title {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .svc-desc {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .proj-title {
+    font-size: 1.4rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .proj-desc {
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* ========================================
+   TOUCH TARGETS
+======================================== */
+
+/* Agrandir les zones tactiles sur mobile */
+@media(max-width:768px) {
+  .btn-p,
+  .btn-s,
+  .ctrl-btn,
+  .nav-cta,
+  .planet-orb,
+  .mobile-menu-toggle {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: rgba(255, 146, 38, 0.3) !important;
+  }
+  
+  .mobile-menu-content a {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .c-card {
+    min-height: 60px !important;
+  }
+  
+  .term-fab,
+  #ai-bubble {
+    width: 56px !important;
+    height: 56px !important;
   }
 }
