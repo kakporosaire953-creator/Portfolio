@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://rosaire-kakpo-portfolio.vercel.app/sitemap.xml
+Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap.xml
 
 # Disallow admin and private files
 Disallow: /assets/admin/

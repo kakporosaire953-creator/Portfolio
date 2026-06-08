@@ -2,7 +2,7 @@
 
 Portfolio professionnel de Rosaire KAKPO, développeur frontend spécialisé en e-commerce et UX design, basé à Cotonou, Bénin.
 
-🌐 **Site en ligne:** https://rosaire-kakpo-portfolio.vercel.app
+🌐 **Site en ligne:** https://kakporosaire953-creator.github.io/Portfolio/
 
 ## 🚀 Démarrage Rapide
 
@@ -235,7 +235,7 @@ vercel
 vercel --prod
 ```
 
-URL de démo : https://rosaire-kakpo-portfolio.vercel.app
+URL de démo : https://kakporosaire953-creator.github.io/Portfolio/
 
 #### Option 2: Netlify
 1. Connecter votre repo GitHub à Netlify
