@@ -1,6 +1,14 @@
 User-agent: *
 Allow: /
 
+# Pages importantes
+Allow: /index.html
+Allow: /about.html
+Allow: /projects.html
+Allow: /skills.html
+Allow: /experience.html
+Allow: /contact.html
+
 # Sitemap
 Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap.xml
 

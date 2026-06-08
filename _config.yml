@@ -1,0 +1,16 @@
+# Configuration GitHub Pages
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO
+title: "Rosaire KAKPO - Développeur Frontend"
+description: "Développeur frontend spécialisé en e-commerce et UX design à Cotonou, Bénin"
+url: "https://kakporosaire953-creator.github.io"
+baseurl: "/Portfolio"
+author: "Rosaire KAKPO"
+
+# Disable Jekyll processing
+markdown: kramdown
+highlighter: rouge
+include: [".nojekyll"]
