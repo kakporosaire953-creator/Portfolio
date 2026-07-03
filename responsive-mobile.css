@@ -175,7 +175,7 @@
   }
   
   .a-portrait{height:350px}
-  .a-img img{object-position:center 20%}
+  .a-img img{object-position:center top}
   
   .proj-grid{grid-template-columns:1fr;gap:1px}
   .proj-card{padding:32px 24px}
@@ -222,6 +222,41 @@
   }
   
   #cmd .cmd-box{width:calc(100vw - 48px)}
+  
+  /* ---- FIX TEXTE PAGE ABOUT MOBILE ---- */
+  .about-grid {
+    gap: 32px !important;
+  }
+  .a-text {
+    min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    gap: 20px !important;
+  }
+  .a-h3 {
+    font-size: clamp(22px, 6vw, 32px) !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.15 !important;
+  }
+  .a-p {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+  }
+  .mission-blk {
+    padding: 18px 20px !important;
+  }
+  .mission-q {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+  .chip-row {
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+  .chip {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+  }
 }
 
 /* Petits mobiles (max-width: 480px) */
@@ -297,12 +332,12 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center 25% !important; /* Positionner pour voir le visage */
+    object-position: center top !important; /* Voir le visage en haut */
   }
   
   /* Image spécifique page à propos - cadrage optimal mobile */
   .a-portrait .a-img img {
-    object-position: center 30% !important; /* Cadrage spécial pour cette image */
+    object-position: center top !important; /* Cadrage spécial pour cette image */
   }
   
   /* Container de l'image about - hauteur adaptée */
@@ -659,51 +694,51 @@
   height: 100% !important;
   object-fit: cover !important;
   border-radius: 12px !important;
-  /* Cadrage optimal pour voir le visage */
-  object-position: center 30% !important;
+  /* Cadrage optimal pour voir la tête */
+  object-position: center top !important;
 }
 
 /* Desktop - ajustement fin */
 @media(min-width:769px) {
   .a-portrait .a-img img {
-    object-position: center 25% !important; /* Meilleur cadrage desktop */
+    object-position: center top !important; /* Cadrage haut pour voir le visage */
   }
   
   .a-portrait {
-    height: 450px !important; /* Hauteur optimale desktop */
+    height: 520px !important; /* Hauteur généreuse desktop */
   }
 }
 
 /* Tablette */
 @media(max-width:768px) and (min-width:481px) {
   .a-portrait .a-img img {
-    object-position: center 28% !important;
+    object-position: center top !important;
   }
   
   .a-portrait {
-    height: 400px !important;
+    height: 450px !important;
   }
 }
 
 /* Mobile standard */
 @media(max-width:480px) {
   .a-portrait .a-img img {
-    object-position: center 35% !important; /* Focus sur le visage mobile */
+    object-position: center top !important; /* Toujours voir la tête */
   }
   
   .a-portrait {
-    height: 350px !important;
+    height: 380px !important;
   }
 }
 
 /* Très petits écrans */
 @media(max-width:360px) {
   .a-portrait .a-img img {
-    object-position: center 40% !important; /* Cadrage serré sur le visage */
+    object-position: center top !important; /* Vue tête assurée */
   }
   
   .a-portrait {
-    height: 320px !important;
+    height: 340px !important;
   }
 }
 
