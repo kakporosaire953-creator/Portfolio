@@ -1412,7 +1412,11 @@
       </div>
       <div class="planet-node" id="pl4">
         <div class="planet-orb">05</div>
-        <div class="planet-lbl">E-Architect</div>
+        <div class="planet-lbl">Tontine<br>Chain</div>
+      </div>
+      <div class="planet-node" id="pl5">
+        <div class="planet-orb">06</div>
+        <div class="planet-lbl">Synnova<br>TOCLOE</div>
       </div>
       <!-- Info panel -->
       <div class="galaxy-info-panel" id="galaxyInfo">
@@ -1608,8 +1612,8 @@
         </div>
         <div class="adm-kpi">
           <div class="adm-kpi-lbl">Projets actifs</div>
-          <div class="adm-kpi-val">3<b>+</b></div>
-          <div class="adm-kpi-chg">+1 en cours</div>
+          <div class="adm-kpi-val">6<b>+</b></div>
+          <div class="adm-kpi-chg">+1 client work</div>
         </div>
         <div class="adm-kpi">
           <div class="adm-kpi-lbl">Messages reçus</div>
@@ -1765,10 +1769,11 @@
     ================================================ */
     const galaxyProjects = [
       { id: 'pl0', r: 105, speed: 0.28, angle: 0.4, n: '01', title: 'Apple Confidence', desc: 'E-commerce premium · Next.js · Stripe' },
-      { id: 'pl1', r: 158, speed: 0.20, angle: 2.2, n: '02', title: 'SkillBridge', desc: 'Talents africains · React · Supabase' },
-      { id: 'pl2', r: 210, speed: 0.15, angle: 1.0, n: '03', title: 'Campusly', desc: 'Vie universitaire · Next.js · PWA' },
-      { id: 'pl3', r: 256, speed: 0.12, angle: 3.7, n: '04', title: 'Gbéto', desc: 'Marketplace locale · React · Node.js' },
-      { id: 'pl4', r: 298, speed: 0.09, angle: 5.1, n: '05', title: 'E-Architect', desc: 'Cabinet archi · Next.js · Three.js' },
+      { id: 'pl1', r: 148, speed: 0.22, angle: 2.2, n: '02', title: 'SkillBridge', desc: 'Talents africains · React · Supabase' },
+      { id: 'pl2', r: 195, speed: 0.18, angle: 1.0, n: '03', title: 'Campusly', desc: 'Vie universitaire · Next.js · PWA' },
+      { id: 'pl3', r: 240, speed: 0.14, angle: 3.7, n: '04', title: 'Gbéto', desc: 'Marketplace locale · React · Node.js' },
+      { id: 'pl4', r: 285, speed: 0.11, angle: 5.1, n: '05', title: 'Tontine Chain', desc: 'Tontine blockchain · React · Web3' },
+      { id: 'pl5', r: 330, speed: 0.08, angle: 1.5, n: '06', title: 'Portfolio Synnova TOCLOE', desc: 'Portfolio client · Next.js · Tailwind' },
     ];
 
     const gCanvas = document.getElementById('galaxy-canvas');
@@ -1802,7 +1807,7 @@
         gCtx.fillStyle = `rgba(238,242,255,${s.a * .4})`; gCtx.fill();
       });
       // Draw orbit rings
-      const orbitColors = ['rgba(255,92,26,.18)', 'rgba(30,158,255,.12)', 'rgba(255,92,26,.1)', 'rgba(30,158,255,.08)', 'rgba(255,92,26,.06)'];
+      const orbitColors = ['rgba(255,92,26,.18)', 'rgba(30,158,255,.12)', 'rgba(255,92,26,.1)', 'rgba(30,158,255,.08)', 'rgba(255,92,26,.06)', 'rgba(30,158,255,.04)'];
       galaxyProjects.forEach((p, i) => {
         gCtx.beginPath(); gCtx.arc(cx, cy, p.r, 0, Math.PI * 2);
         gCtx.strokeStyle = orbitColors[i]; gCtx.lineWidth = 1; gCtx.stroke();
