@@ -1,5 +1,21 @@
 # Portfolio - Rosaire KAKPO
 
+> **LE SITE PUBLIÉ EST GÉNÉRÉ DEPUIS `krafter/`**
+> La racine de ce dépôt contient le **build statique** du nouveau portfolio
+> (Next.js 15 + React 19 + TypeScript, GSAP, anime.js v4, Three.js, FR/EN,
+> mode clair par défaut). Le code source vit dans [`krafter/`](krafter/README.md) ;
+> ne modifiez pas les fichiers générés à la main.
+>
+> ```bash
+> cd krafter && npm install && npm run dev      # développement — http://localhost:3000
+> cd krafter && npm run publish:pages           # régénère la racine (Pages)
+> ```
+>
+> Le workflow `.github/workflows/deploy.yml` régénère cette racine à chaque
+> push sur `main` touchant `krafter/`. Les anciennes pages statiques
+> (`about.html`, `projects.html`, …) restent dans le dépôt mais ne sont plus
+> référencées par la navigation ni par le sitemap.
+
 Portfolio professionnel de Rosaire KAKPO, développeur frontend spécialisé en e-commerce et UX design, basé à Cotonou, Bénin.
 
 🌐 **Site en ligne:** https://kakporosaire953-creator.github.io/Portfolio/
