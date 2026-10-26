@@ -1,5 +1,17 @@
 # Portfolio - Rosaire KAKPO
 
+> **NOUVEAU — THE KRAFTER (Next.js)**
+> Une nouvelle version complète du portfolio vit dans [`krafter/`](krafter/README.md) :
+> Next.js 15 + React 19 + TypeScript, GSAP (ScrollTrigger / SplitText / Flip),
+> anime.js v4, scène Three.js « KRAFTER / ORBIT », Liquid Glass theme switch,
+> bilingue FR/EN, mode clair par défaut. 8 routes + 6 études de cas.
+>
+> ```bash
+> cd krafter && npm install && npm run dev   # http://localhost:3000
+> ```
+>
+> Le dépôt racine conserve le site statique historique (HTML) tel quel.
+
 Portfolio professionnel de Rosaire KAKPO, développeur frontend spécialisé en e-commerce et UX design, basé à Cotonou, Bénin.
 
 🌐 **Site en ligne:** https://kakporosaire953-creator.github.io/Portfolio/

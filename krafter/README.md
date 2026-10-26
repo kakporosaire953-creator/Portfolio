@@ -1,0 +1,339 @@
+# THE KRAFTER — Portfolio de Rosaire Kakpo
+
+**Frontend Developer × UI/UX Designer** — Cotonou, Bénin
+*Design × Code × Impact* · *Créer • Inspirer • Impacter*
+
+Site multipage Next.js (App Router) avec direction artistique éditoriale,
+animations GSAP, motifs SVG anime.js, scène 3D Three.js, Liquid Glass maîtrisé,
+mode clair par défaut / mode sombre, et système bilingue FR/EN.
+
+---
+
+## 1. Démarrage
+
+Prérequis : **Node.js 18.18+** (testé en Node 22) et npm.
+
+```bash
+cd krafter
+npm install
+npm run dev        # http://localhost:3000
+```
+
+Build de production :
+
+```bash
+npm run build
+npm run start      # http://localhost:3000
+```
+
+> **TypeScript** est volontairement épinglé en `5.9.x`. TypeScript 7 (compilateur
+> natif) n'expose pas encore l'API attendue par Next.js 15 pour lire
+> `tsconfig.paths`, ce qui casse la résolution de l'alias `@/`.
+> Ne montez pas `typescript` en v7 sans passer à Next.js 16+.
+
+---
+
+## 2. Structure
+
+```
+krafter/
+├── app/
+│   ├── layout.tsx                 fonts locales, providers, chrome, JSON-LD, script anti-flash
+│   ├── page.tsx                   accueil
+│   ├── a-propos/ services/ projets/ competences/ blog/ contact/
+│   ├── projets/[slug]/            études de cas (6 projets prérendus)
+│   ├── api/contact/route.ts       envoi e-mail (Resend ou webhook) — non configuré par défaut
+│   ├── api/assistant/route.ts     adaptateur modèle — 501 tant qu'aucune clé n'est posée
+│   ├── globals.css                design system : tokens, typographie, layout, verre, boutons
+│   ├── styles/chrome.css          header, rail, menu mobile, footer, assistant, intro
+│   ├── styles/pages.css           hero, sections, projets, études de cas, formulaires
+│   ├── sitemap.ts robots.ts not-found.tsx
+├── components/
+│   ├── brand/                     logo (asset réel ou emplacement identifié), signature
+│   ├── navigation/                header, rail vertical, menu mobile, locale switch, icônes
+│   ├── theme/                     ThemeProvider + KRAFTER / GLASS SWITCH
+│   ├── assistant/                 KRAFTER / GUIDANCE (assistant préprogrammé)
+│   ├── motion/                    reveals, SplitText, Magnetic, transition Flip
+│   ├── sections/                  sections de la homepage + Design × Code
+│   ├── three/                     KRAFTER / ORBIT (scène isolée, chargée en différé)
+│   ├── svg/                       géométries SVG anime.js, poster orbital statique
+│   ├── projects/ pages/ contact/ layout/
+├── lib/
+│   ├── animations/gsap/           enregistrement des plugins, hook de contexte, store Flip
+│   ├── animations/anime/          helpers de tracé SVG (v4)
+│   ├── assistant/engine.ts        moteur de réponses local
+│   ├── utils/                     reduced-motion, media queries, cn, état de l'intro
+├── data/                          projects.ts, services.ts, articles.ts, translations.ts, profile.ts
+├── public/                        images optimisées, captures projets, favicon, og.jpg, brand/
+└── types/                         déclarations CSS
+```
+
+Le site statique historique (HTML à la racine du dépôt) est conservé tel quel ;
+le nouveau site vit dans `krafter/`.
+
+---
+
+## 3. Ce qui fonctionne réellement
+
+### Pages (toutes testées en HTTP 200)
+
+| Route | Contenu |
+|---|---|
+| `/` | Hero + portrait + scène 3D, signature, projets sélectionnés, Design × Code, services, méthode, profil, histoire THE KRAFTER, journal, CTA contact |
+| `/a-propos` | Portrait éditorial, identité, 3 convictions, trajectoire (chapitres thématiques), approche |
+| `/services` | 4 services détaillés, déroulé en 4 étapes, FAQ accordéon accessible |
+| `/projets` | Galerie filtrée (Tous / Design & dev / Développement / Direction artistique) |
+| `/projets/[slug]` | 6 études de cas : vue d'ensemble, contexte, enjeu, approche, design, développement, fiche technique, résultat (honnête), écrans, projet suivant |
+| `/competences` | Stack réelle par groupe avec contexte d'usage, méthode, exploration — **aucun pourcentage** |
+| `/blog` | État vide honnête + sujets en préparation (aucun article publié) |
+| `/contact` | Formulaire validé + fallback e-mail réel |
+| `404` | Page d'erreur éditoriale bilingue |
+
+### Navigation
+- **Header** en verre : logo, statut, FR/EN, switch de thème, CTA « Travaillons ensemble »,
+  compactage au scroll.
+- **Rail vertical flottant** (desktop) : 7 destinations, état actif orange, libellé au
+  survol/focus, filet de progression de lecture.
+- **Menu mobile plein écran** : cibles ≥ 44 px, numérotation éditoriale, contrôles
+  langue/thème, CTA, fermeture Échap, piège à focus, `inert` quand fermé.
+- **Assistant** : modale centrée (desktop) / plein écran (mobile), suggestions,
+  liens de navigation, « nouvelle conversation », fermeture Échap, focus géré.
+
+### Thème & langue
+- Clair par défaut ; sombre au choix ; `localStorage` (`krafter:theme`), respect de
+  `prefers-color-scheme` en l'absence de choix ; script inline anti-flash.
+- FR/EN : contenu réellement permuté (`data/translations.ts`, `data/projects.ts`,
+  `data/services.ts`), persistance `krafter:lang`, `lang` sur `<html>`,
+  raccourci `Alt + L`.
+- Le **logo, le statut et les CTA** restent cohérents dans les deux langues.
+
+### Animations
+- **GSAP timeline** du hero : filet orange, titres masqués, rôle, portrait en
+  `clip-path`, géométries, CTA, métadonnées — calée après l'intro.
+- **ScrollTrigger** : révélations de titres, images en rideau, filets, staggers,
+  parallaxe légère, chapitre Design × Code piloté au scroll (composition collante
+  CSS `position: sticky`, **aucun scroll hijacking**).
+- **SplitText** : titre « L'histoire de THE KRAFTER » (masques de lignes réels,
+  `revert()` au démontage).
+- **Flip** : transition image de grille → couverture d'étude de cas entre deux
+  routes (via `Flip.fit`), désactivée en `prefers-reduced-motion`.
+- **anime.js v4** : tracés SVG indépendants (géométries « K », arcs, grille) dans
+  les bandes Histoire/Contact et dans l'intro. Aucun élément n'est piloté à la fois
+  par GSAP et anime.js.
+- **Nettoyage** : `gsap.context()` + `revert()` dans chaque composant, `kill()`
+  des temporisations, `dispose()` de toutes les ressources Three.js.
+
+### 3D — KRAFTER / ORBIT
+- Volume de verre translucide (transmission, `RoomEnvironment` + PMREM), deux
+  anneaux orbitaux, tracé elliptique, points géométriques, parallaxe caméra légère.
+- Canvas isolé, chargé en différé (`next/dynamic`, `ssr: false`), DPR plafonné
+  (1.75 desktop / 1.35 mobile), pause hors écran et onglet caché, `ResizeObserver`,
+  disposition complète des géométries/matériaux/textures, perte de contexte gérée.
+- Repli statique SVG si WebGL absent ; aucune boucle d'animation si
+  `prefers-reduced-motion`.
+
+### Intro KRAFTER / ASSEMBLY
+VOID → FIRST LINE → GEOMETRY → STRUCTURE → BRAND → LIQUID MATERIAL → PERSON →
+HOMEPAGE. ≈ 5,3 s desktop, version courte mobile, une fois par session
+(`sessionStorage`), bouton « passer » et Échap, minuterie de secours de 9,5 s pour
+que le site reste toujours accessible.
+
+---
+
+## 4. Assets et actions requises
+
+### Logo complet — **action requise**
+Le fichier officiel complet n'était pas fourni dans le dépôt. Le composant
+`components/brand/BrandLogo.tsx` cherche :
+
+```
+public/brand/the-krafter-logo.svg   (priorité)
+public/brand/the-krafter-logo.png
+public/brand/the-krafter-logo.webp
+```
+
+Tant qu'il est absent, un **emplacement identifié « LOGO SLOT »** est affiché
+(header, section Histoire, footer, intro) — aucun logo n'a été inventé, redessiné
+ou recoloré. La détection se fait côté serveur au build (pas d'image cassée).
+Déposez le fichier puis relancez `npm run build` (ou `npm run dev`).
+
+Un favicon typographique neutre (`public/favicon.svg`, lettre K) est fourni ;
+remplacez-le par l'icône officielle si elle existe.
+
+### Photographies
+- `public/images/portrait-hero.jpg` — portrait costume blanc / disque orange
+  (fichier fourni), utilisé dans le hero et l'intro.
+- `public/images/portrait-navy.jpg` et `portrait-editorial.jpg` — portraits
+  éditoriaux existants du dépôt.
+- Captures de projets : Campusly, Apple Confidence, Tontine Chain, Portfolio
+  Synnova (recadrées depuis les visuels du dépôt, export WebP + JPEG).
+- SkillBridge et Blue Inova n'ont **pas** de captures publiées : ils utilisent une
+  couverture typographique générée par le design system, pas une fausse maquette.
+- `public/og.jpg` — image Open Graph 1200×630 générée à partir du portrait réel.
+
+---
+
+## 5. Assistant — état réel et branchement
+
+**Aucune IA générative n'est connectée.** L'assistant répond à partir des contenus
+du site via `lib/assistant/engine.ts` (mots-clés FR/EN → réponses écrites +
+liens de navigation). Le bandeau d'information dans la fenêtre l'indique
+explicitement, en français comme en anglais.
+
+Pour brancher un modèle :
+
+1. Implémentez un endpoint qui accepte `{ message, locale }` et renvoie
+   `{ reply: string, links?: {href,label}[] }`.
+2. `app/api/assistant/route.ts` relaie déjà vers `ASSISTANT_API_URL`
+   (option `ASSISTANT_API_KEY`).
+3. Exposez-le au client :
+
+```bash
+# .env.local
+ASSISTANT_API_URL=https://votre-service/v1/chat
+ASSISTANT_API_KEY=sk-...
+NEXT_PUBLIC_ASSISTANT_ENDPOINT=/api/assistant
+```
+
+Sans `ASSISTANT_API_URL`, l'API répond `501 not_configured` et le client reste sur
+le moteur local — aucun faux « je suis une IA » n'est affiché.
+
+---
+
+## 6. Formulaire de contact — état réel et branchement
+
+Le formulaire valide les champs (nom, e-mail, type de projet, message ≥ 20
+caractères), gère les états `idle / sending / success / error`, l'accessibilité
+(`aria-invalid`, `aria-describedby`, focus, `aria-busy`) et un honeypot.
+
+**Aucun service d'envoi n'est branché par défaut** : l'API répond
+`503 not_configured`, et l'interface propose alors deux actions qui, elles,
+fonctionnent immédiatement :
+
+1. **Ouvrir dans mon logiciel de messagerie** — `mailto:` prérempli
+   (objet + corps) vers `kakporosaire953@gmail.com`.
+2. **Copier le brief** — presse-papiers.
+
+Pour activer l'envoi réel, ajoutez dans `.env.local` :
+
+```bash
+# Option A — Resend
+RESEND_API_KEY=re_...
+CONTACT_TO_EMAIL=kakporosaire953@gmail.com
+CONTACT_FROM_EMAIL="THE KRAFTER <site@votre-domaine.com>"
+
+# Option B — n'importe quel webhook (Zapier, Make, Formspree, Worker…)
+CONTACT_WEBHOOK_URL=https://...
+```
+
+Le code d'envoi est déjà écrit dans `app/api/contact/route.ts` (validation
+serveur, anti-spam, réponse 502 en cas d'échec fournisseur).
+
+---
+
+## 7. Journal (blog)
+
+Aucun article n'est publié — l'état vide est explicite et daté, sans faux
+historique. Pour publier :
+
+1. Ajoutez un objet dans `data/articles.ts` (titre, extrait, sujet, date, corps FR/EN).
+2. La page `/blog` et l'aperçu de la homepage s'adaptent automatiquement
+   (l'aperçu affiche alors les articles au lieu des sujets « à venir »).
+3. Une route `/blog/[slug]` n'est pas incluse : à ajouter si un vrai flux d'articles
+   est décidé (le modèle de données est prêt).
+
+---
+
+## 8. Contenus à confirmer (transparence)
+
+Aucun chiffre, témoignage, classement ou nombre d'utilisateurs n'a été inventé.
+Les études de cas affichent d'ailleurs une mention explicite :
+« Aucun indicateur public n'est publié pour ce projet ».
+
+À valider par le propriétaire :
+
+- **SkillBridge** et **Blue Inova** : périmètre fonctionnel exact (les pages
+  décrivent la démarche, la direction et la stack, pas des fonctionnalités non
+  documentées). Un encart « à confirmer » le signale sur les études de cas
+  concernées.
+- **Tontine Chain** : positionnement exact au hackathon MIABE 2026 (mention neutre
+  « hackathon » sans revendiquer de classement).
+- **Années** des projets (`data/projects.ts`) et liens publics (aucun lien
+  « voir le site » n'est affiché tant qu'une URL réelle n'est pas renseignée).
+- **Liens sociaux** : seul GitHub (`kakporosaire953-creator`) est réel ; les
+  anciens liens `github.com` / `linkedin.com` / `twitter.com` génériques du site
+  historique n'ont pas été repris pour éviter des liens morts.
+
+---
+
+## 9. Accessibilité, mouvement, performance
+
+- `prefers-reduced-motion` : intro désactivée, timelines et ScrollTrigger non
+  créés, Flip ignoré, transitions CSS neutralisées, scène 3D rendue en une image.
+- Clavier : lien d'évitement, focus visible orange, Échap pour les dialogues,
+  piège à focus, `aria-current`, `aria-expanded`, `role="switch"` sur le thème.
+- Contenus jamais dépendants d'une animation : le HTML est complet et lisible
+  sans JavaScript (hormis les contrôles de thème/langue et l'assistant, qui sont
+  des améliorations).
+- Contrastes : texte `--ink` / `--ink-soft` sur papier et navy ; l'orange #FF6A00
+  est réservé aux accents, traits, états actifs et libellés mono de petite taille
+  sur fond clair très spécifiques (variante `--orange-ink` pour le texte).
+- Aucun débordement horizontal : `overflow-x: clip` sur `html`/`body`, bandeaux
+  animés dans un conteneur masqué, grilles en `minmax(0, 1fr)`.
+- Images locales pré-optimisées (WebP/JPEG progressifs, dimensions déclarées),
+  scène 3D hors du bundle initial, `gsap`/`three` chargés uniquement côté client.
+- La qualité de rendu dépend de l'appareil : aucune promesse de fréquence
+  d'images identique partout. Réduire les effets si nécessaire
+  (`components/three/OrbitScene.tsx`, section `isSmall`).
+
+---
+
+## 10. Tests effectués (et limites)
+
+Vérifié dans cet environnement :
+
+- `npx tsc --noEmit` — 0 erreur.
+- `npm run build` — compilation réussie, 15 routes générées (dont 6 études de cas
+  prérendues).
+- Requêtes HTTP sur toutes les routes : `/`, `/a-propos`, `/services`, `/projets`,
+  `/projets/{skillbridge,campusly,blue-inova,apple-confidence,tontine-chain,portfolio-synnova}`,
+  `/competences`, `/blog`, `/contact` → 200 ; route inconnue → 404.
+- Vérification des liens internes et des `alt` (script de crawl) ; aucun `<img>`
+  sans `alternate`.
+- Revue de code des nettoyages GSAP / anime.js / Three.js et des chemins de repli.
+
+**Limite honnête** : aucun navigateur headless n'était disponible dans cet
+environnement (pas de Chromium, pas de Playwright). La validation visuelle
+automatisée (captures, tests de débordement au pixel) n'a donc pas pu être
+exécutée. Une passe manuelle est recommandée sur Chrome, Safari, Firefox et sur
+un iPhone/Android réel, en clair et en sombre, FR et EN, avec et sans
+« réduire les animations ».
+
+---
+
+## 11. Déploiement
+
+**Vercel** (recommandé) : importer le dépôt, `Root Directory = krafter`,
+framework détecté Next.js, build `npm run build`. Ajouter les variables
+d'environnement éventuelles.
+
+**Node auto-hébergé** :
+
+```bash
+npm ci && npm run build && npm run start   # PORT via -p
+```
+
+**GitHub Pages** : le workflow existant (`deploy.yml`) publie le site statique
+historique à la racine. Le site Next.js n'est pas exporté en statique
+(`output: 'export'`) car les routes API de contact et d'assistant sont utilisées ;
+utilisez Vercel, Netlify ou un serveur Node pour la nouvelle version.
+
+---
+
+## 12. Crédits
+
+Design, développement et contenus : **Rosaire Kakpo — THE KRAFTER**.
+Typographies : Instrument Sans, Bodoni Moda, JetBrains Mono (SIL Open Font
+License, auto-hébergées via Fontsource).
+Bibliothèques : Next.js, React, TypeScript, Tailwind CSS, GSAP (ScrollTrigger,
+SplitText, Flip), anime.js v4, Three.js.
