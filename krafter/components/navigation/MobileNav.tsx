@@ -1,59 +1,63 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { navItems, isActivePath, profile } from "@/data/profile";
+import { useEffect, useRef } from "react";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { useLocale } from "@/components/i18n/LocaleProvider";
-import { LocaleSwitch } from "./LocaleSwitch";
 import { GlassSwitch } from "@/components/theme/GlassSwitch";
-import { ArrowUpRight } from "./Glyphs";
-import { cn } from "@/lib/utils/cn";
+import { LocaleSwitch } from "@/components/navigation/LocaleSwitch";
+import { ArrowUpRight } from "@/components/navigation/Glyphs";
+import { navItems, profile } from "@/data/profile";
 import { gsap, registerGsap } from "@/lib/animations/gsap/register";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
+import { cn } from "@/lib/utils/cn";
 
-type MobileNavProps = {
-  open: boolean;
-  onClose: () => void;
-};
-
-/** Full-screen mobile navigation — thumb-sized targets, its own composition. */
-export function MobileNav({ open, onClose }: MobileNavProps) {
-  const { t, locale } = useLocale();
+/**
+ * Purpose-built fullscreen mobile navigation.
+ * Real dialog semantics: focus moves in, Tab stays inside, Escape closes and
+ * focus returns to the trigger. The panel is inert while closed, so no hidden
+ * link can be reached with the keyboard.
+ */
+export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { t } = useLocale();
   const pathname = usePathname();
-  const panelRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
   const reduced = useReducedMotion();
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const closeRef = useRef<HTMLButtonElement | null>(null);
+  const restoreRef = useRef<HTMLElement | null>(null);
 
-  // Lock scroll + move focus while the panel is open.
+  // Route change closes the panel.
+  useEffect(() => {
+    onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  // Focus + scroll lock + keyboard trap.
   useEffect(() => {
     if (!open) return;
-    const root = document.documentElement;
-    root.classList.add("no-scroll");
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const panel = panelRef.current;
     const timer = window.setTimeout(() => closeRef.current?.focus(), 60);
-    return () => {
-      window.clearTimeout(timer);
-      root.classList.remove("no-scroll");
-    };
-  }, [open]);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.body.dataset.navOpen = "true";
 
-  // Escape closes, focus is kept inside the panel.
-  useEffect(() => {
-    if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
         onClose();
         return;
       }
-      if (event.key !== "Tab" || !panelRef.current) return;
-      const focusables = panelRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      );
-      if (focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
+      if (event.key !== "Tab" || !panel) return;
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((node) => node.offsetParent !== null || node === document.activeElement);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last.focus();
@@ -62,113 +66,103 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         first.focus();
       }
     };
+
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+      delete document.body.dataset.navOpen;
+      restoreRef.current?.focus?.();
+    };
   }, [open, onClose]);
 
-  // Staggered entrance for the editorial link list.
+  // Link entrance — independent of the panel CSS transition, and skipped for
+  // reduced-motion users (the links are simply visible).
   useEffect(() => {
-    if (!open || reduced || !listRef.current) return;
+    if (!open || reduced) return;
+    const panel = panelRef.current;
+    if (!panel) return;
     registerGsap();
     const ctx = gsap.context(() => {
-      gsap.from("[data-mobile-link]", {
-        yPercent: 108,
-        opacity: 0,
-        duration: 0.72,
-        stagger: 0.055,
-        delay: 0.12,
-        ease: "power3.out",
-      });
-      gsap.from("[data-mobile-meta]", {
-        opacity: 0,
-        y: 14,
+      gsap.from("[data-nav-item]", {
+        autoAlpha: 0,
+        y: 26,
         duration: 0.6,
-        stagger: 0.06,
-        delay: 0.34,
-        ease: "power2.out",
+        stagger: 0.045,
+        delay: 0.16,
+        ease: "power3.out",
+        clearProps: "all",
       });
-    }, listRef);
+      gsap.from("[data-nav-foot]", { autoAlpha: 0, y: 14, duration: 0.5, delay: 0.42, clearProps: "all" });
+    }, panel);
     return () => ctx.revert();
   }, [open, reduced]);
 
   return (
     <div
       className="mobile-nav"
-      data-open={open ? "true" : "false"}
-      aria-hidden={open ? undefined : true}
       ref={panelRef}
+      id="mobile-navigation"
       role="dialog"
       aria-modal="true"
-      aria-label={t.nav.menu}
+      aria-label={t.nav.label}
+      data-open={open}
       inert={!open}
     >
       <div className="mobile-nav__top">
-        <span className="meta">{t.header.badge}</span>
-        <button
-          type="button"
-          className="mobile-nav__close"
-          onClick={onClose}
-          ref={closeRef}
-          tabIndex={open ? 0 : -1}
-        >
-          <span>{t.nav.close}</span>
-          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-            <path d="m4 4 12 12M16 4 4 16" strokeLinecap="round" />
-          </svg>
+        <Link href="/" className="mobile-nav__brand" onClick={onClose} aria-label="THE KRAFTER — accueil">
+          <BrandLogo variant="header" />
+        </Link>
+        <button type="button" className="mobile-nav__close" onClick={onClose} ref={closeRef}>
+          {t.nav.close}
+          <span aria-hidden="true">✕</span>
         </button>
       </div>
 
-      <nav className="mobile-nav__body" aria-label={t.nav.label}>
-        <ul className="mobile-nav__list" ref={listRef}>
+      <div className="mobile-nav__body">
+        <nav className="mobile-nav__list" aria-label={t.nav.label}>
           {navItems.map((item, index) => {
-            const active = isActivePath(pathname, item.href);
+            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
             return (
-              <li key={item.key}>
-                <Link
-                  href={item.href}
-                  className={cn("mobile-nav__link", active && "is-active")}
-                  onClick={onClose}
-                  aria-current={active ? "page" : undefined}
-                  tabIndex={open ? 0 : -1}
-                  data-mobile-link
-                >
-                  <span className="mobile-nav__index">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="mobile-nav__label">{t.nav[item.key]}</span>
-                  <span className="mobile-nav__arrow" aria-hidden="true">
-                    <ArrowUpRight size={18} />
-                  </span>
-                </Link>
-              </li>
+              <Link
+                key={item.key}
+                href={item.href}
+                className={cn("mobile-nav__link", active && "is-active")}
+                aria-current={active ? "page" : undefined}
+                data-nav-item
+              >
+                <span className="mobile-nav__index">{String(index + 1).padStart(2, "0")}</span>
+                <span className="mobile-nav__label">{t.nav[item.key]}</span>
+                <span className="mobile-nav__arrow" aria-hidden="true">
+                  <ArrowUpRight size={16} />
+                </span>
+              </Link>
             );
           })}
-        </ul>
-      </nav>
+        </nav>
+      </div>
 
-      <div className="mobile-nav__foot">
-        <div className="mobile-nav__controls" data-mobile-meta>
+      <div className="mobile-nav__foot" data-nav-foot>
+        <div className="mobile-nav__controls">
           <div className="mobile-nav__control">
-            <span className="meta">{t.common.language}</span>
-            <LocaleSwitch />
-          </div>
-          <div className="mobile-nav__control">
-            <span className="meta">{t.common.theme}</span>
+            <span className="meta-tight">{t.common.theme}</span>
             <GlassSwitch showLabel />
           </div>
+          <div className="mobile-nav__control">
+            <span className="meta-tight">{t.common.language}</span>
+            <LocaleSwitch />
+          </div>
         </div>
-        <div className="mobile-nav__contact" data-mobile-meta>
-          <Link href="/contact" className="btn btn--orange btn--sm mobile-nav__cta" onClick={onClose} tabIndex={open ? 0 : -1}>
-            {t.header.cta}
-          </Link>
-          <a href={`mailto:${profile.email}`} className="mobile-nav__mail link-underline" tabIndex={open ? 0 : -1}>
+        <div className="mobile-nav__contact">
+          <a className="mobile-nav__mail" href={`mailto:${profile.email}`}>
             {profile.email}
           </a>
-          <p className="meta">
-            {profile.city} · {profile.country[locale]}
-          </p>
+          <Link href="/contact" className="mobile-nav__cta btn btn--orange btn--sm" onClick={onClose}>
+            {t.common.ctaContact}
+          </Link>
         </div>
-        <p className="mobile-nav__signature meta" data-mobile-meta>
-          {t.common.signature}
-        </p>
+        <p className="mobile-nav__signature meta">{t.common.signature}</p>
       </div>
     </div>
   );

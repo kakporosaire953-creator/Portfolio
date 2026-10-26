@@ -9,6 +9,16 @@ mode clair par défaut / mode sombre, et système bilingue FR/EN.
 
 ---
 
+## Projets publiés
+
+Le site n'expose que les trois projets validés — **SkillBridge**, **Campusly**,
+**Blue Inova** (`/projets`, `/projets/[slug]`, sitemap, accueil). Les trois autres
+projets réels documentés dans l'ancien portfolio (Apple Confidence, Tontine Chain,
+Portfolio Synnova Tocloe) restent dans `data/projects.ts` sous `allProjects`, mais
+sont exclus de la publication via `PUBLISHED_SLUGS` — aucun contenu inventé, rien
+n'est supprimé : ajoutez un slug à ce tableau pour le publier (la route, la carte
+et l'entrée de sitemap sont générées automatiquement).
+
 ## 1. Démarrage
 
 Prérequis : **Node.js 18.18+** (testé en Node 22) et npm.
@@ -41,7 +51,7 @@ krafter/
 │   ├── layout.tsx                 fonts locales, providers, chrome, JSON-LD, script anti-flash
 │   ├── page.tsx                   accueil
 │   ├── a-propos/ services/ projets/ competences/ blog/ contact/
-│   ├── projets/[slug]/            études de cas (6 projets prérendus)
+│   ├── projets/[slug]/            études de cas (3 projets publiés prérendus)
 │   ├── api/contact/route.ts       envoi e-mail (Resend ou webhook) — non configuré par défaut
 │   ├── api/assistant/route.ts     adaptateur modèle — 501 tant qu'aucune clé n'est posée
 │   ├── globals.css                design system : tokens, typographie, layout, verre, boutons
@@ -83,7 +93,7 @@ le nouveau site vit dans `krafter/`.
 | `/a-propos` | Portrait éditorial, identité, 3 convictions, trajectoire (chapitres thématiques), approche |
 | `/services` | 4 services détaillés, déroulé en 4 étapes, FAQ accordéon accessible |
 | `/projets` | Galerie filtrée (Tous / Design & dev / Développement / Direction artistique) |
-| `/projets/[slug]` | 6 études de cas : vue d'ensemble, contexte, enjeu, approche, design, développement, fiche technique, résultat (honnête), écrans, projet suivant |
+| `/projets/[slug]` | 3 études de cas (SkillBridge, Campusly, Blue Inova) : vue d'ensemble, contexte, enjeu, approche, design, développement, fiche technique, résultat (honnête), écrans, projet suivant |
 | `/competences` | Stack réelle par groupe avec contexte d'usage, méthode, exploration — **aucun pourcentage** |
 | `/blog` | État vide honnête + sujets en préparation (aucun article publié) |
 | `/contact` | Formulaire validé + fallback e-mail réel |

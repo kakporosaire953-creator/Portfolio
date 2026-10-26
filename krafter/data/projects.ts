@@ -36,7 +36,14 @@ export type Project = {
   };
 };
 
-export const projects: Project[] = [
+/**
+ * Every real project documented so far, taken from the previous portfolio.
+ * The client asked the site to present only the three approved case studies,
+ * so everything below is published through the `projects` export, which is
+ * filtered by `PUBLISHED_SLUGS`. To publish another one later, add its slug
+ * here — its route, sitemap entry and listing card appear automatically.
+ */
+const allProjects: Project[] = [
   {
     slug: "skillbridge",
     index: "01",
@@ -434,6 +441,18 @@ export const projects: Project[] = [
     },
   },
 ];
+
+/** Case studies approved for publication by Rosaire. */
+export const PUBLISHED_SLUGS = ["skillbridge", "campusly", "blue-inova"] as const;
+
+export const projects: Project[] = allProjects.filter((project) =>
+  (PUBLISHED_SLUGS as readonly string[]).includes(project.slug),
+);
+
+/** Archived entries: real, but not part of the approved publication set. */
+export const archivedProjects: Project[] = allProjects.filter(
+  (project) => !(PUBLISHED_SLUGS as readonly string[]).includes(project.slug),
+);
 
 export const featuredProjects = projects.filter((project) => project.featured);
 

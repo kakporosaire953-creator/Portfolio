@@ -26,6 +26,12 @@ export function ProjectsView() {
 
   const visible = filter === "all" ? projects : projects.filter((project) => project.category === filter);
 
+  // Only offer filters that can actually return something: a dead filter is a
+  // dead button. Derived from the published set, never hard-coded.
+  const availableFilters = FILTERS.filter(
+    (item) => item.group === "root" || projects.some((project) => project.category === item.id),
+  );
+
   return (
     <>
       <PageHead
@@ -48,7 +54,7 @@ export function ProjectsView() {
       <div className="shell">
         <div className="projects-toolbar">
           <div className="projects-filters" role="group" aria-label={t.projects.filterLabel}>
-            {FILTERS.map((item) => (
+            {availableFilters.map((item) => (
               <button
                 key={item.id}
                 type="button"
