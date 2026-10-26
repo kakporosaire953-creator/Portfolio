@@ -59,27 +59,25 @@ if (!existsSync(out)) {
 }
 
 // The Pages site is legacy-built from the repository root, with Jekyll off.
-const skip = new Set([".git", "krafter", "node_modules", ".github"]);
-for (const entry of ["index.html", "404.html", "_next", "images", "projects", "brand"]) {
-  const from = path.join(out, entry);
-  if (!existsSync(from)) continue;
-  const to = path.join(repo, entry);
-  rmSync(to, { recursive: true, force: true });
-  cpSync(from, to, { recursive: true });
+// Files are OVERWRITTEN, never wiped: the legacy static pages keep their own
+// assets (images/, assets/…) while the new build adds its own.
+const files = ["index.html", "404.html", "sitemap.xml", "robots.txt", "favicon.svg", "og.jpg"];
+for (const file of files) {
+  const from = path.join(out, file);
+  if (existsSync(from)) cpSync(from, path.join(repo, file));
 }
-for (const entry of ["sitemap.xml", "robots.txt", "favicon.svg", "og.jpg"]) {
-  const from = path.join(out, entry);
-  if (existsSync(from)) cpSync(from, path.join(repo, entry));
-}
-// Directory-style routes (trailingSlash) — a-propos/index.html, projets/... etc.
-for (const dir of ["a-propos", "services", "projets", "competences", "blog", "contact"]) {
+
+// `_next` carries hashed bundles: replace it so stale chunks cannot pile up.
+rmSync(path.join(repo, "_next"), { recursive: true, force: true });
+
+// Everything else merges into the existing tree.
+for (const dir of ["_next", "images", "projects", "brand", "a-propos", "services", "projets", "competences", "blog", "contact", "404"]) {
   const from = path.join(out, dir);
   if (!existsSync(from)) continue;
   const to = path.join(repo, dir);
-  rmSync(to, { recursive: true, force: true });
-  cpSync(from, to, { recursive: true });
+  mkdirSync(to, { recursive: true });
+  cpSync(from, to, { recursive: true, force: true });
 }
 
 writeFileSync(path.join(repo, ".nojekyll"), "");
 console.log("✓ Site publié à la racine du dépôt (GitHub Pages /Portfolio).");
-console.log("  Entrées ignorées:", [...skip].join(", "));
