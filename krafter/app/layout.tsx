@@ -96,7 +96,13 @@ d.dataset.theme=t;d.style.colorScheme=t;
 var l=localStorage.getItem('krafter:lang');
 if(l!=='fr'&&l!=='en'){l='fr';}
 d.lang=l;d.dataset.lang=l;
-}catch(e){document.documentElement.dataset.theme='light';}})();`;
+/* Hide masked headlines only between first paint and GSAP setup, and only when
+   motion is welcome. A timer releases them if the bundle never runs. */
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  d.classList.add('js-mask-pending');
+  setTimeout(function(){d.classList.remove('js-mask-pending');},2600);
+}
+}catch(e){document.documentElement.dataset.theme='light';document.documentElement.classList.remove('js-mask-pending');}})();`;
 
 const personJsonLd = {
   "@context": "https://schema.org",

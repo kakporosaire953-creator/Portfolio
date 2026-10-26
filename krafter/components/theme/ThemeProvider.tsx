@@ -76,6 +76,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setTheme(theme === "light" ? "dark" : "light");
   }, [setTheme, theme]);
 
+  // While no explicit choice is stored, follow the OS preference live.
+  useEffect(() => {
+    const query = window.matchMedia?.("(prefers-color-scheme: dark)");
+    if (!query) return;
+    const onSystemChange = (event: MediaQueryListEvent) => {
+      if (readStoredTheme()) return; // an explicit choice wins
+      const next: Theme = event.matches ? "dark" : "light";
+      setThemeState(next);
+      document.documentElement.dataset.theme = next;
+      document.documentElement.style.colorScheme = next;
+    };
+    query.addEventListener("change", onSystemChange);
+    return () => query.removeEventListener("change", onSystemChange);
+  }, []);
+
   // Keep multiple tabs in sync.
   useEffect(() => {
     const onStorage = (event: StorageEvent) => {

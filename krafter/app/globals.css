@@ -383,6 +383,12 @@
   will-change: transform;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .js-mask-pending .line-mask > span {
+    transform: none;
+  }
+}
+
 .js-mask-pending .line-mask > span {
   transform: translate3d(0, 102%, 0);
 }

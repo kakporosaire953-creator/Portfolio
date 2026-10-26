@@ -104,6 +104,11 @@ export function ScrollReveals() {
       });
     });
 
+    // GSAP has now written the initial states: masked copy can be revealed.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => document.documentElement.classList.remove("js-mask-pending"));
+    });
+
     const onLoad = () => ScrollTrigger.refresh();
     const refreshTimer = window.setTimeout(onLoad, 420);
     window.addEventListener("load", onLoad);
@@ -113,7 +118,10 @@ export function ScrollReveals() {
     window.addEventListener("krafter:locale-change", onLocale);
 
     // Web fonts change line heights; the intro scroll-lock changes the viewport.
-    const onIntroDone = () => ScrollTrigger.refresh();
+    const onIntroDone = () => {
+      document.documentElement.classList.remove("js-mask-pending");
+      ScrollTrigger.refresh();
+    };
     window.addEventListener("krafter:intro-done", onIntroDone);
 
     let fontsTimer: number | undefined;
