@@ -3,6 +3,7 @@
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/utils/cn";
+import { asset } from "@/lib/utils/asset";
 
 /**
  * Real screenshot when one is published; otherwise a clearly designed
@@ -25,7 +26,7 @@ export function ProjectCover({
       <span className={cn("project-cover-media", className)} data-flip-media>
         {/* eslint-disable-next-line @next/next/no-img-element -- local optimised asset */}
         <img
-          src={cover.src}
+          src={asset(cover.src)}
           alt={cover.alt[locale]}
           width={cover.width}
           height={cover.height}
@@ -49,5 +50,5 @@ export function ProjectCover({
 }
 
 export function projectCoverSrc(project: Project): string | undefined {
-  return project.cover.kind === "image" ? project.cover.src : undefined;
+  return project.cover.kind === "image" ? asset(project.cover.src) : undefined;
 }

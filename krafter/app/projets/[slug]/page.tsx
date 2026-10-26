@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyView } from "@/components/pages/CaseStudyView";
 import { getProject, projects } from "@/data/projects";
+import { asset } from "@/lib/utils/asset";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images:
         project.cover.kind === "image"
           ? [{ url: project.cover.src, width: project.cover.width, height: project.cover.height }]
-          : ["/og.jpg"],
+          : [asset("/og.jpg")],
     },
   };
 }

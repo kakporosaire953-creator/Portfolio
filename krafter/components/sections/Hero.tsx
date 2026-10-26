@@ -10,6 +10,7 @@ import { useGsap } from "@/lib/animations/gsap/useGsap";
 import { gsap } from "@/lib/animations/gsap/register";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
 import { whenIntroIdle } from "@/lib/utils/introState";
+import { asset } from "@/lib/utils/asset";
 
 export function Hero() {
   const { t } = useLocale();
@@ -143,7 +144,7 @@ export function Hero() {
           <figure className="hero__portrait" data-hero-portrait>
             {/* eslint-disable-next-line @next/next/no-img-element -- hero asset */}
             <img
-              src="/images/portrait-hero.jpg"
+              src={asset("/images/portrait-hero.jpg")}
               alt={t.hero.portraitAlt}
               width={1254}
               height={1254}

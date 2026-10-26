@@ -1,18 +1,4 @@
-User-agent: *
+User-Agent: *
 Allow: /
 
-# Pages importantes
-Allow: /index.html
-Allow: /about.html
-Allow: /projects.html
-Allow: /skills.html
-Allow: /experience.html
-Allow: /contact.html
-
-# Sitemap principal
 Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap.xml
-Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap-index.xml
-
-# Disallow admin and private files
-Disallow: /assets/admin/
-Disallow: /*.pdf$

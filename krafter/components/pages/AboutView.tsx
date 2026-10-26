@@ -7,6 +7,7 @@ import { SectionHead } from "@/components/sections/SectionHead";
 import { ContactBand } from "@/components/sections/ContactBand";
 import { ArrowRight } from "@/components/navigation/Glyphs";
 import { profile } from "@/data/profile";
+import { asset } from "@/lib/utils/asset";
 
 export function AboutView() {
   const { t, locale } = useLocale();
@@ -35,7 +36,7 @@ export function AboutView() {
             <figure className="about-hero__media" data-reveal-image>
               {/* eslint-disable-next-line @next/next/no-img-element -- local optimised asset */}
               <img
-                src="/images/portrait-editorial.jpg"
+                src={asset("/images/portrait-editorial.jpg")}
                 alt={t.hero.portraitAlt}
                 width={719}
                 height={1273}

@@ -6,6 +6,7 @@ import { useLocale } from "@/components/i18n/LocaleProvider";
 import { answerLocally, type AssistantLink } from "@/lib/assistant/engine";
 import { ArrowRight } from "@/components/navigation/Glyphs";
 import { cn } from "@/lib/utils/cn";
+import { asset } from "@/lib/utils/asset";
 
 type Message = {
   id: number;
@@ -14,7 +15,8 @@ type Message = {
   links?: AssistantLink[];
 };
 
-const REMOTE_ENDPOINT = process.env.NEXT_PUBLIC_ASSISTANT_ENDPOINT;
+const REMOTE_ENDPOINT_RAW = process.env.NEXT_PUBLIC_ASSISTANT_ENDPOINT;
+const REMOTE_ENDPOINT = REMOTE_ENDPOINT_RAW ? asset(REMOTE_ENDPOINT_RAW) : undefined;
 
 /**
  * Layer C — KRAFTER / GUIDANCE.

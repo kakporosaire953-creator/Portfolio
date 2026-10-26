@@ -7,6 +7,7 @@ import { gsap, registerGsap } from "@/lib/animations/gsap/register";
 import { drawPaths } from "@/lib/animations/anime/draw";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
 import { setIntroPlaying } from "@/lib/utils/introState";
+import { asset } from "@/lib/utils/asset";
 
 const SESSION_KEY = "krafter:intro-seen";
 
@@ -217,7 +218,7 @@ export function Intro() {
 
           <div className="intro__portrait" data-intro-portrait>
             {/* eslint-disable-next-line @next/next/no-img-element -- intro reveal, no layout hints needed */}
-            <img src="/images/portrait-hero.jpg" alt="" width={1254} height={1254} />
+            <img src={asset("/images/portrait-hero.jpg")} alt="" width={1254} height={1254} />
           </div>
 
           <span className="intro__shine" data-intro-shine aria-hidden="true" />

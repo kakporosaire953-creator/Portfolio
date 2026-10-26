@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 
-const BASE = "https://kakpo-rosaire.vercel.app";
+// Required so `output: "export"` can prerender this route (GitHub Pages build).
+export const dynamic = "force-static";
+
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kakpo-rosaire.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = ["", "/a-propos", "/services", "/projets", "/competences", "/blog", "/contact"];

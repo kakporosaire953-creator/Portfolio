@@ -6,6 +6,7 @@ import { CaseStudyCover } from "@/components/motion/CaseStudyCover";
 import { ArrowLeft, ArrowUpRight } from "@/components/navigation/Glyphs";
 import { getNextProject, type Project } from "@/data/projects";
 import { cn } from "@/lib/utils/cn";
+import { asset } from "@/lib/utils/asset";
 
 export function CaseStudyView({ project }: { project: Project }) {
   const { t, locale } = useLocale();
@@ -69,7 +70,7 @@ export function CaseStudyView({ project }: { project: Project }) {
             {project.cover.kind === "image" ? (
               <CaseStudyCover
                 slug={project.slug}
-                src={project.cover.src}
+                src={asset(project.cover.src)}
                 alt={project.cover.alt[locale]}
                 width={project.cover.width}
                 height={project.cover.height}
@@ -171,7 +172,7 @@ export function CaseStudyView({ project }: { project: Project }) {
                 {study.screens.map((screen) => (
                   <figure className="case-screens__item" key={screen.src}>
                     {/* eslint-disable-next-line @next/next/no-img-element -- local optimised asset */}
-                    <img src={screen.src} alt={screen.alt[locale]} loading="lazy" decoding="async" />
+                    <img src={asset(screen.src)} alt={screen.alt[locale]} loading="lazy" decoding="async" />
                   </figure>
                 ))}
               </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { Flip, gsap, ScrollTrigger, registerGsap } from "@/lib/animations/gsap/register";
 import { takeFlipPayload } from "@/lib/animations/gsap/flip";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
+import { asset } from "@/lib/utils/asset";
 
 type Props = {
   slug: string;
@@ -75,7 +76,7 @@ export function CaseStudyCover({ slug, src, alt, width, height }: Props) {
   return (
     <div className="case-cover" ref={frameRef} data-flip-target={slug}>
       {/* eslint-disable-next-line @next/next/no-img-element -- local optimised asset */}
-      <img src={src} alt={alt} width={width} height={height} className="case-cover__img" />
+      <img src={asset(src)} alt={alt} width={width} height={height} className="case-cover__img" />
     </div>
   );
 }

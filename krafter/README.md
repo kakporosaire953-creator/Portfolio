@@ -323,20 +323,49 @@ un iPhone/Android réel, en clair et en sombre, FR et EN, avec et sans
 
 ## 11. Déploiement
 
-**Vercel** (recommandé) : importer le dépôt, `Root Directory = krafter`,
-framework détecté Next.js, build `npm run build`. Ajouter les variables
-d'environnement éventuelles.
+### GitHub Pages — c'est ce qui publie le site aujourd'hui
 
-**Node auto-hébergé** :
+La racine du dépôt **est** le site publié : `https://kakporosaire953-creator.github.io/Portfolio/`.
+Elle est générée depuis `krafter/`, jamais éditée à la main.
 
 ```bash
-npm ci && npm run build && npm run start   # PORT via -p
+cd krafter
+npm run publish:pages     # build statique + copie de out/ vers la racine du dépôt
 ```
 
-**GitHub Pages** : le workflow existant (`deploy.yml`) publie le site statique
-historique à la racine. Le site Next.js n'est pas exporté en statique
-(`output: 'export'`) car les routes API de contact et d'assistant sont utilisées ;
-utilisez Vercel, Netlify ou un serveur Node pour la nouvelle version.
+`npm run publish:pages` (`scripts/publish-pages.mjs`) :
+
+1. masque temporairement `app/api` — un hébergement statique n'a pas de serveur ;
+   le formulaire et l'assistant proposent déjà leurs replis `mailto` / moteur local,
+2. lance `next build` avec `NEXT_STATIC_EXPORT=1`, `NEXT_PUBLIC_BASE_PATH=/Portfolio`
+   et `NEXT_PUBLIC_SITE_URL=https://kakporosaire953-creator.github.io/Portfolio`,
+3. copie `out/` (HTML, `_next/`, images, `projets/*/index.html`, sitemap, robots, 404)
+   à la racine du dépôt et réécrit `.nojekyll`,
+4. restaure `app/api`.
+
+`.github/workflows/deploy.yml` exécute exactement la même chose à chaque push sur
+`main` touchant `krafter/`, puis commit l'artefact : la racine ne peut pas dériver
+du code source. Les anciennes pages du site statique (`about.html`, `projects.html`,
+`experience.html`, `skills.html`, `contact.html`, `rosaire_kakpo_v2_premium.html`)
+restent dans le dépôt pour référence mais ne sont plus liées ni indexées.
+
+> Le basePath `/Portfolio` correspond à une **GitHub Page de projet**. Si le site
+> passe un jour sur un domaine racine, relancez avec `PAGES_BASE_PATH=""`.
+
+### Vercel / Netlify (optionnel, avec serveur)
+
+Sur Vercel : importer le dépôt, `Root Directory = krafter`, build `npm run build`.
+Les routes `/api/contact` et `/api/assistant` fonctionnent alors réellement dès
+que `RESEND_API_KEY`/`CONTACT_TO_EMAIL` (ou `CONTACT_WEBHOOK_URL`) et
+`ASSISTANT_API_URL` sont définis. Le `vercel.json` de la racine réécrit
+`/Portfolio/*` vers `/*` afin que l'artefact statique publié reste valide si ce
+dépôt est aussi servi à la racine d'un domaine.
+
+**Node auto-hébergé :**
+
+```bash
+npm ci && npm run build && npm run start
+```
 
 ---
 

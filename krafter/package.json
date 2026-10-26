@@ -2,12 +2,14 @@
   "name": "the-krafter",
   "version": "1.0.0",
   "private": true,
-  "description": "THE KRAFTER \u2014 portfolio of Rosaire Kakpo, Frontend Developer \u00d7 UI/UX Designer",
+  "description": "THE KRAFTER — portfolio of Rosaire Kakpo, Frontend Developer × UI/UX Designer",
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:static": "NEXT_STATIC_EXPORT=1 NEXT_PUBLIC_BASE_PATH=/Portfolio next build",
+    "publish:pages": "node scripts/publish-pages.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bodoni-moda": "^5.3.0",

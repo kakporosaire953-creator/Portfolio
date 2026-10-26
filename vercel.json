@@ -6,5 +6,11 @@
       "src": "**",
       "use": "@vercel/static"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/Portfolio/:path*",
+      "destination": "/:path*"
+    }
   ]
 }

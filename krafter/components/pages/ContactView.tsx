@@ -6,6 +6,7 @@ import { PageHead } from "@/components/layout/PageHead";
 import { ContactBand } from "@/components/sections/ContactBand";
 import { profile } from "@/data/profile";
 import { ArrowRight, ArrowUpRight } from "@/components/navigation/Glyphs";
+import { asset } from "@/lib/utils/asset";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -78,12 +79,15 @@ export function ContactView() {
 
     setStatus("sending");
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(asset("/api/contact"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, locale, honeypot }),
       });
       if (!response.ok) {
+        // 404 (static hosting) and 503 (no provider configured) mean the same
+        // thing for the visitor: the brief was not sent. The panel below offers
+        // the working mailto + copy fallbacks.
         setStatus("error");
         return;
       }

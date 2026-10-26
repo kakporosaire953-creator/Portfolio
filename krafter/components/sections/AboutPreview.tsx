@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { SectionHead } from "./SectionHead";
 import { ArrowRight } from "@/components/navigation/Glyphs";
+import { asset } from "@/lib/utils/asset";
 
 export function AboutPreview() {
   const { t } = useLocale();
@@ -19,7 +20,7 @@ export function AboutPreview() {
             <div className="about-preview__frame">
               {/* eslint-disable-next-line @next/next/no-img-element -- local optimised asset */}
               <img
-                src="/images/portrait-navy.jpg"
+                src={asset("/images/portrait-navy.jpg")}
                 alt={t.hero.portraitAlt}
                 width={719}
                 height={1081}

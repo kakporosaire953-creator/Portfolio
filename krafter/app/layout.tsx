@@ -19,8 +19,9 @@ import { Assistant } from "@/components/assistant/Assistant";
 import { Intro } from "@/components/layout/Intro";
 import { ScrollReveals } from "@/components/motion/ScrollReveals";
 import { profile } from "@/data/profile";
+import { asset } from "@/lib/utils/asset";
 
-const SITE_URL = "https://kakpo-rosaire.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kakpo-rosaire.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
       "Design × Code × Impact. Portfolio de Rosaire Kakpo, frontend developer et UI/UX designer basé au Bénin.",
     images: [
       {
-        url: "/og.jpg",
+        url: asset("/og.jpg"),
         width: 1200,
         height: 630,
         alt: "THE KRAFTER — Rosaire Kakpo, frontend developer × UI/UX designer",
@@ -67,13 +68,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "THE KRAFTER — Rosaire Kakpo",
     description: "Design × Code × Impact. Frontend developer × UI/UX designer, Cotonou, Bénin.",
-    images: ["/og.jpg"],
+    images: [asset("/og.jpg")],
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [{ url: asset("/favicon.svg"), type: "image/svg+xml" }],
+    shortcut: asset("/favicon.svg"),
+    apple: asset("/favicon.svg"),
   },
   category: "design",
 };
@@ -112,7 +113,7 @@ const personJsonLd = {
   jobTitle: "Frontend Developer & UI/UX Designer",
   email: `mailto:${profile.email}`,
   url: SITE_URL,
-  image: `${SITE_URL}/images/portrait-hero.jpg`,
+  image: `${SITE_URL}${asset("/images/portrait-hero.jpg")}`,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Cotonou",
