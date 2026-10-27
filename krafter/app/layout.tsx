@@ -18,6 +18,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Assistant } from "@/components/assistant/Assistant";
 import { Intro } from "@/components/layout/Intro";
 import { ScrollReveals } from "@/components/motion/ScrollReveals";
+import { CursorFollower } from "@/components/motion/CursorFollower";
 import { profile } from "@/data/profile";
 import { asset } from "@/lib/utils/asset";
 
@@ -171,6 +172,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <Assistant />
           <ScrollReveals />
+          <CursorFollower />
           <div className="noise" aria-hidden="true" />
         </Providers>
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { CaseStudyCover } from "@/components/motion/CaseStudyCover";
 import { ArrowLeft, ArrowUpRight } from "@/components/navigation/Glyphs";
@@ -43,9 +44,9 @@ export function CaseStudyView({ project }: { project: Project }) {
               </span>
             </div>
 
-            <h1 className="case-hero__title" data-reveal-lines>
+            <SplitHeading as="h1" className="case-hero__title" immediate>
               {project.title}
-            </h1>
+            </SplitHeading>
             <p className="case-hero__tagline">{project.tagline[locale]}</p>
 
             <dl className="case-hero__meta">

@@ -5,6 +5,7 @@ import { useLocale } from "@/components/i18n/LocaleProvider";
 import { SectionHead } from "./SectionHead";
 import { ArrowRight } from "@/components/navigation/Glyphs";
 import { asset } from "@/lib/utils/asset";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 
 export function AboutPreview() {
   const { t } = useLocale();
@@ -33,9 +34,9 @@ export function AboutPreview() {
 
           <div className="about-preview__content">
             <span className="about-preview__role">{t.home.about.role}</span>
-            <h2 className="about-preview__title" id="about-preview-title" data-reveal-lines>
+            <SplitHeading as="h2" className="about-preview__title" id="about-preview-title">
               {t.home.about.title}
-            </h2>
+            </SplitHeading>
             <div className="about-preview__paragraphs">
               {t.home.about.paragraphs.map((paragraph) => (
                 <p key={paragraph} className="body-sm">

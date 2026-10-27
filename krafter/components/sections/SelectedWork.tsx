@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { WorkCard } from "@/components/projects/WorkCard";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { featuredProjects } from "@/data/projects";
 import { SectionHead } from "./SectionHead";
 import { ArrowRight } from "@/components/navigation/Glyphs";
@@ -18,9 +19,9 @@ export function SelectedWork() {
           kicker={t.home.selected.kicker}
           meta={<span className="meta">{t.home.selected.meta}</span>}
         >
-          <h2 className="title-1" id="selected-work-title" data-reveal-lines>
+          <SplitHeading as="h2" className="title-1" id="selected-work-title">
             {t.home.selected.title}
-          </h2>
+          </SplitHeading>
         </SectionHead>
 
         <div className="work-grid" data-reveal-stagger>

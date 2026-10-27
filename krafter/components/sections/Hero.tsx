@@ -62,9 +62,39 @@ export function Hero() {
 
       // Wait for KRAFTER / ASSEMBLY so the hero never animates behind it.
       const cancel = whenIntroIdle(() => tl.play(0));
+
+      // Desktop only: the portrait and the orbit drift against the pointer,
+      // which gives the composition real depth without touching the scroll.
+      const mm = gsap.matchMedia();
+      mm.add("(hover: hover) and (pointer: fine)", () => {
+        if (!portrait || !orbit) return;
+        const portraitX = gsap.quickTo(portrait, "x", { duration: 0.9, ease: "power3.out" });
+        const portraitY = gsap.quickTo(portrait, "y", { duration: 0.9, ease: "power3.out" });
+        const orbitX = gsap.quickTo(orbit, "x", { duration: 1.2, ease: "power3.out" });
+        const orbitY = gsap.quickTo(orbit, "y", { duration: 1.2, ease: "power3.out" });
+
+        const onMove = (event: PointerEvent) => {
+          const rect = scope.getBoundingClientRect();
+          if (rect.bottom < 0) return;
+          const nx = (event.clientX - rect.left) / rect.width - 0.5;
+          const ny = (event.clientY - rect.top) / rect.height - 0.5;
+          portraitX(gsap.utils.clamp(-1, 1, nx) * 16);
+          portraitY(gsap.utils.clamp(-1, 1, ny) * 12);
+          orbitX(gsap.utils.clamp(-1, 1, nx) * -9);
+          orbitY(gsap.utils.clamp(-1, 1, ny) * -7);
+        };
+
+        window.addEventListener("pointermove", onMove, { passive: true });
+        return () => {
+          window.removeEventListener("pointermove", onMove);
+          gsap.killTweensOf([portrait, orbit]);
+        };
+      });
+
       return () => {
         cancel();
         tl.kill();
+        mm.revert();
       };
     },
     [reduced],
@@ -121,7 +151,7 @@ export function Hero() {
         </div>
 
         <div className="hero__visual">
-          <OrbitStage className="hero__orbit" />
+          <OrbitStage className="hero__orbit" data-parallax="0.05" />
           <figure className="hero__portrait" data-hero-portrait>
             {/* eslint-disable-next-line @next/next/no-img-element -- hero asset */}
             <img

@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 
 export function PageHead({
   index,
@@ -28,9 +29,9 @@ export function PageHead({
           <span className="meta">{t.common.signatureShort}</span>
         </div>
 
-        <h1 className="page-head__title" data-reveal-lines>
+        <SplitHeading as="h1" className="page-head__title" immediate stagger={0.05}>
           {title}
-        </h1>
+        </SplitHeading>
 
         <div className="page-head__bottom">
           <p className="lede page-head__lede">{lede}</p>

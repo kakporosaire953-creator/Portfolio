@@ -7,16 +7,18 @@ import { useReducedMotion } from "@/lib/utils/useReducedMotion";
 
 /**
  * Single place where scroll-driven editorial reveals are created.
- * Content stays visible without JS and with reduced motion — GSAP only
- * animates from states when it actually runs.
+ * Content stays visible without JS and with reduced motion. GSAP only writes
+ * "from" states when it actually runs, inside one context that is reverted on
+ * route change, language change and unmount.
  *
  * Hooks (attributes):
- *  - data-reveal            → fade + rise
- *  - data-reveal-stagger    → container; children marked data-reveal-item
- *  - data-reveal-lines      → container; animates `.line-mask > span` masks
- *  - data-reveal-image      → clip-path curtain
- *  - data-reveal-rule       → horizontal scale from left
- *  - data-parallax="0.12"   → subtle parallax
+ *  - data-reveal              → rise + fade, expo ease
+ *  - data-reveal-stagger      → container; children marked data-reveal-item
+ *  - data-reveal-lines        → container; animates `.line-mask > span` masks
+ *  - data-reveal-image        → clip-path curtain
+ *  - data-reveal-rule         → horizontal scale from the left
+ *  - data-parallax="0.12"     → subtle vertical parallax, scrubbed
+ *  - data-scrub-fade          → fades out slightly as it leaves the viewport
  */
 export function ScrollReveals() {
   const pathname = usePathname();
@@ -29,11 +31,11 @@ export function ScrollReveals() {
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         gsap.from(el, {
-          y: 30,
+          y: 34,
           autoAlpha: 0,
-          duration: 0.95,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          duration: 1.15,
+          ease: "expo.out",
+          scrollTrigger: { trigger: el, start: "top 92%", once: true },
         });
       });
 
@@ -41,12 +43,12 @@ export function ScrollReveals() {
         const items = group.querySelectorAll<HTMLElement>("[data-reveal-item]");
         if (items.length === 0) return;
         gsap.from(items, {
-          y: 24,
+          y: 30,
           autoAlpha: 0,
-          duration: 0.8,
-          stagger: 0.07,
-          ease: "power3.out",
-          scrollTrigger: { trigger: group, start: "top 88%", once: true },
+          duration: 1.05,
+          stagger: { each: 0.075, from: "start" },
+          ease: "expo.out",
+          scrollTrigger: { trigger: group, start: "top 90%", once: true },
         });
       });
 
@@ -54,11 +56,11 @@ export function ScrollReveals() {
         const lines = el.querySelectorAll<HTMLElement>(".line-mask > span");
         if (lines.length === 0) return;
         gsap.from(lines, {
-          yPercent: 108,
-          duration: 1.05,
-          stagger: 0.085,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          yPercent: 112,
+          duration: 1.15,
+          stagger: 0.09,
+          ease: "expo.out",
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
         });
       });
 
@@ -68,9 +70,9 @@ export function ScrollReveals() {
           { clipPath: "inset(0% 0% 100% 0%)" },
           {
             clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1.15,
-            ease: "power3.inOut",
-            scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            duration: 1.3,
+            ease: "expo.inOut",
+            scrollTrigger: { trigger: el, start: "top 90%", once: true },
           },
         );
       });
@@ -79,9 +81,9 @@ export function ScrollReveals() {
         gsap.from(el, {
           scaleX: 0,
           transformOrigin: "left center",
-          duration: 1.1,
-          ease: "power3.inOut",
-          scrollTrigger: { trigger: el, start: "top 94%", once: true },
+          duration: 1.2,
+          ease: "expo.inOut",
+          scrollTrigger: { trigger: el, start: "top 95%", once: true },
         });
       });
 
@@ -97,14 +99,27 @@ export function ScrollReveals() {
               trigger: el,
               start: "top bottom",
               end: "bottom top",
-              scrub: 0.6,
+              scrub: 0.7,
             },
           },
         );
       });
+
+      gsap.utils.toArray<HTMLElement>("[data-scrub-fade]").forEach((el) => {
+        gsap.to(el, {
+          autoAlpha: 0.15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 20%",
+            end: "bottom top",
+            scrub: 0.5,
+          },
+        });
+      });
     });
 
-    // GSAP has now written the initial states: masked copy can be revealed.
+    // GSAP has written the initial states: masked copy can be revealed.
     requestAnimationFrame(() => {
       requestAnimationFrame(() => document.documentElement.classList.remove("js-mask-pending"));
     });
@@ -114,7 +129,7 @@ export function ScrollReveals() {
     window.addEventListener("load", onLoad);
 
     // Copy length changes with the language: re-measure once React has painted.
-    const onLocale = () => window.setTimeout(() => ScrollTrigger.refresh(), 120);
+    const onLocale = () => window.setTimeout(() => ScrollTrigger.refresh(), 140);
     window.addEventListener("krafter:locale-change", onLocale);
 
     // Web fonts change line heights; the intro scroll-lock changes the viewport.

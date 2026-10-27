@@ -80,6 +80,7 @@ export function ProjectsView() {
                 imageSrc={projectCoverSrc(project)}
                 className="project-card__cover"
                 ariaLabel={`${project.title} · ${t.common.viewCase}`}
+                cursorLabel={t.common.cursorView}
               >
                 <ProjectCover project={project} />
                 <span className="project-card__index">{project.index}</span>

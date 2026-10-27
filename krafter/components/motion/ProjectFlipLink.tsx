@@ -13,13 +13,23 @@ type Props = {
   className?: string;
   children: ReactNode;
   ariaLabel?: string;
+  /** Label shown by the pointer companion when hovering the cover. */
+  cursorLabel?: string;
 };
 
 /**
  * Real link + Flip handover. Navigation always works, even when the
  * animation is skipped (reduced motion, storage blocked, slow network).
  */
-export function ProjectFlipLink({ href, slug, imageSrc, className, children, ariaLabel }: Props) {
+export function ProjectFlipLink({
+  href,
+  slug,
+  imageSrc,
+  className,
+  children,
+  ariaLabel,
+  cursorLabel,
+}: Props) {
   const ref = useRef<HTMLAnchorElement>(null);
 
   const capture = () => {
@@ -43,6 +53,7 @@ export function ProjectFlipLink({ href, slug, imageSrc, className, children, ari
       aria-label={ariaLabel}
       onClick={capture}
       data-flip-source={slug}
+      data-cursor={cursorLabel}
     >
       {children}
     </Link>

@@ -8,7 +8,7 @@ type ScopeRef = RefObject<HTMLElement | null>;
 
 /**
  * Scopes a GSAP context to a container element and reverts every tween,
- * ScrollTrigger and SplitText instance on unmount / dependency change.
+ * ScrollTrigger instance on unmount / dependency change.
  * Prevents duplicated animations in React StrictMode.
  */
 export function useGsap(
