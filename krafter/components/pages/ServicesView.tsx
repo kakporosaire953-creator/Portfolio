@@ -132,7 +132,7 @@ export function ServicesView() {
 
           <ol className="process-grid" data-reveal-stagger>
             {processSteps.map((step) => (
-              <li className="process-card" key={step.index} data-reveal-item>
+              <li className="process-card liquid" key={step.index} data-reveal-item data-glass>
                 <span className="process-card__num">{step.index}</span>
                 <div>
                   <h3 className="process-card__title">{step.label[locale]}</h3>

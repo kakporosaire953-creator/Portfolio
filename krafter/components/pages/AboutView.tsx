@@ -80,7 +80,7 @@ export function AboutView() {
 
           <div className="philosophy-grid" data-reveal-stagger>
             {t.about.philosophy.items.map((item, index) => (
-              <article className="philosophy-card" key={item.title} data-reveal-item>
+              <article className="philosophy-card liquid" key={item.title} data-reveal-item data-glass>
                 <span className="philosophy-card__num">0{index + 1}</span>
                 <h3 className="philosophy-card__title">{item.title}</h3>
                 <p className="philosophy-card__text">{item.text}</p>

@@ -33,7 +33,7 @@ export function BlogView() {
       <section className="section-tight">
         <div className="shell">
           {articles.length === 0 ? (
-            <div className="blog-empty" data-reveal>
+            <div className="blog-empty liquid" data-reveal data-glass>
               <span className="blog-empty__badge">
                 <span className="orange-dot" aria-hidden="true" />
                 {t.blog.emptyTitle}
@@ -86,7 +86,7 @@ export function BlogView() {
             ))}
           </div>
 
-          <div className="blog-empty" style={{ marginTop: "2rem" }} data-reveal>
+          <div className="blog-empty liquid" style={{ marginTop: "2rem" }} data-reveal data-glass>
             <h2 className="blog-empty__title">{t.blog.subscribeTitle}</h2>
             <p className="blog-empty__text">{t.blog.subscribeText}</p>
             <a href={`mailto:${profile.email}?subject=Journal%20THE%20KRAFTER`} className="btn btn--ghost btn--sm" style={{ justifySelf: "start" }}>

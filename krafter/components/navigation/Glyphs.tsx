@@ -107,11 +107,12 @@ export function ArrowUpRight({ size = 15 }: { size?: number }) {
   );
 }
 
-export function ArrowRight({ size = 15 }: { size?: number }) {
+export function ArrowRight({ size = 15, className }: { size?: number; className?: string }) {
   return (
     <svg
       width={size}
       height={size}
+      className={className}
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"

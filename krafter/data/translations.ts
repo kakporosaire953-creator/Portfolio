@@ -77,6 +77,8 @@ export const fr = {
     ctaWork: "Travaillons ensemble",
     viewCase: "Voir l’étude de cas",
     cursorView: "Voir",
+    previous: "Projet précédent",
+    next: "Projet suivant",
     viewAllProjects: "Voir tous les projets",
     allProjects: "Tous les projets",
     nextProject: "Projet suivant",
@@ -107,10 +109,7 @@ export const fr = {
   brand: {
     name: "THE KRAFTER",
     studio: "Studio personnel de Rosaire Kakpo",
-    logoSlotTitle: "Emplacement du logo complet",
-    logoSlotLine:
-      "Déposez le fichier officiel dans /public/brand/the-krafter-logo.svg. Le grand K, l’arc orbital, « The », KRAFTER et les accents seront affichés tels quels.",
-    logoAlt: "THE KRAFTER, logo complet",
+    logoAlt: "THE KRAFTER, logo officiel",
   },
 
   header: {
@@ -692,6 +691,8 @@ export const en: typeof fr = {
     ctaWork: "Let’s work together",
     viewCase: "View case study",
     cursorView: "View",
+    previous: "Previous project",
+    next: "Next project",
     viewAllProjects: "View all projects",
     allProjects: "All projects",
     nextProject: "Next project",
@@ -722,10 +723,7 @@ export const en: typeof fr = {
   brand: {
     name: "THE KRAFTER",
     studio: "Rosaire Kakpo’s personal studio",
-    logoSlotTitle: "Full logo slot",
-    logoSlotLine:
-      "Drop the official file in /public/brand/the-krafter-logo.svg. The large K, the orbital arc, “The”, KRAFTER and its accents will render untouched.",
-    logoAlt: "THE KRAFTER, full logo",
+    logoAlt: "THE KRAFTER, official logo",
   },
 
   header: {

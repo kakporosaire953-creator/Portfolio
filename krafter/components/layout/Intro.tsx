@@ -209,7 +209,7 @@ export function Intro() {
               <circle data-intro-node cx="410" cy="300" r="3" opacity="0" />
               <circle data-intro-node cx="260" cy="260" r="2.4" opacity="0" />
             </g>
-            <circle cx="260" cy="260" r="196" stroke="rgba(245,242,234,0.14)" strokeWidth="1" strokeDasharray="2 7" />
+            <circle cx="260" cy="260" r="196" stroke="rgba(245,242,234,0.14)" strokeWidth="1" />
           </svg>
 
           <div className="intro__logo" data-intro-logo>

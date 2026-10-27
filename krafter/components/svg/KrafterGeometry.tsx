@@ -76,7 +76,7 @@ export function KrafterGeometry({
         <path data-art-path d="M60 620A260 260 0 0 1 580 620" />
         <path data-art-path d="M120 300a180 180 0 1 1 360 0" />
       </g>
-      <g stroke={stroke} strokeWidth="1" strokeDasharray="2 8">
+      <g stroke={stroke} strokeWidth="1">
         <circle data-art-path cx="300" cy="300" r="214" />
       </g>
       <g fill={accent}>

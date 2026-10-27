@@ -11,7 +11,7 @@ export function DesignCodePanel({ id }: PanelProps) {
       return (
         <svg viewBox="0 0 480 380" role="img" aria-label="Wireframe">
           {frame}
-          <g stroke="var(--line)" strokeWidth="1" strokeDasharray="3 5">
+          <g stroke="var(--line)" strokeWidth="1">
             <path d="M24 110h432M24 250h432M140 24v332M340 24v332" />
           </g>
           <g fill="none" stroke="var(--line-strong)" strokeWidth="1.2">
@@ -27,9 +27,9 @@ export function DesignCodePanel({ id }: PanelProps) {
             <rect x="360" y="48" width="72" height="72" />
             <rect x="360" y="132" width="72" height="12" />
             <rect x="360" y="152" width="52" height="12" />
-            <rect x="360" y="190" width="72" height="72" strokeDasharray="3 4" />
+            <rect x="360" y="190" width="72" height="72" />
           </g>
-          <rect x="48" y="276" width="384" height="56" fill="none" stroke="var(--line)" strokeWidth="1" strokeDasharray="4 6" />
+          <rect x="48" y="276" width="384" height="56" fill="none" stroke="var(--line)" strokeWidth="1" />
           <text x="48" y="300" fontFamily="var(--font-mono)" fontSize="8" fill="var(--ink-mute)" letterSpacing="2">
             STRUCTURE / READING ORDER
           </text>
@@ -66,7 +66,7 @@ export function DesignCodePanel({ id }: PanelProps) {
       return (
         <svg viewBox="0 0 480 380" role="img" aria-label="Component system">
           {frame}
-          <g fill="none" stroke="var(--line)" strokeWidth="1" strokeDasharray="3 5">
+          <g fill="none" stroke="var(--line)" strokeWidth="1">
             <rect x="112" y="86" width="256" height="208" />
           </g>
           <rect x="132" y="106" width="216" height="168" fill="var(--paper)" stroke="var(--line-strong)" />
@@ -156,7 +156,7 @@ export function DesignCodePanel({ id }: PanelProps) {
           <g fill="none" stroke="var(--line-strong)">
             <circle cx="360" cy="176" r="66" />
             <circle cx="360" cy="176" r="46" stroke="var(--orange)" />
-            <path d="M294 176h132M360 110v132" strokeDasharray="3 6" />
+            <path d="M294 176h132M360 110v132" />
           </g>
           <rect x="24" y="286" width="432" height="70" fill="var(--paper-soft)" />
           <g fill="var(--line-strong)">
