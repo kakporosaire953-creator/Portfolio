@@ -345,9 +345,13 @@ npm run publish:pages     # build statique + copie de out/ vers la racine du dé
 
 `.github/workflows/deploy.yml` exécute exactement la même chose à chaque push sur
 `main` touchant `krafter/`, puis commit l'artefact : la racine ne peut pas dériver
-du code source. Les anciennes pages du site statique (`about.html`, `projects.html`,
-`experience.html`, `skills.html`, `contact.html`, `rosaire_kakpo_v2_premium.html`)
-restent dans le dépôt pour référence mais ne sont plus liées ni indexées.
+du code source.
+
+L'ancien site statique a été **supprimé** du dépôt (HTML/CSS/JS historiques,
+galerie photos, certificat, configurations Apache/Netlify/Jekyll) : une seule
+version est en ligne. Il reste consultable dans l'historique Git
+(`git show <commit>:about.html`, ou `git archive <commit>`) et une copie de
+sauvegarde est conservée hors du dépôt.
 
 > Le basePath `/Portfolio` correspond à une **GitHub Page de projet**. Si le site
 > passe un jour sur un domaine racine, relancez avec `PAGES_BASE_PATH=""`.

@@ -1,357 +1,97 @@
-# Portfolio - Rosaire KAKPO
+# THE KRAFTER — Portfolio de Rosaire Kakpo
 
-> **LE SITE PUBLIÉ EST GÉNÉRÉ DEPUIS `krafter/`**
-> La racine de ce dépôt contient le **build statique** du nouveau portfolio
-> (Next.js 15 + React 19 + TypeScript, GSAP, anime.js v4, Three.js, FR/EN,
-> mode clair par défaut). Le code source vit dans [`krafter/`](krafter/README.md) ;
-> ne modifiez pas les fichiers générés à la main.
->
-> ```bash
-> cd krafter && npm install && npm run dev      # développement — http://localhost:3000
-> cd krafter && npm run publish:pages           # régénère la racine (Pages)
-> ```
->
-> Le workflow `.github/workflows/deploy.yml` régénère cette racine à chaque
-> push sur `main` touchant `krafter/`. Les anciennes pages statiques
-> (`about.html`, `projects.html`, …) restent dans le dépôt mais ne sont plus
-> référencées par la navigation ni par le sitemap.
+**Frontend Developer × UI/UX Designer** — Cotonou, Bénin
+*Design × Code × Impact* · *Créer • Inspirer • Impacter*
 
-Portfolio professionnel de Rosaire KAKPO, développeur frontend spécialisé en e-commerce et UX design, basé à Cotonou, Bénin.
-
-🌐 **Site en ligne:** https://kakporosaire953-creator.github.io/Portfolio/
-
-## 🚀 Démarrage Rapide
-
-### En local
-```bash
-git clone https://github.com/kakporosaire953-creator/Portfolio.git
-cd Portfolio
-python -m http.server 8000
-# Ouvrir http://localhost:8000
-```
-
-### Déployer sur Vercel (1 clic)
-1. Aller sur [vercel.com](https://vercel.com)
-2. Importer le repo GitHub
-3. Cliquer "Deploy"
-4. ✅ C'est en ligne !
-
-## ✨ Fonctionnalités
-
-- 🎨 **Design moderne** avec animations scroll premium
-- 🌓 **Thème dark/light** avec persistence localStorage
-- 🌐 **Multilingue** FR/EN avec système i18n
-- 📱 **100% Responsive** (Desktop → Mobile)
-- ⚡ **Menu mobile** avec hamburger animé
-- 🖥️ **Terminal interactif** avec commandes CLI
-- 🤖 **Assistant IA** contextuel
-- 📊 **Dashboard admin** avec KPIs
-- 🎯 **SEO optimisé** (meta tags, sitemap, structured data)
-
-## 📂 Structure
-
-```
-Portfolio/
-├── index.html              # Page d'accueil
-├── about.html              # À propos
-├── projects.html           # Projets
-├── skills.html             # Compétences
-├── experience.html         # Parcours
-├── contact.html            # Contact
-├── 404.html                # Page erreur
-├── assets/
-│   ├── style.css           # Styles principaux
-│   ├── main.js             # JavaScript principal
-│   ├── scroll-animations.js # Animations scroll
-│   └── scroll-animations.css
-├── responsive-mobile.css   # Styles responsive
-├── images/                 # Photos & certificats
-├── sitemap.xml            # Plan du site
-├── robots.txt             # SEO
-├── .htaccess              # Configuration Apache
-└── vercel.json            # Configuration Vercel
-```
-
-## 🎯 À Faire Après Déploiement
-
-### 1. Google Search Console (5 min)
-- Aller sur https://search.google.com/search-console
-- Ajouter votre site
-- Soumettre `sitemap.xml`
-
-### 2. Google Analytics (10 min)
-- Aller sur https://analytics.google.com
-- Créer propriété
-- Ajouter le code tracking dans `<head>`
-
-### 3. Optimiser Images (15 min)
-- Compresser avec https://tinypng.com
-- Objectif : < 200 KB par image
-
-## 🛠️ Technologies
-
-- HTML5 sémantique
-- CSS3 (Grid, Flexbox, Custom Properties)
-- JavaScript ES6+ vanilla
-- Canvas API pour animations
-- Font Awesome 6.5
-- Fonts : Clash Display, DM Sans, JetBrains Mono
-
-## 📱 Responsive
-
-3 breakpoints :
-- **Desktop** : > 1100px
-- **Tablette** : 768px - 1100px  
-- **Mobile** : < 768px
-- **Petit mobile** : < 480px
-
-## 📞 Contact
-
-- **Email** : kakporosaire953@gmail.com
-- **WhatsApp** : +229 68 81 20 19
-- **LinkedIn** : [Rosaire KAKPO](https://www.linkedin.com/in/rosaire-kakpo-9b31963b6)
-- **GitHub** : [kakporosaire953-creator](https://github.com/kakporosaire953-creator)
-
-## 📄 License
-
-MIT License - Copyright (c) 2026 Rosaire KAKPO
+🌐 **Site en ligne :** https://kakporosaire953-creator.github.io/Portfolio/
 
 ---
 
-Développé avec passion à Cotonou, Bénin 🇧🇯
+## Ce que contient ce dépôt
 
-## À propos
+| Dossier / fichier | Rôle |
+| --- | --- |
+| **`krafter/`** | **Le code source du site** (Next.js 15, React 19, TypeScript). Tout se modifie ici. |
+| `index.html`, `a-propos/`, `services/`, `projets/`, `competences/`, `blog/`, `contact/`, `404.html` | **Build statique généré** — ne pas éditer à la main. |
+| `_next/`, `images/`, `projects/`, `brand/` | Bundles, portraits, visuels de projets, emplacement du logo (générés/copiés au build). |
+| `sitemap.xml`, `robots.txt`, `favicon.svg`, `og.jpg` | Fichiers SEO et partage (générés au build). |
+| `.github/workflows/deploy.yml` | Republication automatique sur `main`. |
 
-Je suis étudiant en Licence 1 Systèmes Informatiques et Logiciels à l'Institut Universitaire Les Cours Sonou, passionné par le développement web moderne et les technologies frontend.
+> L'ancien site statique (HTML/CSS/JS à la racine, `about.html`, `projects.html`,
+> `experience.html`, `skills.html`, `contact.html`, `assets/`, `responsive-mobile.css`,
+> `feed.xml`, `_config.yml`, `.htaccess`, `_headers`, `netlify.toml`, la galerie
+> photos et le certificat) **a été supprimé** : il n'existe plus qu'un seul site.
+> Une copie de sauvegarde est conservée hors du dépôt et tout reste récupérable
+> dans l'historique Git :
+>
+> ```bash
+> git show 4d47169:about.html > about.html          # un fichier
+> git archive 4d47169 | tar -x -C /chemin/sauvegarde  # tout l'ancien site
+> ```
 
-### Accomplissements
-- 8e place au MIABE Hackathon avec "Tontine Chain" (plateforme blockchain)
-- 3e place au challenge Innerbuild Season 1
-- Participant aux Arduino Days 2026 à Sèmè City Open Park
-- Baccalauréat au CPEG "La Rigueur" (2024-2025)
+## Démarrage
+
+```bash
+cd krafter
+npm install
+npm run dev        # http://localhost:3000
+```
+
+Build de production (serveur Node ou Vercel) :
+
+```bash
+npm run build && npm run start
+```
+
+## Publication (GitHub Pages)
+
+La racine du dépôt **est** le site publié. Elle est générée depuis `krafter/` :
+
+```bash
+cd krafter
+npm run publish:pages   # export statique + copie vers la racine du dépôt
+```
+
+Le script (`krafter/scripts/publish-pages.mjs`) masque `app/api` (un hébergement
+statique n'a pas de serveur), construit avec `NEXT_PUBLIC_BASE_PATH=/Portfolio`,
+copie l'export à la racine et restaure ensuite `app/api`.
+
+Le workflow **« Publish the site (static export) »** exécute exactement la même
+chose à chaque push sur `main` touchant `krafter/`, puis commit le résultat :
+la racine ne peut pas dériver du code source.
+
+## Ce qui fonctionne / ce qui dépend de vous
+
+- ✅ 8 pages, 3 études de cas (SkillBridge, Campusly, Blue Inova), FR/EN, thème
+  clair par défaut + mode sombre, animations GSAP, SVG anime.js v4, scène Three.js
+  « KRAFTER / ORBIT », intro « KRAFTER / ASSEMBLY », assistant à réponses
+  préprogrammées (aucune IA connectée), formulaire validé avec repli `mailto`.
+- 🔸 **Logo officiel** : déposez `the-krafter-logo.svg` (ou `.png`/`.webp`) dans
+  `krafter/public/brand/` puis relancez `npm run publish:pages`. En attendant, un
+  emplacement « LOGO SLOT » clairement identifié est affiché — aucun logo inventé.
+- 🔸 **Envoi réel du formulaire** : sur un hôte Node (Vercel/Netlify/server),
+  définir `RESEND_API_KEY` + `CONTACT_TO_EMAIL` (ou `CONTACT_WEBHOOK_URL`).
+  Sur GitHub Pages, seul le repli `mailto` / copier-coller est actif.
+- 🔸 **Assistant avec un vrai modèle** : `ASSISTANT_API_URL` + `ASSISTANT_API_KEY`.
+- 🔸 **Journal (blog)** : état vide assumé, aucun article inventé.
+
+Détails complets (architecture, accessibilité, tests, variables d'environnement) :
+**[`krafter/README.md`](krafter/README.md)**.
 
 ## Technologies
 
-### Frontend
-- React.js
-- Next.js
-- TypeScript
-- JavaScript (ES6+)
-- HTML5 / CSS3
-- Tailwind CSS
-
-### Backend & Database
-- Firebase
-- Node.js
-- REST API
-
-### Design & Tools
-- Figma
-- Adobe XD
-- Git / GitHub
-- VS Code
-
-## Fonctionnalités du site
-
-### Animations Premium
-Le portfolio intègre 7 animations scroll avancées :
-
-1. **Hero to About** : Photo fixe avec transition fluide vers la section À propos
-2. **Vision Writing** : Texte qui s'écrit mot par mot
-3. **Projects Zoom** : Effet de zoom du titre avec apparition progressive des cartes
-4. **Projects Storytelling** : Chaque projet arrive avec effet blur et zoom
-5. **Neural Network** : Réseau de compétences animé sur canvas HTML5
-6. **Timeline Drawing** : Ligne verticale qui se dessine avec événements séquentiels
-7. **Contact Dashboard** : Effet d'assombrissement avec éléments flottants
-
-### Responsive Design
-- Optimisé pour mobile, tablette et desktop
-- 3 breakpoints principaux (1100px, 768px, 480px)
-- Navigation adaptative
-- Formulaires optimisés pour le tactile
-
-### SEO Optimisé
-- Meta tags optimisés pour les moteurs de recherche
-- Sitemap.xml pour l'indexation
-- Robots.txt configuré
-- Données structurées JSON-LD
-- Open Graph pour les réseaux sociaux
-- Compression GZIP et mise en cache
-
-## Structure du projet
-
-```
-Portfolio/
-├── index.html                      # Page d'accueil
-├── about.html                      # À propos
-├── projects.html                   # Projets
-├── skills.html                     # Compétences
-├── experience.html                 # Parcours
-├── contact.html                    # Contact
-├── robots.txt                      # SEO
-├── sitemap.xml                     # SEO
-├── .htaccess                       # Configuration serveur
-├── responsive-mobile.css           # Styles responsive
-├── assets/
-│   ├── style.css                   # Styles principaux
-│   ├── main.js                     # JavaScript principal
-│   ├── scroll-animations.js        # Animations scroll
-│   └── scroll-animations.css       # Styles animations
-└── images/
-    ├── img1.jpeg                   # Photo hero
-    ├── img2.jpeg                   # Certificat Innerbuild
-    ├── img3.jpeg                   # Finalistes MIABE
-    ├── img4.jpeg                   # Portrait
-    └── certificate-rosaire-kakpo.pdf
-```
-
-## Installation
-
-### Prérequis
-- Serveur web (Apache, Nginx, ou serveur local)
-- Navigateur moderne (Chrome, Firefox, Safari, Edge)
-- Git (pour cloner le repository)
-
-### Déploiement local
-
-1. Cloner le repository
-```bash
-git clone https://github.com/kakporosaire953-creator/Portfolio.git
-cd Portfolio
-```
-
-2. Lancer un serveur local
-```bash
-# Avec Python
-python -m http.server 8000
-
-# Avec Node.js (http-server)
-npx http-server
-
-# Avec PHP
-php -S localhost:8000
-```
-
-3. Ouvrir dans le navigateur
-```
-http://localhost:8000
-```
-
-### Déploiement en production
-
-#### Option 1: Vercel (Recommandé)
-```bash
-# Installer Vercel CLI
-npm i -g vercel
-
-# Déployer
-vercel
-
-# Production
-vercel --prod
-```
-
-URL de démo : https://kakporosaire953-creator.github.io/Portfolio/
-
-#### Option 2: Netlify
-1. Connecter votre repo GitHub à Netlify
-2. Configuration build:
-   - Build command: (aucune)
-   - Publish directory: `.`
-3. Deploy
-
-#### Option 3: Serveur Apache
-1. Uploader tous les fichiers via FTP
-2. S'assurer que `.htaccess` est actif
-3. Configurer le SSL (Let's Encrypt recommandé)
-
-## Configuration
-
-### Personnalisation des couleurs
-Modifier les variables CSS dans `assets/style.css` :
-```css
-[data-theme="light"]{
-  --orange:#A020F0;  /* Couleur principale */
-  --bg:#F5F3EF;      /* Fond */
-  --text:#0F1623;    /* Texte */
-}
-```
-
-### Modification des animations
-Ajuster les paramètres dans `assets/scroll-animations.js` :
-```javascript
-const scrollConfig = {
-  heroPhotoSticky: 0.4,      // Durée photo fixe
-  visionWriteDelay: 150,     // Délai entre mots
-  projectZoomDuration: 2000, // Durée zoom projets
-  neuralNodeDelay: 400,      // Délai entre nœuds
-  timelineItemDelay: 300     // Délai items timeline
-};
-```
-
-## Performance
-
-### Optimisations implémentées
-- Compression GZIP activée
-- Mise en cache navigateur
-- Images optimisées
-- Lazy loading
-- Hardware acceleration CSS
-- Intersection Observer API
-
-### Scores attendus
-- PageSpeed Mobile : 85-95/100
-- PageSpeed Desktop : 95-100/100
-- Temps de chargement : moins de 3 secondes
-- FPS animations : 60fps desktop, 30-60fps mobile
-
-## SEO
-
-### Référencement
-Le site est optimisé pour le référencement local :
-- Mots-clés : développeur frontend Cotonou, développeur web Bénin, React developer
-- Meta descriptions uniques par page
-- Balises canonical
-- Données structurées Schema.org
-
-### Soumission aux moteurs de recherche
-1. Google Search Console : https://search.google.com/search-console
-2. Soumettre le sitemap : https://votresite.com/sitemap.xml
-3. Vérifier l'indexation
+Next.js 15 (App Router) · React 19 · TypeScript 5.9 · Tailwind CSS 4 ·
+GSAP 3 (ScrollTrigger, SplitText, Flip) · anime.js v4 · Three.js · CSS custom
+properties · Fontsource (Instrument Sans, Bodoni Moda, JetBrains Mono).
 
 ## Contact
 
 - **Email** : kakporosaire953@gmail.com
-- **Téléphone** : +229 68 81 20 19
-- **LinkedIn** : [rosaire-kakpo-9b31963b6](https://www.linkedin.com/in/rosaire-kakpo-9b31963b6)
 - **GitHub** : [kakporosaire953-creator](https://github.com/kakporosaire953-creator)
-- **Localisation** : Cotonou, Bénin
-
-## Projets
-
-### Tontine Chain
-Plateforme de tontine sécurisée par blockchain pour le Bénin. Développée lors du MIABE Hackathon.
-- Technologies : React, Blockchain, Web3
-- Résultat : 8e place
-
-### Autres projets
-Consultez la page [Projets](projects.html) pour découvrir mes autres réalisations en e-commerce, applications web et design UX.
+- **LinkedIn** : [Rosaire KAKPO](https://www.linkedin.com/in/rosaire-kakpo-9b31963b6)
 
 ## Licence
 
-Copyright 2026 Rosaire KAKPO. Tous droits réservés.
+MIT — Copyright (c) 2026 Rosaire KAKPO.
 
-## Contributeurs
-
-- **Rosaire KAKPO** - Développeur principal
-
-## Remerciements
-
-- Institut Universitaire Les Cours Sonou
-- MIABE Hackathon
-- Innerbuild Challenge
-- Sèmè City Open Park
-
----
-
-Développé avec passion à Cotonou, Bénin.
+Développé à Cotonou, Bénin 🇧🇯
