@@ -372,10 +372,11 @@
    -------------------------------------------------------------------------- */
 
 .rail {
-  /* Phones and tablets get the drawer instead: the rail is a desktop object. */
+  /* The right-hand navigation is part of the site's signature: it stays on
+     every screen wide enough to hold it, laptops at 100% zoom included. */
   display: none;
   position: fixed;
-  right: 18px;
+  right: clamp(10px, 1.2vw, 20px);
   top: 50%;
   transform: translateY(-50%);
   z-index: 80;
@@ -391,9 +392,21 @@
     0 24px 50px -34px rgb(8 26 43 / 0.65);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 800px) {
   .rail {
     display: flex;
+  }
+}
+
+/* Between 800 and 1080 the rail gets slimmer, never disappears. */
+@media (min-width: 800px) and (max-width: 1080px) {
+  .rail {
+    padding: 0.45rem 0.3rem;
+  }
+
+  .rail__link {
+    width: 34px;
+    height: 34px;
   }
 }
 
@@ -412,7 +425,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: var(--orange);
+  background: linear-gradient(to bottom, var(--brand-blue), var(--orange));
   transform-origin: top center;
   transition: transform 200ms linear;
 }

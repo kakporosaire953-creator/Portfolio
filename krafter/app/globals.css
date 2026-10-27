@@ -50,6 +50,7 @@
   /* Secondary logo accents (used sparingly) */
   --brand-gold: #f2b23e;
   --brand-blue: #1e6fd9;
+  --brand-blue-deep: #12508f;
 
   /* Semantic */
   --ink: #0a0a0a;
@@ -106,6 +107,10 @@
 
   --orange: #ff7a18;
   --orange-ink: #ff8f3d;
+
+  /* The blue of the logo stays readable on a near-black page. */
+  --brand-blue: #4d9bff;
+  --brand-blue-deep: #8fc0ff;
 
   --glass-bg: rgb(12 22 31 / 0.55);
   --glass-bg-strong: rgb(9 17 24 / 0.78);

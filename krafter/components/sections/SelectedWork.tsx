@@ -1,17 +1,11 @@
 "use client";
 
-import { ProjectDrum } from "./ProjectDrum";
+import { ProjectReel } from "./ProjectReel";
 
 /**
- * Selected work.
- *
- * The turntable lives in its own component: it pins, rotates and cleans up
- * after itself, while this section only keeps the page rhythm.
+ * Selected work: the gallery in motion lives in its own component, so this
+ * section only keeps the page rhythm.
  */
 export function SelectedWork() {
-  return (
-    <section className="section" aria-labelledby="selected-work-title">
-      <ProjectDrum />
-    </section>
-  );
+  return <ProjectReel />;
 }

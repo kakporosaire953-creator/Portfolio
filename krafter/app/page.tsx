@@ -10,11 +10,22 @@ import { Story } from "@/components/sections/Story";
 import { BlogPreview } from "@/components/sections/BlogPreview";
 import { ContactBand } from "@/components/sections/ContactBand";
 import { fr } from "@/data/translations";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: fr.meta.home.title,
   description: fr.meta.home.description,
-};
+  path: "/",
+  keywords: [
+    "Rosaire Kakpo",
+    "THE KRAFTER",
+    "portfolio Cotonou",
+    "frontend developer Bénin",
+    "UI/UX designer Cotonou",
+    "Next.js",
+    "design éditorial",
+  ],
+});
 
 export default function HomePage() {
   return (
