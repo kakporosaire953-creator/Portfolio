@@ -46,7 +46,7 @@ export function ProjectsView() {
         lede={t.projects.intro}
         meta={[
           { label: t.projects.kicker, value: `${projects.length}` },
-          { label: t.projects.caseStudy.year, value: "2024 — 2026" },
+          { label: t.projects.caseStudy.year, value: "2024 / 2026" },
           { label: t.contact.locationLabel, value: "Cotonou, Bénin" },
         ]}
       />
@@ -79,7 +79,7 @@ export function ProjectsView() {
                 slug={project.slug}
                 imageSrc={projectCoverSrc(project)}
                 className="project-card__cover"
-                ariaLabel={`${project.title} — ${t.common.viewCase}`}
+                ariaLabel={`${project.title} · ${t.common.viewCase}`}
               >
                 <ProjectCover project={project} />
                 <span className="project-card__index">{project.index}</span>

@@ -45,7 +45,7 @@ export function ContactView() {
   };
 
   const mailtoHref = useMemo(() => {
-    const subject = `[THE KRAFTER] ${values.type || "Nouveau projet"} — ${values.name || ""}`.trim();
+    const subject = `[THE KRAFTER] ${values.type || "Nouveau projet"} · ${values.name || ""}`.trim();
     const body = [
       `${t.contact.form.name}: ${values.name}`,
       `${t.contact.form.email}: ${values.email}`,

@@ -47,7 +47,7 @@ export function SiteHeader() {
   return (
     <header className={cn("site-header", compact && "is-compact")}>
       <div className="site-header__inner glass">
-        <Link href="/" className="site-header__brand" aria-label={`THE KRAFTER — ${t.nav.home}`}>
+        <Link href="/" className="site-header__brand" aria-label={`THE KRAFTER · ${t.nav.home}`}>
           <span className="site-header__logo">
             <BrandLogo variant="header" />
           </span>

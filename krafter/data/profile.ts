@@ -12,7 +12,7 @@ export const profile = {
   city: "Cotonou",
   country: { fr: "Bénin", en: "Benin" },
   domain: { fr: "Bénin", en: "Benin" },
-  yearsActive: "—",
+  yearsActive: "2024",
   signature: { fr: "Créer • Inspirer • Impacter", en: "Create • Inspire • Impact" },
   signatureLine: {
     fr: "Designed in Benin. Built for the digital world.",

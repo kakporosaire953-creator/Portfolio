@@ -93,8 +93,8 @@ export const services: Service[] = [
       en: "From concept to a usable product.",
     },
     summary: {
-      fr: "Conception de produits numériques complets : cadrage, MVP, écrans clés, états limites — puis construction et mise en ligne. Les cas vides et les erreurs sont traités dès le départ.",
-      en: "End-to-end digital product work: framing, MVP, key screens, edge states — then build and launch. Empty and error states are handled from the start.",
+      fr: "Conception de produits numériques complets : cadrage, MVP, écrans clés, états limites, puis construction et mise en ligne. Les cas vides et les erreurs sont traités dès le départ.",
+      en: "End-to-end digital product work: framing, MVP, key screens, edge states, then build and launch. Empty and error states are handled from the start.",
     },
     includes: [
       {

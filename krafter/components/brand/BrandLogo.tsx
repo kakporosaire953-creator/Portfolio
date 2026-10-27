@@ -54,7 +54,7 @@ export function BrandLogo({ variant = "header", className, withHint }: BrandLogo
     <span
       className={cn("logo-slot", `logo-slot--${variant}`, className)}
       role="img"
-      aria-label={`${t.brand.logoSlotTitle} — ${t.brand.name}`}
+      aria-label={`${t.brand.logoSlotTitle} · ${t.brand.name}`}
       title={t.brand.logoSlotLine}
     >
       <span className="logo-slot__frame" aria-hidden="true">

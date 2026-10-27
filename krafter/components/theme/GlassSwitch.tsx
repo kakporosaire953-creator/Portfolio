@@ -27,7 +27,7 @@ export function GlassSwitch({
       type="button"
       role="switch"
       aria-checked={isDark}
-      aria-label={`${t.common.theme} — ${isDark ? t.common.themeDark : t.common.themeLight}`}
+      aria-label={`${t.common.theme} : ${isDark ? t.common.themeDark : t.common.themeLight}`}
       title={isDark ? t.common.themeLight : t.common.themeDark}
       onClick={toggleTheme}
       data-state={isDark ? "dark" : "light"}

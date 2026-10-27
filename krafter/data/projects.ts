@@ -41,7 +41,7 @@ export type Project = {
  * The client asked the site to present only the three approved case studies,
  * so everything below is published through the `projects` export, which is
  * filtered by `PUBLISHED_SLUGS`. To publish another one later, add its slug
- * here — its route, sitemap entry and listing card appear automatically.
+ * here: its route, sitemap entry and listing card appear automatically.
  */
 const allProjects: Project[] = [
   {
@@ -69,16 +69,16 @@ const allProjects: Project[] = [
         en: "SkillBridge connects young African talent with international professional opportunities. The project tackles a concrete problem: making a skill visible and credible once it leaves its local context.",
       },
       context: {
-        fr: "Un produit à deux faces — profils de talents et besoins d’organisations — dans un environnement où la confiance se gagne vite et où les interfaces doivent rester légères, y compris sur connexion moyenne.",
-        en: "A two-sided product — talent profiles and organisations’ needs — in an environment where trust is won quickly and interfaces must stay light, including on average connections.",
+        fr: "Un produit à deux faces (profils de talents et besoins d’organisations) dans un environnement où la confiance se gagne vite et où les interfaces doivent rester légères, y compris sur connexion moyenne.",
+        en: "A two-sided product (talent profiles and organisations’ needs) in an environment where trust is won quickly and interfaces must stay light, including on average connections.",
       },
       challenge: {
         fr: "Concevoir un parcours qui rassure sans alourdir : hiérarchie claire, information vérifiable, formulaires courts, et une navigation qui reste compréhensible sans tutoriel.",
         en: "Designing a journey that builds trust without adding weight: clear hierarchy, verifiable information, short forms and navigation that needs no tutorial.",
       },
       approach: {
-        fr: "Wireframes orientés parcours avant toute direction artistique, puis un système de composants React typés. Les états — chargement, vide, erreur, succès — ont été traités comme des écrans à part entière.",
-        en: "Journey-first wireframes before any art direction, then a system of typed React components. States — loading, empty, error, success — were treated as screens in their own right.",
+        fr: "Wireframes orientés parcours avant toute direction artistique, puis un système de composants React typés. Les états (chargement, vide, erreur, succès) ont été traités comme des écrans à part entière.",
+        en: "Journey-first wireframes before any art direction, then a system of typed React components. States (loading, empty, error, success) were treated as screens in their own right.",
       },
       design: {
         fr: "Une interface calme : fond clair, une couleur d’accent, des blocs de contenu lisibles. La typographie porte la hiérarchie, pas les effets. Les composants de carte de profil et de filtre sont réutilisables d’un écran à l’autre.",
@@ -142,8 +142,8 @@ const allProjects: Project[] = [
         en: "Holding a large catalogue, a freemium funnel and a progress dashboard without turning the home page into an unreadable control panel. The real constraint: the first action must be obvious.",
       },
       approach: {
-        fr: "Deux colonnes assumées : un discours éditorial court à gauche, une liste d’épreuves concrète à droite. Les blocs « épreuve » sont des composants uniques réutilisés partout — accueil, recherche, favoris, historique.",
-        en: "Two committed columns: a short editorial statement on the left, a concrete list of papers on the right. The “paper” blocks are single components reused everywhere — home, search, favourites, history.",
+        fr: "Deux colonnes assumées : un discours éditorial court à gauche, une liste d’épreuves concrète à droite. Les blocs « épreuve » sont des composants uniques réutilisés partout : accueil, recherche, favoris, historique.",
+        en: "Two committed columns: a short editorial statement on the left, a concrete list of papers on the right. The “paper” blocks are single components reused everywhere: home, search, favourites, history.",
       },
       design: {
         fr: "Fond navy profond, bleu d’action et orange réservé aux accents premium. Le contraste vient de la typographie et de l’espace, pas des effets. Chaque épreuve affiche les mêmes métadonnées, dans le même ordre.",
@@ -163,8 +163,8 @@ const allProjects: Project[] = [
         {
           src: "/projects/campusly.webp",
           alt: {
-            fr: "Campusly — vue d’ensemble de la page d’accueil et du panneau d’épreuves récentes.",
-            en: "Campusly — overview of the home page and the recent papers panel.",
+            fr: "Campusly, vue d’ensemble de la page d’accueil et du panneau d’épreuves récentes.",
+            en: "Campusly, overview of the home page and the recent papers panel.",
           },
         },
       ],
@@ -247,8 +247,8 @@ const allProjects: Project[] = [
       kind: "image",
       src: "/projects/apple-confidence.webp",
       alt: {
-        fr: "Apple Confidence — page d’accueil avec le titre « La technologie. Conçue pour vous impressionner » et un iPhone mis en avant.",
-        en: "Apple Confidence — home page with the headline “Technology. Designed to impress you” and a featured iPhone.",
+        fr: "Apple Confidence, page d’accueil avec le titre « La technologie. Conçue pour vous impressionner » et un iPhone mis en avant.",
+        en: "Apple Confidence, home page with the headline “Technology. Designed to impress you” and a featured iPhone.",
       },
       width: 1588,
       height: 778,
@@ -289,8 +289,8 @@ const allProjects: Project[] = [
         {
           src: "/projects/apple-confidence.webp",
           alt: {
-            fr: "Apple Confidence — page d’accueil : promesse éditoriale, badges de garantie et produit mis en avant.",
-            en: "Apple Confidence — home page: editorial promise, warranty badges and featured product.",
+            fr: "Apple Confidence, page d’accueil : promesse éditoriale, badges de garantie et produit mis en avant.",
+            en: "Apple Confidence, home page: editorial promise, warranty badges and featured product.",
           },
         },
       ],
@@ -307,7 +307,7 @@ const allProjects: Project[] = [
     year: "2026",
     category: "design-code",
     featured: false,
-    role: { fr: "UI/UX & frontend — hackathon", en: "UI/UX & frontend — hackathon" },
+    role: { fr: "UI/UX & frontend, hackathon", en: "UI/UX & frontend, hackathon" },
     stack: ["React", "Solidity", "Web3", "Tailwind CSS"],
     summary: {
       fr: "Projet de hackathon : digitaliser la tontine béninoise avec transparence et traçabilité.",
@@ -317,8 +317,8 @@ const allProjects: Project[] = [
       kind: "image",
       src: "/projects/tontine-chain.webp",
       alt: {
-        fr: "Tontine Chain — page d’accueil avec le titre « Épargnez avec Confiance » et une carte du Bénin.",
-        en: "Tontine Chain — home page with the headline “Save with Confidence” and a map of Benin.",
+        fr: "Tontine Chain, page d’accueil avec le titre « Épargnez avec Confiance » et une carte du Bénin.",
+        en: "Tontine Chain, home page with the headline “Save with Confidence” and a map of Benin.",
       },
       width: 1590,
       height: 777,
@@ -326,8 +326,8 @@ const allProjects: Project[] = [
     links: {},
     caseStudy: {
       overview: {
-        fr: "Tontine Chain transpose la tontine — épargne rotative traditionnelle très répandue au Bénin — dans un produit numérique traçable. Projet conçu et défendu lors du hackathon MIABE.",
-        en: "Tontine Chain translates the tontine — the rotating savings practice widespread in Benin — into a traceable digital product. Designed and pitched at the MIABE hackathon.",
+        fr: "Tontine Chain transpose la tontine (épargne rotative traditionnelle très répandue au Bénin) en un produit numérique traçable. Projet conçu et défendu lors du hackathon MIABE.",
+        en: "Tontine Chain translates the tontine (the rotating savings practice widespread in Benin) into a traceable digital product. Designed and pitched at the MIABE hackathon.",
       },
       context: {
         fr: "Une pratique sociale ancienne, fondée sur la confiance entre proches, avec des risques réels : disparition des fonds, litiges, absence de trace. La blockchain apporte ici une réponse de traçabilité, pas un argument technologique.",
@@ -338,8 +338,8 @@ const allProjects: Project[] = [
         en: "Making a Web3 mechanism understandable in seconds, for an audience that has never used a crypto wallet. The interface had to stay familiar.",
       },
       approach: {
-        fr: "Tout expliquer par l’usage : « épargner », « recevoir », « vérifier » — plutôt que par la technique. Le vocabulaire blockchain est cantonné aux écrans de preuve et de détail.",
-        en: "Explaining everything through usage — “save”, “receive”, “verify” — rather than technology. Blockchain vocabulary is confined to proof and detail screens.",
+        fr: "Tout expliquer par l’usage : « épargner », « recevoir », « vérifier », plutôt que par la technique. Le vocabulaire blockchain est cantonné aux écrans de preuve et de détail.",
+        en: "Explaining everything through usage (“save”, “receive”, “verify”) rather than technology. Blockchain vocabulary is confined to proof and detail screens.",
       },
       design: {
         fr: "Fond clair, bleu institutionnel, formes douces. La carte du Bénin sert de repère d’ancrage local, les blocs d’impact restent factuels. Aucune promesse chiffrée non vérifiable.",
@@ -359,8 +359,8 @@ const allProjects: Project[] = [
         {
           src: "/projects/tontine-chain.webp",
           alt: {
-            fr: "Tontine Chain — page d’accueil du prototype : promesse d’épargne, carte du Bénin et blocs de sécurité.",
-            en: "Tontine Chain — prototype home page: savings promise, map of Benin and security blocks.",
+            fr: "Tontine Chain, page d’accueil du prototype : promesse d’épargne, carte du Bénin et blocs de sécurité.",
+            en: "Tontine Chain, prototype home page: savings promise, map of Benin and security blocks.",
           },
         },
       ],
@@ -391,8 +391,8 @@ const allProjects: Project[] = [
       kind: "image",
       src: "/projects/synnova.webp",
       alt: {
-        fr: "Portfolio Synnova Tocloe — page d’accueil avec un grand titre serif et un portrait encadré.",
-        en: "Synnova Tocloe portfolio — home page with a large serif headline and a framed portrait.",
+        fr: "Portfolio Synnova Tocloe, page d’accueil avec un grand titre serif et un portrait encadré.",
+        en: "Synnova Tocloe portfolio, home page with a large serif headline and a framed portrait.",
       },
       width: 1578,
       height: 777,
@@ -433,8 +433,8 @@ const allProjects: Project[] = [
         {
           src: "/projects/synnova.webp",
           alt: {
-            fr: "Portfolio Synnova Tocloe — accueil : navigation, titre serif et portrait.",
-            en: "Synnova Tocloe portfolio — home: navigation, serif headline and portrait.",
+            fr: "Portfolio Synnova Tocloe, accueil : navigation, titre serif et portrait.",
+            en: "Synnova Tocloe portfolio, home: navigation, serif headline and portrait.",
           },
         },
       ],
