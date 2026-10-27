@@ -61,7 +61,19 @@ if (!existsSync(out)) {
 // The Pages site is legacy-built from the repository root, with Jekyll off.
 // Files are OVERWRITTEN, never wiped: the legacy static pages keep their own
 // assets (images/, assets/…) while the new build adds its own.
-const files = ["index.html", "404.html", "sitemap.xml", "robots.txt", "favicon.svg", "og.jpg"];
+const files = [
+  "index.html",
+  "404.html",
+  "sitemap.xml",
+  "robots.txt",
+  "og.jpg",
+  // Official K favicons (the old placeholder favicon.svg is gone).
+  "favicon.ico",
+  "favicon-32.png",
+  "icon-192.png",
+  "icon-512.png",
+  "apple-icon.png",
+];
 for (const file of files) {
   const from = path.join(out, file);
   if (existsSync(from)) cpSync(from, path.join(repo, file));

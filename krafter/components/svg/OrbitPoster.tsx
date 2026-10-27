@@ -14,7 +14,7 @@ export function OrbitPoster({ className }: { className?: string }) {
       data-orbit-poster
     >
       <circle cx="210" cy="210" r="150" stroke="var(--line)" strokeWidth="1" />
-      <circle cx="210" cy="210" r="112" stroke="var(--line)" strokeWidth="1" strokeDasharray="2 6" />
+      <circle cx="210" cy="210" r="112" stroke="var(--line)" strokeWidth="1" />
       <ellipse
         cx="210"
         cy="210"
@@ -31,7 +31,6 @@ export function OrbitPoster({ className }: { className?: string }) {
         ry="150"
         stroke="var(--line-strong)"
         strokeWidth="1"
-        strokeDasharray="140 260"
         transform="rotate(38 210 210)"
       />
       <path

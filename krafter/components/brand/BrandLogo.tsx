@@ -2,81 +2,57 @@
 
 import { useState } from "react";
 import { useLocale } from "@/components/i18n/LocaleProvider";
-import { useBrandAsset } from "./BrandAssetProvider";
 import { cn } from "@/lib/utils/cn";
 
 /**
- * THE KRAFTER — full logo.
+ * THE KRAFTER — official brand files.
  *
- * RULE: the authentic full lockup (large K, orbital arc, handwritten “The”,
- * KRAFTER wordmark, original navy/orange/yellow/blue accents and the
- * “CRÉER • INSPIRER • IMPACTER” signature) must never be redrawn or replaced.
+ * The authentic artwork supplied by Rosaire Kakpo is displayed as-is, never
+ * redrawn: the full lockup (large K, orbital arcs, handwritten “The”, KRAFTER
+ * wordmark, the orange/blue “E” and the CRÉER · INSPIRER · IMPACTER line), the
+ * wordmark alone and the K monogram.
  *
- * The real file is not present in this repository, so the component looks for
- * it in /public/brand and otherwise renders a clearly identified slot instead
- * of an artificial logo.
+ * Navigation rule: the header shows the WORDMARK only, so the K never appears
+ * twice on the first screen. The monogram is reserved for the favicon and the
+ * brand mark inside the story section.
  */
-const LOGO_SOURCES = [
-  "/brand/the-krafter-logo.svg",
-  "/brand/the-krafter-logo.png",
-  "/brand/the-krafter-logo.webp",
-] as const;
+const SOURCES = {
+  lockup: "/brand/the-krafter-logo.png",
+  wordmark: "/brand/the-krafter-wordmark.png",
+  mark: "/brand/the-krafter-mark.png",
+} as const;
 
-type BrandLogoProps = {
-  variant?: "header" | "footer" | "brand";
+type Variant = "header" | "footer" | "brand" | "mark";
+
+export function BrandLogo({
+  variant = "header",
+  className,
+  decorative = false,
+}: {
+  variant?: Variant;
   className?: string;
-  /** Show the instruction line under the slot (footer / brand presentation). */
-  withHint?: boolean;
-};
-
-export function BrandLogo({ variant = "header", className, withHint }: BrandLogoProps) {
+  /** Hide from assistive tech when a visible text label sits next to it. */
+  decorative?: boolean;
+}) {
   const { t } = useLocale();
-  const { hasLogo } = useBrandAsset();
-  const [sourceIndex, setSourceIndex] = useState(0);
-  const missing = !hasLogo || sourceIndex >= LOGO_SOURCES.length;
+  const [failed, setFailed] = useState(false);
 
-  if (!missing) {
-    return (
-      <span className={cn("brand-logo", `brand-logo--${variant}`, className)}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- brand asset, must keep original proportions & colours */}
-        <img
-          src={LOGO_SOURCES[sourceIndex]}
-          alt={t.brand.logoAlt}
-          className="brand-logo__img"
-          decoding="async"
-          onError={() => setSourceIndex((index) => index + 1)}
-        />
-      </span>
-    );
-  }
+  const source = variant === "mark" ? SOURCES.mark : variant === "header" ? SOURCES.wordmark : SOURCES.lockup;
+  if (failed) return null;
 
   return (
-    <span
-      className={cn("logo-slot", `logo-slot--${variant}`, className)}
-      role="img"
-      aria-label={`${t.brand.logoSlotTitle} · ${t.brand.name}`}
-      title={t.brand.logoSlotLine}
-    >
-      <span className="logo-slot__frame" aria-hidden="true">
-        <span className="logo-slot__tag">LOGO</span>
-        <span className="logo-slot__tag logo-slot__tag--sub">SLOT</span>
-      </span>
-      <span className="logo-slot__text" aria-hidden="true">
-        <span className="logo-slot__word">THE KRAFTER</span>
-        <span className="logo-slot__signature">{t.common.signatureShort}</span>
-      </span>
-      {withHint ? <span className="logo-slot__hint">{t.brand.logoSlotLine}</span> : null}
-    </span>
-  );
-}
-
-/** Court signature used in editorial captions and the footer baseline. */
-export function BrandSignature({ className }: { className?: string }) {
-  const { t } = useLocale();
-  return (
-    <span className={cn("brand-signature", className)}>
-      <span className="brand-signature__line" aria-hidden="true" />
-      {t.common.signature}
+    <span className={cn("brand-logo", `brand-logo--${variant}`, className)}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- brand artwork, original proportions and colours */}
+      <img
+        src={source}
+        alt={decorative ? "" : t.brand.logoAlt}
+        aria-hidden={decorative || undefined}
+        className="brand-logo__img"
+        width={variant === "header" ? 760 : variant === "mark" ? 512 : 760}
+        height={variant === "header" ? 144 : variant === "mark" ? 512 : 663}
+        decoding="async"
+        onError={() => setFailed(true)}
+      />
     </span>
   );
 }

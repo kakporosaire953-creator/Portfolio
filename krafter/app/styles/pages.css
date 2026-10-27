@@ -442,14 +442,15 @@
 
 .work-card__cta::after {
   content: "";
-  width: 22px;
-  height: 1px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
   background: var(--orange);
-  transition: width 400ms var(--ease-out-expo);
+  transition: transform 400ms var(--ease-out-expo);
 }
 
 .work-card:hover .work-card__cta::after {
-  width: 42px;
+  transform: scale(1.55);
 }
 
 /* Generative typographic cover for projects without published screenshots */
@@ -460,7 +461,8 @@
   gap: 0.7rem;
   overflow: hidden;
   background: var(--navy);
-  color: var(--paper);
+  /* The plate keeps its own dark surface in both themes, so its type must too. */
+  color: #faf8f3;
   padding: 1.5rem;
 }
 
@@ -1142,7 +1144,7 @@
 
 .blog-empty {
   position: relative;
-  border: 1px dashed var(--line-strong);
+  border: 1px solid var(--line);
   padding: clamp(1.5rem, 3vw, 2.6rem);
   display: grid;
   gap: 0.8rem;
@@ -1991,10 +1993,11 @@
 
 .skills-panel__list li::before {
   content: "";
-  width: 14px;
-  height: 1px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
   background: var(--orange);
-  margin-top: 0.65rem;
+  margin-top: 0.6rem;
   flex: none;
 }
 
@@ -2296,10 +2299,11 @@
 
 .service-block__include::before {
   content: "";
-  width: 12px;
-  height: 1px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
   background: var(--orange);
-  margin-top: 0.7rem;
+  margin-top: 0.66rem;
   flex: none;
 }
 
@@ -2930,5 +2934,379 @@
 
   .designcode__progress {
     display: block;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   KRAFTER / TURNTABLE — the projects rotate on a vertical drum
+   -------------------------------------------------------------------------- */
+
+.drum {
+  position: relative;
+  padding-block: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem);
+}
+
+.drum__body {
+  position: relative;
+  margin-top: clamp(1.6rem, 3vw, 3rem);
+}
+
+.drum__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100svh;
+  perspective: 2100px;
+  perspective-origin: 50% 42%;
+  overflow: hidden;
+}
+
+/* Light behind the plates, so the glass has something to catch. */
+.drum__halo {
+  position: absolute;
+  inset: 8% 18% 14%;
+  border-radius: 50%;
+  background:
+    radial-gradient(52% 46% at 50% 42%, color-mix(in srgb, var(--orange) 26%, transparent), transparent 74%),
+    radial-gradient(40% 40% at 32% 68%, color-mix(in srgb, var(--brand-blue) 20%, transparent), transparent 76%);
+  filter: blur(38px);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.drum__floor {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: 17%;
+  height: 190px;
+  pointer-events: none;
+  background: radial-gradient(58% 100% at 50% 100%, color-mix(in srgb, var(--ink) 14%, transparent), transparent 72%);
+  filter: blur(14px);
+  opacity: 0.6;
+}
+
+.drum__floor::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+}
+
+.drum__ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: -2vh;
+  transform-style: preserve-3d;
+  display: grid;
+  place-items: center;
+}
+
+.drum__plate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(300px, 33vw, 480px);
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  transition: filter 400ms var(--ease-out-expo);
+}
+
+.drum__card {
+  display: grid;
+  gap: 0;
+  overflow: hidden;
+  border-radius: calc(var(--glass-radius) + 6px);
+  padding: 0;
+  text-align: left;
+}
+
+.drum__card.is-active {
+  border-color: color-mix(in srgb, var(--orange) 55%, var(--glass-rim));
+}
+
+.drum__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--glass-rim) 45%, var(--line));
+}
+
+.drum__media img,
+.drum__media .graphic-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1200ms var(--ease-out-expo);
+}
+
+.drum__card.is-active .drum__media img,
+.drum__card.is-active .drum__media .graphic-cover {
+  transform: scale(1.02);
+}
+
+.drum__index {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.24rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--glass-rim) 70%, transparent);
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+}
+
+/* The orange seam is the only loud detail: it sweeps as the plate settles. */
+.drum__seam {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.drum__card.is-active .drum__seam {
+  transform: scaleX(1);
+}
+
+.drum__caption {
+  display: grid;
+  gap: 0.35rem;
+  padding: clamp(0.9rem, 1.5vw, 1.25rem) clamp(1rem, 1.6vw, 1.35rem) clamp(1.05rem, 1.8vw, 1.4rem);
+}
+
+.drum__title {
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+}
+
+.drum__tagline {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.drum__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem 0.75rem;
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.drum__chrome {
+  position: absolute;
+  top: clamp(1.4rem, 4vh, 2.6rem);
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 12;
+  color: var(--ink-mute);
+}
+
+.drum__chrome-label {
+  color: var(--ink);
+}
+
+.drum__chrome-label::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  margin-right: 0.55rem;
+  vertical-align: middle;
+  background: var(--orange);
+}
+
+.drum__now {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(4.4rem, 11vh, 7rem);
+  transform: translateX(-50%);
+  z-index: 12;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.drum__now-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  animation: drum-title-in 620ms var(--ease-out-expo) both;
+}
+
+.drum__now-role {
+  color: var(--ink-mute);
+}
+
+.drum__controls {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.2rem, 6vh, 4rem);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 12;
+}
+
+.drum__arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--glass-rim) 60%, var(--line));
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--ink);
+  transition: border-color 300ms var(--ease-out-expo), color 300ms var(--ease-out-expo),
+    transform 300ms var(--ease-out-expo);
+}
+
+.drum__arrow:hover:not(:disabled) {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-1px);
+}
+
+.drum__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.drum__arrow-icon--back {
+  transform: rotate(180deg);
+}
+
+.drum__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-mute);
+}
+
+.drum__count .num:first-child {
+  color: var(--ink);
+}
+
+.drum__count-sep {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--orange);
+  opacity: 0.85;
+}
+
+.drum__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: clamp(1rem, 2vw, 2rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.drum__active-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  animation: drum-title-in 620ms var(--ease-out-expo) both;
+}
+
+@keyframes drum-title-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Flat fallback: swipeable reel on small screens and with reduced motion. */
+.drum__body.is-flat .drum__stage {
+  height: auto;
+  perspective: none;
+  overflow: visible;
+  display: block;
+  padding-block: 0.5rem;
+}
+
+.drum__body.is-flat .drum__halo,
+.drum__body.is-flat .drum__floor,
+.drum__body.is-flat .drum__chrome,
+.drum__body.is-flat .drum__now {
+  display: none;
+}
+
+.drum__body.is-flat .drum__ring {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-inline: var(--gutter);
+  padding-block: 0.4rem 1.1rem;
+  scrollbar-width: thin;
+}
+
+.drum__body.is-flat .drum__plate {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none !important;
+  flex: 0 0 min(82vw, 420px);
+  scroll-snap-align: center;
+  opacity: 1 !important;
+}
+
+.drum__body.is-flat .drum__ring::-webkit-scrollbar {
+  height: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drum__card.is-active .drum__media img,
+  .drum__body.is-flat .drum__plate {
+    transition: none;
+  }
+
+  .drum__active-title {
+    animation: none;
   }
 }

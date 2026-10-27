@@ -73,7 +73,7 @@ export function ProjectsView() {
 
         <div className="projects-grid" data-reveal-stagger>
           {visible.map((project) => (
-            <article className="project-card" key={project.slug} data-reveal-item>
+            <article className="project-card liquid" key={project.slug} data-reveal-item data-glass>
               <ProjectFlipLink
                 href={`/projets/${project.slug}`}
                 slug={project.slug}

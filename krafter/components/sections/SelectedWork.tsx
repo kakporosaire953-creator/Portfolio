@@ -1,42 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { useLocale } from "@/components/i18n/LocaleProvider";
-import { WorkCard } from "@/components/projects/WorkCard";
-import { SplitHeading } from "@/components/motion/SplitHeading";
-import { featuredProjects } from "@/data/projects";
-import { SectionHead } from "./SectionHead";
-import { ArrowRight } from "@/components/navigation/Glyphs";
+import { ProjectDrum } from "./ProjectDrum";
 
+/**
+ * Selected work.
+ *
+ * The turntable lives in its own component: it pins, rotates and cleans up
+ * after itself, while this section only keeps the page rhythm.
+ */
 export function SelectedWork() {
-  const { t } = useLocale();
-
   return (
     <section className="section" aria-labelledby="selected-work-title">
-      <div className="shell">
-        <SectionHead
-          index={t.home.selected.index}
-          kicker={t.home.selected.kicker}
-          meta={<span className="meta">{t.home.selected.meta}</span>}
-        >
-          <SplitHeading as="h2" className="title-1" id="selected-work-title">
-            {t.home.selected.title}
-          </SplitHeading>
-        </SectionHead>
-
-        <div className="work-grid" data-reveal-stagger>
-          {featuredProjects.map((project, index) => (
-            <WorkCard key={project.slug} project={project} wide={index === 0} priority={index === 0} />
-          ))}
-        </div>
-
-        <div className="work-grid__all">
-          <Link href="/projets" className="arrow-link">
-            {t.common.viewAllProjects}
-            <ArrowRight size={14} />
-          </Link>
-        </div>
-      </div>
+      <ProjectDrum />
     </section>
   );
 }

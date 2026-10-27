@@ -1,29 +1,20 @@
-# THE KRAFTER — brand assets
+# THE KRAFTER, brand assets
 
-## Logo complet (obligatoire)
+Ces fichiers sont les fichiers officiels fournis par Rosaire Kakpo. Ils sont
+utilisés tels quels : jamais redessinés, jamais recadrés, jamais recolorés.
 
-Le logo officiel complet n'est **pas** inclus dans ce dépôt. Le composant
-`components/brand/BrandLogo.tsx` cherche le fichier dans cet ordre :
+| Fichier | Usage |
+| --- | --- |
+| `the-krafter-logo.png` | logo complet : grand K, arcs orbitaux, « The », KRAFTER, E orange et bleu, signature |
+| `the-krafter-wordmark.png` | le mot KRAFTER seul, utilisé dans la navigation (le K reste hors du header) |
+| `the-krafter-mark.png` | monogramme K, réservé au favicon et à la marque |
 
-1. `/public/brand/the-krafter-logo.svg`
-2. `/public/brand/the-krafter-logo.png`
-3. `/public/brand/the-krafter-logo.webp`
+Le logo complet apparaît dans le pied de page, l'intro et la section « histoire ».
+Le favicon (`/public/favicon.ico`, `/public/icon-192.png`, `/public/icon-512.png`,
+`/public/apple-icon.png`) est le K du logo, posé sur une carte claire pour rester
+lisible dans tous les onglets.
 
-Déposez simplement le fichier officiel sous l'un de ces noms : il s'affichera
-tel quel dans le header, la section « histoire » et le footer, sans être
-redessiné, recadré ou recoloré.
-
-Tant que le fichier est absent, un **emplacement clairement identifié**
-(« LOGO SLOT ») est affiché — aucun logo artificiel n'est généré.
-
-## Conseils de fichier
-
-- SVG de préférence (net sur tous les écrans, poids faible)
-- fond transparent, marges internes minimales
-- hauteur d'affichage : 40 px (header), 64–104 px (footer / intro)
-- conserver les couleurs d'origine : bleu marine, orange, jaune, bleu
-
-## Favicon
-
-`/public/favicon.svg` est un signet typographique neutre (lettre K), pas une
-reconstruction du logo. Remplacez-le par l'icône officielle si elle existe.
+Le fond de ces PNG est détouré depuis l'original fourni (JPEG sur fond blanc) :
+la qualité est suffisante pour l'écran, mais si tu as les fichiers vectoriels
+(SVG ou PDF), dépose-les ici et remplace les chemins dans
+`components/brand/BrandLogo.tsx`.

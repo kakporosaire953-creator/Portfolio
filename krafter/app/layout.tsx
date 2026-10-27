@@ -1,6 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import fs from "node:fs";
-import path from "node:path";
 import "@fontsource-variable/instrument-sans";
 import "@fontsource-variable/instrument-sans/wght-italic.css";
 import "@fontsource-variable/bodoni-moda";
@@ -9,6 +7,7 @@ import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import "./styles/chrome.css";
 import "./styles/pages.css";
+import "./styles/glass.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { SkipLink } from "@/components/layout/SkipLink";
@@ -19,6 +18,7 @@ import { Assistant } from "@/components/assistant/Assistant";
 import { Intro } from "@/components/layout/Intro";
 import { ScrollReveals } from "@/components/motion/ScrollReveals";
 import { CursorFollower } from "@/components/motion/CursorFollower";
+import { GlassSheen } from "@/components/motion/GlassSheen";
 import { profile } from "@/data/profile";
 import { asset } from "@/lib/utils/asset";
 
@@ -73,9 +73,13 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: [{ url: asset("/favicon.svg"), type: "image/svg+xml" }],
-    shortcut: asset("/favicon.svg"),
-    apple: asset("/favicon.svg"),
+    icon: [
+      { url: asset("/favicon.ico"), sizes: "any" },
+      { url: asset("/icon-192.png"), type: "image/png", sizes: "192x192" },
+      { url: asset("/icon-512.png"), type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: asset("/favicon.ico"),
+    apple: asset("/apple-icon.png"),
   },
   category: "design",
 };
@@ -133,24 +137,8 @@ const personJsonLd = {
   ],
 };
 
-/** The official logo file is honoured as-is when it is present in /public/brand. */
-function detectBrandLogo(): boolean {
-  const candidates = [
-    "the-krafter-logo.svg",
-    "the-krafter-logo.png",
-    "the-krafter-logo.webp",
-  ];
-  return candidates.some((file) => {
-    try {
-      return fs.existsSync(path.join(process.cwd(), "public", "brand", file));
-    } catch {
-      return false;
-    }
-  });
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const hasLogo = detectBrandLogo();
   return (
     <html lang="fr" data-theme="light" suppressHydrationWarning>
       <head>
@@ -161,7 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body id="top">
-        <Providers hasLogo={hasLogo}>
+        <Providers>
           <SkipLink />
           <Intro />
           <SiteHeader />
@@ -173,6 +161,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Assistant />
           <ScrollReveals />
           <CursorFollower />
+          <GlassSheen />
           <div className="noise" aria-hidden="true" />
         </Providers>
       </body>

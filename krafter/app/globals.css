@@ -457,8 +457,9 @@
 
 .section-index::before {
   content: "";
-  width: 26px;
-  height: 1px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
   background: var(--orange);
   display: inline-block;
 }

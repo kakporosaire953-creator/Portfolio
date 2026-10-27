@@ -184,7 +184,7 @@ export function ContactView() {
                   </div>
                 </div>
               ) : (
-                <form className="contact-form" onSubmit={onSubmit} noValidate>
+                <form className="contact-form liquid" onSubmit={onSubmit} noValidate data-glass>
                   <div className="contact-form__head">
                     <h2 className="contact-form__title">{t.contact.form.title}</h2>
                     <span className="meta">{t.contact.responseValue}</span>
