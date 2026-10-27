@@ -44,6 +44,15 @@ export function AboutPreview() {
               ))}
             </div>
 
+            <div className="about-preview__fields">
+              <span className="meta">{t.home.about.disciplinesLabel}</span>
+              <ul className="about-preview__disciplines">
+                {t.home.about.disciplines.map((discipline) => (
+                  <li key={discipline}>{discipline}</li>
+                ))}
+              </ul>
+            </div>
+
             <dl className="about-preview__facts" data-reveal-stagger>
               {t.home.about.facts.map((fact) => (
                 <div className="about-preview__fact" key={fact.label} data-reveal-item>

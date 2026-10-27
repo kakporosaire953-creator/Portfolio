@@ -39,7 +39,7 @@ export function CaseStudyView({ project }: { project: Project }) {
                 {t.common.backToProjects}
               </Link>
               <span className="case-hero__index">
-                {t.projects.caseStudy.index} {project.index} — {project.year}
+                {t.projects.caseStudy.index} {project.index} · {project.year}
               </span>
             </div>
 

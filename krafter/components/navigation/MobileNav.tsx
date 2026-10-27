@@ -111,7 +111,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
       inert={!open}
     >
       <div className="mobile-nav__top">
-        <Link href="/" className="mobile-nav__brand" onClick={onClose} aria-label="THE KRAFTER — accueil">
+        <Link href="/" className="mobile-nav__brand" onClick={onClose} aria-label="THE KRAFTER, accueil">
           <BrandLogo variant="header" />
         </Link>
         <button type="button" className="mobile-nav__close" onClick={onClose} ref={closeRef}>

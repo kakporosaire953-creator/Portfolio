@@ -57,7 +57,7 @@ export async function POST(request: Request) {
         from,
         to: [to],
         reply_to: email,
-        subject: `[THE KRAFTER] ${type || "Nouveau projet"} — ${name}`,
+        subject: `[THE KRAFTER] ${type || "Nouveau projet"} · ${name}`,
         text: `Nom: ${name}\nE-mail: ${email}\nType: ${type}\nLangue: ${payload.locale ?? "fr"}\n\n${message}`,
       }),
     });

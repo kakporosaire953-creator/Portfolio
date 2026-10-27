@@ -13,14 +13,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) return { title: "Projet introuvable — THE KRAFTER" };
+  if (!project) return { title: "Projet introuvable · THE KRAFTER" };
 
   return {
-    title: `${project.title} — étude de cas · THE KRAFTER`,
+    title: `${project.title} · étude de cas · THE KRAFTER`,
     description: project.summary.fr,
     alternates: { canonical: `/projets/${project.slug}` },
     openGraph: {
-      title: `${project.title} — THE KRAFTER`,
+      title: `${project.title} · THE KRAFTER`,
       description: project.summary.fr,
       images:
         project.cover.kind === "image"

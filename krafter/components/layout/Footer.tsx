@@ -83,7 +83,7 @@ export function Footer() {
 
         <div className="site-footer__base">
           <p className="meta">
-            © {year} {profile.fullName} — {t.footer.rights}
+            © {year} {profile.fullName} · {t.footer.rights}
           </p>
           <p className="meta site-footer__base-center">{t.common.signatureLine}</p>
           <a href="#top" className="site-footer__top-link meta">

@@ -26,11 +26,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kakpo-rosaire.verc
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "THE KRAFTER — Rosaire Kakpo · Frontend Developer × UI/UX Designer",
+    default: "THE KRAFTER · Rosaire Kakpo · Frontend Developer × UI/UX Designer",
     template: "%s",
   },
   description:
-    "Portfolio de Rosaire Kakpo — THE KRAFTER. Frontend developer et UI/UX designer basé à Cotonou, Bénin : design éditorial, interfaces React et produits numériques.",
+    "Portfolio de Rosaire Kakpo, THE KRAFTER. Frontend developer et UI/UX designer basé à Cotonou, Bénin : design éditorial, interfaces React et produits numériques.",
   applicationName: "THE KRAFTER",
   authors: [{ name: profile.fullName, url: profile.github }],
   creator: profile.fullName,
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: SITE_URL,
     siteName: "THE KRAFTER",
-    title: "THE KRAFTER — Rosaire Kakpo · Frontend Developer × UI/UX Designer",
+    title: "THE KRAFTER · Rosaire Kakpo · Frontend Developer × UI/UX Designer",
     description:
       "Design × Code × Impact. Portfolio de Rosaire Kakpo, frontend developer et UI/UX designer basé au Bénin.",
     images: [
@@ -60,13 +60,13 @@ export const metadata: Metadata = {
         url: asset("/og.jpg"),
         width: 1200,
         height: 630,
-        alt: "THE KRAFTER — Rosaire Kakpo, frontend developer × UI/UX designer",
+        alt: "THE KRAFTER · Rosaire Kakpo, frontend developer × UI/UX designer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "THE KRAFTER — Rosaire Kakpo",
+    title: "THE KRAFTER · Rosaire Kakpo",
     description: "Design × Code × Impact. Frontend developer × UI/UX designer, Cotonou, Bénin.",
     images: [asset("/og.jpg")],
   },

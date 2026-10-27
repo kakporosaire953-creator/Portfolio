@@ -27,7 +27,7 @@ export function WorkCard({
         slug={project.slug}
         imageSrc={projectCoverSrc(project)}
         className="work-card__cover"
-        ariaLabel={`${project.title} — ${t.common.viewCase}`}
+        ariaLabel={`${project.title} · ${t.common.viewCase}`}
       >
         <ProjectCover project={project} priority={priority} />
         <span className="work-card__index">{project.index}</span>

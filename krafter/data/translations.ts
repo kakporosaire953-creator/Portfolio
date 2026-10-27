@@ -1,5 +1,5 @@
 /**
- * THE KRAFTER — bilingual content system.
+ * THE KRAFTER, bilingual content system.
  * French is the source language. `en` is typed against `fr`, so a missing or
  * misspelled key fails the build instead of silently falling back.
  *
@@ -15,42 +15,42 @@ export const fr = {
 
   meta: {
     home: {
-      title: "THE KRAFTER — Rosaire Kakpo · Frontend Developer × UI/UX Designer",
+      title: "THE KRAFTER · Rosaire Kakpo · Frontend Developer × UI/UX Designer",
       description:
         "Portfolio de Rosaire Kakpo, THE KRAFTER. Frontend developer et UI/UX designer basé au Bénin : interfaces éditoriales, produits numériques et expériences sur mesure.",
     },
     about: {
-      title: "À propos — Rosaire Kakpo · THE KRAFTER",
+      title: "À propos · Rosaire Kakpo · THE KRAFTER",
       description:
         "Le parcours, la philosophie et l’approche design × code de Rosaire Kakpo, frontend developer et UI/UX designer basé à Cotonou, Bénin.",
     },
     services: {
-      title: "Services — THE KRAFTER",
+      title: "Services · THE KRAFTER",
       description:
         "Frontend development, UI/UX design, produits numériques et e-commerce : ce que THE KRAFTER conçoit et construit.",
     },
     projects: {
-      title: "Projets — THE KRAFTER",
+      title: "Projets · THE KRAFTER",
       description:
         "Sélection de projets : SkillBridge, Campusly, Blue Inova, Apple Confidence, Tontine Chain et Portfolio Synnova.",
     },
     skills: {
-      title: "Compétences — THE KRAFTER",
+      title: "Compétences · THE KRAFTER",
       description:
         "Stack et compétences réelles de Rosaire Kakpo : HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind, GSAP, motion, Firebase, Supabase, APIs, Git, Vercel.",
     },
     blog: {
-      title: "Journal — THE KRAFTER",
+      title: "Journal · THE KRAFTER",
       description:
         "Le journal de THE KRAFTER : notes de terrain sur le design, le code et les produits numériques. Aucun article n’est publié à ce jour.",
     },
     contact: {
-      title: "Contact — THE KRAFTER",
+      title: "Contact · THE KRAFTER",
       description:
         "Discutons de votre projet : formulaire de contact, e-mail direct et disponibilités de THE KRAFTER.",
     },
     notFound: {
-      title: "Page introuvable — THE KRAFTER",
+      title: "Page introuvable · THE KRAFTER",
       description: "Cette page n’existe pas ou a été déplacée.",
     },
   },
@@ -108,8 +108,8 @@ export const fr = {
     studio: "Studio personnel de Rosaire Kakpo",
     logoSlotTitle: "Emplacement du logo complet",
     logoSlotLine:
-      "Déposez le fichier officiel dans /public/brand/the-krafter-logo.svg — le grand K, l’arc orbital, « The », KRAFTER et les accents seront affichés tels quels.",
-    logoAlt: "THE KRAFTER — logo complet",
+      "Déposez le fichier officiel dans /public/brand/the-krafter-logo.svg. Le grand K, l’arc orbital, « The », KRAFTER et les accents seront affichés tels quels.",
+    logoAlt: "THE KRAFTER, logo complet",
   },
 
   header: {
@@ -120,36 +120,14 @@ export const fr = {
   },
 
   hero: {
-    eyebrow: "Portfolio · Édition 2026",
     firstName: "ROSAIRE",
     lastName: "KAKPO",
     role: "Frontend Developer × UI/UX Designer",
-    lines: ["JE CONÇOIS.", "JE CONSTRUIS.", "J’IMPACTE."],
-    intro:
-      "Je conçois des interfaces éditoriales et je construis le code qui les rend réelles. Design et développement dans le même geste.",
-    basedIn: "Basé au Bénin",
-    basedInValue: "Cotonou, Bénin",
-    working: "Actif à l’international",
-    workingValue: "Missions à distance",
+    statement: "JE CONÇOIS. JE CONSTRUIS. J’IMPACTE.",
     portraitAlt:
       "Portrait de Rosaire Kakpo en costume blanc et chemise noire, devant un grand disque orange.",
-    portraitCaption: "Rosaire Kakpo — Cotonou, Bénin",
     scrollHint: "Faites défiler",
-    stat1Label: "Discipline",
-    stat1Value: "Design × Code",
-    stat2Label: "Signature",
-    stat2Value: "Créer · Inspirer · Impacter",
-    sceneLabel: "KRAFTER / ORBIT — scène 3D interactive",
-    sceneStatic: "Composition orbitale statique",
-    domains: [
-      "Frontend Development",
-      "UI/UX Design",
-      "Produits numériques",
-      "E-commerce",
-      "Création digitale",
-    ],
   },
-
   marquee: {
     words: ["Design", "Code", "Impact"],
     separator: "•",
@@ -162,7 +140,7 @@ export const fr = {
       title: "Projets qui tiennent debout",
       intro:
         "Trois projets récents, entre produit étudiant, plateforme de mise en relation et univers de marque. Chaque étude de cas documente le contexte, les choix de design et le code livré.",
-      meta: "2024 — 2026",
+      meta: "2024 / 2026",
     },
     designCode: {
       index: "02",
@@ -187,7 +165,7 @@ export const fr = {
           id: "component",
           label: "Component",
           caption: "Système",
-          text: "Chaque bloc devient un composant typé, documenté, réutilisable — du bouton au formulaire complet.",
+          text: "Chaque bloc devient un composant typé, documenté, réutilisable, du bouton au formulaire complet.",
         },
         {
           id: "code",
@@ -247,6 +225,14 @@ export const fr = {
         "Mon terrain de jeu : des produits numériques lisibles, rapides et durables, avec une direction artistique assumée. J’aime les grilles, les grands espaces négatifs et les animations qui expliquent au lieu de décorer.",
       ],
       cta: "Lire mon parcours",
+      disciplinesLabel: "Terrains",
+      disciplines: [
+        "Frontend Development",
+        "UI/UX Design",
+        "Produits numériques",
+        "E-commerce",
+        "Création digitale",
+      ],
       facts: [
         { label: "Basé à", value: "Cotonou, Bénin" },
         { label: "Discipline", value: "Design × Code" },
@@ -261,7 +247,7 @@ export const fr = {
       titleEm: "THE KRAFTER",
       paragraphs: [
         "THE KRAFTER est né d’une conviction simple : une interface est un objet fabriqué. Elle a un auteur, des contraintes, une structure et une finition.",
-        "Le nom vient de l’artisan — celui qui connaît son matériau, qui répète le geste, qui signe son travail. Le numérique n’y échappe pas : derrière chaque écran soigné, il y a des décisions précises et beaucoup de travail invisible.",
+        "Le nom vient de l’artisan : celui qui connaît son matériau, qui répète le geste, qui signe son travail. Le numérique n’y échappe pas : derrière chaque écran soigné, il y a des décisions précises et beaucoup de travail invisible.",
       ],
       principles: [
         { title: "Créer", text: "Partir d’une intention, pas d’un template." },
@@ -275,7 +261,7 @@ export const fr = {
       kicker: "Journal",
       title: "Notes de terrain",
       intro:
-        "Le journal est en préparation. Aucun article n’est publié à ce jour — je préfère un espace vide honnête à un historique inventé.",
+        "Le journal est en préparation. Aucun article n’est publié à ce jour. Je préfère un espace vide honnête à un historique inventé.",
       cta: "Voir le journal",
       emptyLabel: "Aucun article publié",
     },
@@ -292,7 +278,7 @@ export const fr = {
     title: "Un artisan du numérique",
     intro:
       "Frontend developer et UI/UX designer. Je conçois des systèmes visuels et je les construis moi-même, du premier croquis au dernier commit.",
-    portraitCaption: "Studio personnel — Cotonou, Bénin",
+    portraitCaption: "Studio personnel, Cotonou, Bénin",
     identity: {
       title: "Identité",
       rows: [
@@ -326,7 +312,7 @@ export const fr = {
       index: "02",
       kicker: "Trajectoire",
       title: "Comment j’en suis arrivé là",
-      note: "Chapitres thématiques — je ne publie pas de dates que je ne peux pas confirmer.",
+      note: "Chapitres thématiques : je ne publie pas de dates que je ne peux pas confirmer.",
       chapters: [
         {
           label: "Origine",
@@ -336,7 +322,7 @@ export const fr = {
         {
           label: "Apprentissage",
           title: "Le code, puis le design",
-          text: "Le développement web comme porte d’entrée : HTML, CSS, JavaScript, puis React et Next.js. Très vite, une évidence — la qualité d’un produit se joue autant dans l’interface que dans le code.",
+          text: "Le développement web comme porte d’entrée : HTML, CSS, JavaScript, puis React et Next.js. Très vite, une évidence : la qualité d’un produit se joue autant dans l’interface que dans le code.",
         },
         {
           label: "Pratique",
@@ -354,7 +340,7 @@ export const fr = {
       index: "03",
       kicker: "Approche",
       title: "Design et développement, même geste",
-      text: "Je travaille en boucle courte : une intention de design, un prototype, un composant, un test sur appareil réel. Les allers-retours entre Figma et l’éditeur de code sont volontaires — c’est là que naissent les détails justes : un espacement, une vitesse d’animation, une couleur d’état.",
+      text: "Je travaille en boucle courte : une intention de design, un prototype, un composant, un test sur appareil réel. Les allers-retours entre Figma et l’éditeur de code sont volontaires : c’est là que naissent les détails justes : un espacement, une vitesse d’animation, une couleur d’état.",
       bullets: [
         "Systèmes de design construits en même temps que les composants",
         "Direction artistique typographique, pas de template",
@@ -431,7 +417,7 @@ export const fr = {
     kicker: "Projets",
     title: "Travaux",
     intro:
-      "Une sélection de projets conçus et développés par THE KRAFTER. Chaque étude de cas raconte le contexte, les décisions de design et la construction technique — sans chiffres inventés.",
+      "Une sélection de projets conçus et développés par THE KRAFTER. Chaque étude de cas raconte le contexte, les décisions de design et la construction technique, sans chiffres inventés.",
     filterLabel: "Filtrer par nature",
     all: "Tous",
     roles: {
@@ -498,7 +484,7 @@ export const fr = {
     kicker: "Contact",
     title: "Parlons du projet",
     intro:
-      "Décrivez le contexte en quelques lignes. Je réponds sous 48 h ouvrées, avec une première lecture honnête de ce qui est réaliste — même si la réponse est non.",
+      "Décrivez le contexte en quelques lignes. Je réponds sous 48 h ouvrées, avec une première lecture honnête de ce qui est réaliste, même si la réponse est non.",
     direct: "Direct",
     emailLabel: "E-mail",
     locationLabel: "Localisation",
@@ -536,7 +522,7 @@ export const fr = {
       fallbackCopy: "Copier le brief",
       copied: "Brief copié",
       successTitle: "Brief transmis",
-      successText: "Merci — je reviens vers vous sous 48 h ouvrées.",
+      successText: "Merci, je reviens vers vous sous 48 h ouvrées.",
       reset: "Écrire un autre message",
       privacy:
         "Les informations saisies servent uniquement à répondre à votre demande.",
@@ -567,7 +553,7 @@ export const fr = {
     title: "KRAFTER / Guidance",
     subtitle: "Assistant intégré",
     engineNotice:
-      "Assistant préprogrammé — aucune IA générative n’est connectée à ce portfolio. Il répond à partir des contenus du site.",
+      "Assistant préprogrammé : aucune IA générative n’est connectée à ce portfolio. Il répond à partir des contenus du site.",
     greeting:
       "Bonjour, je suis l’assistant de THE KRAFTER. Je peux vous orienter vers les projets, les services, les compétences ou le contact.",
     placeholder: "Posez une question…",
@@ -583,7 +569,7 @@ export const fr = {
       "Es-tu disponible ?",
     ],
     fallback:
-      "Je n’ai pas de réponse préparée pour cette question. Je peux vous guider vers les projets, les services, les compétences, le journal ou le contact — ou vous écrire directement à kakporosaire953@gmail.com.",
+      "Je n’ai pas de réponse préparée pour cette question. Je peux vous guider vers les projets, les services, les compétences, le journal ou le contact, ou vous écrire directement à kakporosaire953@gmail.com.",
     typing: "L’assistant écrit",
     you: "Vous",
     navigate: "Aller à",
@@ -622,7 +608,7 @@ export const fr = {
     langToggle: "Changer de langue, actuellement",
     decorative: "Élément décoratif",
     closeDialog: "Fermer la fenêtre",
-    orbitCanvas: "Scène 3D décorative — aucune information essentielle",
+    orbitCanvas: "Scène 3D décorative, aucune information essentielle",
     formError: "Erreur dans le formulaire",
     requiredMark: "obligatoire",
   },
@@ -643,42 +629,42 @@ export const en: typeof fr = {
 
   meta: {
     home: {
-      title: "THE KRAFTER — Rosaire Kakpo · Frontend Developer × UI/UX Designer",
+      title: "THE KRAFTER · Rosaire Kakpo · Frontend Developer × UI/UX Designer",
       description:
         "Portfolio of Rosaire Kakpo, THE KRAFTER. Frontend developer and UI/UX designer based in Benin: editorial interfaces, digital products and bespoke experiences.",
     },
     about: {
-      title: "About — Rosaire Kakpo · THE KRAFTER",
+      title: "About · Rosaire Kakpo · THE KRAFTER",
       description:
         "The path, philosophy and design × code approach of Rosaire Kakpo, frontend developer and UI/UX designer based in Cotonou, Benin.",
     },
     services: {
-      title: "Services — THE KRAFTER",
+      title: "Services · THE KRAFTER",
       description:
         "Frontend development, UI/UX design, digital products and e-commerce: what THE KRAFTER designs and builds.",
     },
     projects: {
-      title: "Projects — THE KRAFTER",
+      title: "Projects · THE KRAFTER",
       description:
         "Selected work: SkillBridge, Campusly, Blue Inova, Apple Confidence, Tontine Chain and the Synnova portfolio.",
     },
     skills: {
-      title: "Skills — THE KRAFTER",
+      title: "Skills · THE KRAFTER",
       description:
         "Rosaire Kakpo’s real stack: HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind, GSAP, motion, Firebase, Supabase, APIs, Git, Vercel.",
     },
     blog: {
-      title: "Journal — THE KRAFTER",
+      title: "Journal · THE KRAFTER",
       description:
         "The KRAFTER journal: field notes on design, code and digital products. No article has been published yet.",
     },
     contact: {
-      title: "Contact — THE KRAFTER",
+      title: "Contact · THE KRAFTER",
       description:
         "Let’s talk about your project: contact form, direct email and current availability.",
     },
     notFound: {
-      title: "Page not found — THE KRAFTER",
+      title: "Page not found · THE KRAFTER",
       description: "This page does not exist or has moved.",
     },
   },
@@ -736,8 +722,8 @@ export const en: typeof fr = {
     studio: "Rosaire Kakpo’s personal studio",
     logoSlotTitle: "Full logo slot",
     logoSlotLine:
-      "Drop the official file in /public/brand/the-krafter-logo.svg — the large K, the orbital arc, “The”, KRAFTER and its accents will render untouched.",
-    logoAlt: "THE KRAFTER — full logo",
+      "Drop the official file in /public/brand/the-krafter-logo.svg. The large K, the orbital arc, “The”, KRAFTER and its accents will render untouched.",
+    logoAlt: "THE KRAFTER, full logo",
   },
 
   header: {
@@ -748,34 +734,13 @@ export const en: typeof fr = {
   },
 
   hero: {
-    eyebrow: "Portfolio · 2026 edition",
     firstName: "ROSAIRE",
     lastName: "KAKPO",
     role: "Frontend Developer × UI/UX Designer",
-    lines: ["I DESIGN.", "I BUILD.", "I DELIVER."],
-    intro:
-      "I design editorial interfaces and write the code that makes them real. Design and development in one gesture.",
-    basedIn: "Based in Benin",
-    basedInValue: "Cotonou, Benin",
-    working: "Working globally",
-    workingValue: "Remote collaborations",
+    statement: "I DESIGN. I BUILD. I DELIVER.",
     portraitAlt:
       "Portrait of Rosaire Kakpo in a white suit and black shirt, in front of a large orange disc.",
-    portraitCaption: "Rosaire Kakpo — Cotonou, Benin",
     scrollHint: "Scroll",
-    stat1Label: "Discipline",
-    stat1Value: "Design × Code",
-    stat2Label: "Signature",
-    stat2Value: "Create · Inspire · Impact",
-    sceneLabel: "KRAFTER / ORBIT — interactive 3D scene",
-    sceneStatic: "Static orbital composition",
-    domains: [
-      "Frontend Development",
-      "UI/UX Design",
-      "Digital products",
-      "E-commerce",
-      "Digital creation",
-    ],
   },
 
   marquee: {
@@ -790,7 +755,7 @@ export const en: typeof fr = {
       title: "Projects that hold up",
       intro:
         "Three recent projects across a student product, a talent platform and a brand universe. Each case study documents context, design decisions and the code that shipped.",
-      meta: "2024 — 2026",
+      meta: "2024 / 2026",
     },
     designCode: {
       index: "02",
@@ -815,7 +780,7 @@ export const en: typeof fr = {
           id: "component",
           label: "Component",
           caption: "System",
-          text: "Every block becomes a typed, documented, reusable component — from a button to a full form.",
+          text: "Every block becomes a typed, documented, reusable component, from a button to a full form.",
         },
         {
           id: "code",
@@ -875,6 +840,14 @@ export const en: typeof fr = {
         "My playground: legible, fast and durable digital products with a committed art direction. I like grids, generous negative space and animation that explains rather than decorates.",
       ],
       cta: "Read my story",
+      disciplinesLabel: "Fields",
+      disciplines: [
+        "Frontend Development",
+        "UI/UX Design",
+        "Digital products",
+        "E-commerce",
+        "Digital creation",
+      ],
       facts: [
         { label: "Based in", value: "Cotonou, Benin" },
         { label: "Discipline", value: "Design × Code" },
@@ -889,7 +862,7 @@ export const en: typeof fr = {
       titleEm: "THE KRAFTER",
       paragraphs: [
         "THE KRAFTER was born from a simple conviction: an interface is a manufactured object. It has an author, constraints, a structure and a finish.",
-        "The name comes from the craftsman — someone who knows the material, repeats the gesture, signs the work. Digital is no different: behind every polished screen sit precise decisions and a lot of invisible work.",
+        "The name comes from the craftsman: someone who knows the material, repeats the gesture, signs the work. Digital is no different: behind every polished screen sit precise decisions and a lot of invisible work.",
       ],
       principles: [
         { title: "Create", text: "Start from an intention, not a template." },
@@ -903,7 +876,7 @@ export const en: typeof fr = {
       kicker: "Journal",
       title: "Field notes",
       intro:
-        "The journal is being prepared. No article has been published yet — I would rather show an honest empty space than an invented publishing history.",
+        "The journal is being prepared. No article has been published yet. I would rather show an honest empty space than an invented publishing history.",
       cta: "Visit the journal",
       emptyLabel: "No published articles",
     },
@@ -920,7 +893,7 @@ export const en: typeof fr = {
     title: "A digital craftsman",
     intro:
       "Frontend developer and UI/UX designer. I design visual systems and build them myself, from the first sketch to the last commit.",
-    portraitCaption: "Personal studio — Cotonou, Benin",
+    portraitCaption: "Personal studio, Cotonou, Benin",
     identity: {
       title: "Identity",
       rows: [
@@ -954,7 +927,7 @@ export const en: typeof fr = {
       index: "02",
       kicker: "Path",
       title: "How I got here",
-      note: "Thematic chapters — I do not publish dates I cannot confirm.",
+      note: "Thematic chapters: I do not publish dates I cannot confirm.",
       chapters: [
         {
           label: "Origin",
@@ -964,7 +937,7 @@ export const en: typeof fr = {
         {
           label: "Learning",
           title: "Code, then design",
-          text: "Web development as a doorway: HTML, CSS, JavaScript, then React and Next.js. Quickly an obvious truth — product quality lives as much in the interface as in the code.",
+          text: "Web development as a doorway: HTML, CSS, JavaScript, then React and Next.js. Quickly an obvious truth: product quality lives as much in the interface as in the code.",
         },
         {
           label: "Practice",
@@ -982,7 +955,7 @@ export const en: typeof fr = {
       index: "03",
       kicker: "Approach",
       title: "Design and development, one gesture",
-      text: "I work in short loops: a design intention, a prototype, a component, a test on a real device. Moving back and forth between Figma and the code editor is deliberate — that is where the right details appear: a spacing, an animation speed, a state colour.",
+      text: "I work in short loops: a design intention, a prototype, a component, a test on a real device. Moving back and forth between Figma and the code editor is deliberate: that is where the right details appear: a spacing, an animation speed, a state colour.",
       bullets: [
         "Design systems built alongside the components",
         "Typographic art direction, never a template",
@@ -1028,7 +1001,7 @@ export const en: typeof fr = {
     ],
     cta: {
       title: "A specific need?",
-      text: "Explain the context — I will tell you honestly whether I am the right person.",
+      text: "Explain the context, and I will tell you honestly whether I am the right person.",
     },
   },
 
@@ -1059,7 +1032,7 @@ export const en: typeof fr = {
     kicker: "Projects",
     title: "Work",
     intro:
-      "A selection of projects designed and built by THE KRAFTER. Each case study covers context, design decisions and technical construction — no invented numbers.",
+      "A selection of projects designed and built by THE KRAFTER. Each case study covers context, design decisions and technical construction, no invented numbers.",
     filterLabel: "Filter by nature",
     all: "All",
     roles: {
@@ -1126,7 +1099,7 @@ export const en: typeof fr = {
     kicker: "Contact",
     title: "Let’s talk about it",
     intro:
-      "Describe the context in a few lines. I reply within 48 business hours with a first honest read of what is realistic — even when the answer is no.",
+      "Describe the context in a few lines. I reply within 48 business hours with a first honest read of what is realistic, even when the answer is no.",
     direct: "Direct",
     emailLabel: "Email",
     locationLabel: "Location",
@@ -1164,7 +1137,7 @@ export const en: typeof fr = {
       fallbackCopy: "Copy the brief",
       copied: "Brief copied",
       successTitle: "Brief delivered",
-      successText: "Thank you — I will get back to you within 48 business hours.",
+      successText: "Thank you, I will get back to you within 48 business hours.",
       reset: "Write another message",
       privacy: "The details you enter are only used to answer your request.",
       notice:
@@ -1194,7 +1167,7 @@ export const en: typeof fr = {
     title: "KRAFTER / Guidance",
     subtitle: "Built-in assistant",
     engineNotice:
-      "Pre-programmed assistant — no generative AI is connected to this portfolio. It answers from the site’s own content.",
+      "Pre-programmed assistant: no generative AI is connected to this portfolio. It answers from the site’s own content.",
     greeting:
       "Hello, I am THE KRAFTER assistant. I can point you to projects, services, skills or contact.",
     placeholder: "Ask a question…",
@@ -1210,7 +1183,7 @@ export const en: typeof fr = {
       "Are you available?",
     ],
     fallback:
-      "I have no prepared answer for that question. I can guide you to projects, services, skills, the journal or contact — or you can write directly to kakporosaire953@gmail.com.",
+      "I have no prepared answer for that question. I can guide you to projects, services, skills, the journal or contact, or you can write directly to kakporosaire953@gmail.com.",
     typing: "Assistant is typing",
     you: "You",
     navigate: "Go to",
@@ -1249,7 +1222,7 @@ export const en: typeof fr = {
     langToggle: "Change language, currently",
     decorative: "Decorative element",
     closeDialog: "Close the dialog",
-    orbitCanvas: "Decorative 3D scene — no essential information",
+    orbitCanvas: "Decorative 3D scene, no essential information",
     formError: "Form error",
     requiredMark: "required",
   },

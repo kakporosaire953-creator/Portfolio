@@ -12,6 +12,14 @@ import { useReducedMotion } from "@/lib/utils/useReducedMotion";
 import { whenIntroIdle } from "@/lib/utils/introState";
 import { asset } from "@/lib/utils/asset";
 
+/**
+ * Hero.
+ *
+ * Deliberately sparse: the name, the role, one sentence, two doors and the
+ * city. Everything that used to compete here (disciplines, availability,
+ * paragraphs, badges) now lives in the sections below, so the first screen can
+ * breathe. Whitespace carries the composition.
+ */
 export function Hero() {
   const { t } = useLocale();
   const reduced = useReducedMotion();
@@ -27,18 +35,14 @@ export function Hero() {
       const portrait = scope.querySelector("[data-hero-portrait]");
       const orbit = scope.querySelector("[data-hero-orbit]");
       const ctas = scope.querySelectorAll<HTMLElement>("[data-hero-cta] > *");
-      const facts = scope.querySelectorAll<HTMLElement>("[data-hero-fact]");
-      const badge = scope.querySelector("[data-hero-badge]");
-      const domains = scope.querySelectorAll<HTMLElement>("[data-hero-domain] > li");
+      const place = scope.querySelector("[data-hero-place]");
       const rule = scope.querySelector("[data-hero-rule]");
-      const sideNote = scope.querySelector("[data-hero-sidenote]");
 
       const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
 
       tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.85, ease: "power3.inOut" })
         .from(lines, { yPercent: 112, duration: 1.15, stagger: 0.1 }, 0.15)
         .from(roleLines, { yPercent: 110, duration: 0.9 }, 0.5)
-        .from(sideNote, { autoAlpha: 0, duration: 0.8 }, 0.6)
         .fromTo(
           portrait,
           { clipPath: "inset(100% 0% 0% 0%)", scale: 1.06 },
@@ -52,11 +56,9 @@ export function Hero() {
           0.35,
         )
         .from(orbit, { autoAlpha: 0, scale: 0.94, duration: 1.4 }, 0.3)
-        .from(statementLines, { yPercent: 110, duration: 0.95, stagger: 0.09 }, 0.95)
-        .from(domains, { autoAlpha: 0, y: 10, duration: 0.5, stagger: 0.05 }, 1.1)
-        .from(facts, { autoAlpha: 0, y: 16, duration: 0.7, stagger: 0.08 }, 1.15)
-        .from(ctas, { autoAlpha: 0, y: 18, duration: 0.7, stagger: 0.08 }, 1.25)
-        .from(badge, { autoAlpha: 0, y: 14, duration: 0.7 }, 1.45);
+        .from(statementLines, { yPercent: 110, duration: 0.95 }, 0.95)
+        .from(ctas, { autoAlpha: 0, y: 18, duration: 0.7, stagger: 0.08 }, 1.2)
+        .from(place, { autoAlpha: 0, y: 10, duration: 0.6 }, 1.4);
 
       // Wait for KRAFTER / ASSEMBLY so the hero never animates behind it.
       const cancel = whenIntroIdle(() => tl.play(0));
@@ -76,8 +78,6 @@ export function Hero() {
 
       <div className="shell hero__inner">
         <div className="hero__copy">
-          <p className="kicker hero__eyebrow">{t.hero.eyebrow}</p>
-
           <h1 className="hero__name" id="hero-title" data-hero-name>
             <span className="line-mask hero__name-line">
               <span>{t.hero.firstName}</span>
@@ -96,18 +96,11 @@ export function Hero() {
             </span>
           </p>
 
-          <ul className="hero__statement" data-hero-statement>
-            {t.hero.lines.map((line, index) => (
-              <li key={line}>
-                <span className="hero__statement-index num">0{index + 1}</span>
-                <span className="line-mask">
-                  <span>{line}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="hero__intro lede">{t.hero.intro}</p>
+          <p className="hero__statement" data-hero-statement>
+            <span className="line-mask">
+              <span>{t.hero.statement}</span>
+            </span>
+          </p>
 
           <div className="hero__ctas" data-hero-cta>
             <Magnetic>
@@ -121,22 +114,10 @@ export function Hero() {
             </Link>
           </div>
 
-          <ul className="hero__domains" data-hero-domain>
-            {t.hero.domains.map((domain) => (
-              <li key={domain}>{domain}</li>
-            ))}
-          </ul>
-
-          <dl className="hero__facts">
-            <div className="hero__fact" data-hero-fact>
-              <dt className="meta">{t.hero.basedIn}</dt>
-              <dd>{t.hero.basedInValue}</dd>
-            </div>
-            <div className="hero__fact" data-hero-fact>
-              <dt className="meta">{t.hero.working}</dt>
-              <dd>{t.hero.workingValue}</dd>
-            </div>
-          </dl>
+          <p className="hero__place meta" data-hero-place>
+            <span className="status-dot" aria-hidden="true" />
+            {t.common.location}
+          </p>
         </div>
 
         <div className="hero__visual">
@@ -152,17 +133,7 @@ export function Hero() {
               fetchPriority="high"
               decoding="async"
             />
-            <figcaption className="hero__caption meta">{t.hero.portraitCaption}</figcaption>
           </figure>
-
-          <div className="hero__badge" data-hero-badge>
-            <span className="hero__badge-line" aria-hidden="true" />
-            <span className="meta">{t.common.concept}</span>
-          </div>
-
-          <p className="hero__sidenote meta" data-hero-sidenote>
-            {t.common.signatureLine}
-          </p>
         </div>
       </div>
 
@@ -172,7 +143,6 @@ export function Hero() {
           <span className="hero__scroll-line" aria-hidden="true" />
           <ArrowDown size={12} />
         </span>
-        <span className="meta">{t.hero.sceneLabel}</span>
       </div>
     </section>
   );
