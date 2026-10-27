@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { cn } from "@/lib/utils/cn";
+import { asset } from "@/lib/utils/asset";
 
 /**
  * THE KRAFTER — official brand files.
@@ -44,7 +45,7 @@ export function BrandLogo({
     <span className={cn("brand-logo", `brand-logo--${variant}`, className)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- brand artwork, original proportions and colours */}
       <img
-        src={source}
+        src={asset(source)}
         alt={decorative ? "" : t.brand.logoAlt}
         aria-hidden={decorative || undefined}
         className="brand-logo__img"
