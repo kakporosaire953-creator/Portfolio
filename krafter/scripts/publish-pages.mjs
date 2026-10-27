@@ -63,9 +63,13 @@ if (!existsSync(out)) {
 // assets (images/, assets/…) while the new build adds its own.
 const files = [
   "index.html",
+  // RSC payload the client prefetches for client-side navigation; without it
+  // every prefetch 404s on a static host.
+  "index.txt",
   "404.html",
   "sitemap.xml",
   "robots.txt",
+  "manifest.webmanifest",
   "og.jpg",
   // Official K favicons (the old placeholder favicon.svg is gone).
   "favicon.ico",

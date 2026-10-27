@@ -11,7 +11,11 @@ import { gsap, registerGsap } from "@/lib/animations/gsap/register";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
 
 /**
- * Layer B — floating vertical rail (desktop only).
+ * Layer B — the right-hand vertical rail.
+ *
+ * It is visible from 800px up (laptops, zoomed browsers, tablets in landscape)
+ * and hidden on phones, where the drawer does the job. Visibility lives in CSS,
+ * next to the rail's own rules, so it cannot be lost to a cascade accident.
  * One icon per destination, active state in orange, label on hover/focus,
  * plus a discreet scroll-progress thread.
  */
@@ -60,7 +64,7 @@ export function VerticalRail() {
   }, [pathname]);
 
   return (
-    <nav className="rail only-desktop" aria-label={t.nav.railLabel}>
+    <nav className="rail" aria-label={t.nav.railLabel}>
       <span className="rail__thread" aria-hidden="true">
         <span className="rail__thread-fill" style={{ transform: `scaleY(${progress})` }} />
       </span>

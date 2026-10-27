@@ -1,0 +1,104 @@
+/* ==========================================================================
+   THE KRAFTER — BLUE ACCENTS
+   The logo carries orange, yellow and two blues. Orange stays the action
+   colour; the logo blue is used as a second voice on a handful of details
+   only: the rail thread, the second gallery row, technical micro-labels,
+   links that leave the site and the selected text.
+   ========================================================================== */
+
+/* 1. Selected text: the brand blue, so copying feels intentional. */
+::selection {
+  background: var(--brand-blue);
+  color: #fff;
+}
+
+/* 2. Technical micro-labels get a blue dot instead of an orange one. */
+.meta--tech::before,
+.skills-panel__label::before,
+.designcode__step-label::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 0.5rem;
+  border-radius: 999px;
+  background: var(--brand-blue);
+  vertical-align: middle;
+}
+
+/* 3. Section rules fade into the brand blue at their far end: the same
+   hairline on every page, one cooling note. */
+.section-head {
+  border-bottom-color: transparent;
+  border-bottom-width: 1px;
+  background-image: linear-gradient(
+    90deg,
+    var(--line) 0%,
+    var(--line) 58%,
+    color-mix(in srgb, var(--brand-blue) 38%, var(--line)) 88%,
+    color-mix(in srgb, var(--brand-blue) 62%, var(--line)) 100%
+  );
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 100% 1px;
+}
+
+[data-theme="dark"] .section-head {
+  background-image: linear-gradient(
+    90deg,
+    var(--line) 0%,
+    var(--line) 58%,
+    color-mix(in srgb, var(--brand-blue) 30%, var(--line)) 88%,
+    color-mix(in srgb, var(--brand-blue) 50%, var(--line)) 100%
+  );
+}
+
+/* 3b. Tags: a blue-tinted chip, still quiet enough to read as a list. */
+.tag {
+  background: color-mix(in srgb, var(--brand-blue) 6%, transparent);
+  border-color: color-mix(in srgb, var(--brand-blue) 18%, var(--line));
+}
+
+[data-theme="dark"] .tag {
+  background: color-mix(in srgb, var(--brand-blue) 13%, transparent);
+  border-color: color-mix(in srgb, var(--brand-blue) 26%, var(--line));
+}
+
+/* 3c. Probe: a blue hairline on hover, still ink by default. */
+.tag {
+  transition: border-color 280ms var(--ease-out-expo), color 280ms var(--ease-out-expo);
+}
+
+.tag:hover {
+  border-color: color-mix(in srgb, var(--brand-blue) 55%, var(--line));
+  color: var(--ink);
+}
+
+/* 4. Outbound links: the arrow turns blue, the site keeps its colours. */
+.site-footer__link:hover svg,
+.link-external:hover svg,
+.case-hero__back:hover svg {
+  color: var(--brand-blue);
+}
+
+/* 5. Design × Code rail: the orange progress starts as blue at the top. */
+.designcode__progress {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--brand-blue) 45%, transparent), var(--line));
+}
+
+.designcode__progress-fill {
+  background: linear-gradient(to bottom, var(--brand-blue), var(--orange));
+}
+
+/* 6. Outline words of the signature band: one blue stroke in three. */
+.signature-strip__word--outline {
+  -webkit-text-stroke-color: color-mix(in srgb, var(--brand-blue) 55%, var(--line-strong));
+}
+
+/* 7. Case-study hero: the year and index sit on a blue rule. */
+.case-hero__index {
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-blue) 45%, transparent);
+  padding-bottom: 2px;
+}
+
+/* 8. Focus stays orange everywhere: blue is never an interaction colour. */

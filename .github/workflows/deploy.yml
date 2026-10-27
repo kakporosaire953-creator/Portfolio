@@ -46,9 +46,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- index.html 404.html _next images projects brand \
+          git add -A -- index.html index.txt 404.html _next images projects brand \
             a-propos services projets competences blog contact \
-            sitemap.xml robots.txt og.jpg .nojekyll \
+            sitemap.xml robots.txt manifest.webmanifest og.jpg .nojekyll \
             favicon.ico favicon-32.png icon-192.png icon-512.png apple-icon.png
           if git diff --cached --quiet; then
             echo "Artefact déjà à jour."

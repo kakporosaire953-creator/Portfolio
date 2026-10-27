@@ -8,6 +8,7 @@ import "./globals.css";
 import "./styles/chrome.css";
 import "./styles/pages.css";
 import "./styles/glass.css";
+import "./styles/accents.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { SkipLink } from "@/components/layout/SkipLink";
@@ -21,17 +22,15 @@ import { CursorFollower } from "@/components/motion/CursorFollower";
 import { GlassSheen } from "@/components/motion/GlassSheen";
 import { profile } from "@/data/profile";
 import { asset } from "@/lib/utils/asset";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kakpo-rosaire.vercel.app";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, OG_IMAGE, siteGraph } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "THE KRAFTER · Rosaire Kakpo · Frontend Developer × UI/UX Designer",
+    default: SITE_TITLE,
     template: "%s",
   },
-  description:
-    "Portfolio de Rosaire Kakpo, THE KRAFTER. Frontend developer et UI/UX designer basé à Cotonou, Bénin : design éditorial, interfaces React et produits numériques.",
+  description: SITE_DESCRIPTION,
   applicationName: "THE KRAFTER",
   authors: [{ name: profile.fullName, url: profile.github }],
   creator: profile.fullName,
@@ -46,30 +45,29 @@ export const metadata: Metadata = {
     "portfolio",
     "design éditorial",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
     type: "website",
     locale: "fr_FR",
     alternateLocale: ["en_US"],
     url: SITE_URL,
     siteName: "THE KRAFTER",
-    title: "THE KRAFTER · Rosaire Kakpo · Frontend Developer × UI/UX Designer",
-    description:
-      "Design × Code × Impact. Portfolio de Rosaire Kakpo, frontend developer et UI/UX designer basé au Bénin.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: [
       {
-        url: asset("/og.jpg"),
-        width: 1200,
-        height: 630,
-        alt: "THE KRAFTER · Rosaire Kakpo, frontend developer × UI/UX designer",
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: OG_IMAGE.alt,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "THE KRAFTER · Rosaire Kakpo",
-    description: "Design × Code × Impact. Frontend developer × UI/UX designer, Cotonou, Bénin.",
-    images: [asset("/og.jpg")],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
   robots: { index: true, follow: true },
   icons: {
@@ -82,6 +80,8 @@ export const metadata: Metadata = {
     apple: asset("/apple-icon.png"),
   },
   category: "design",
+  manifest: "/manifest.webmanifest",
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
@@ -110,32 +110,7 @@ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
 }
 }catch(e){document.documentElement.dataset.theme='light';document.documentElement.classList.remove('js-mask-pending');}})();`;
 
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Rosaire Kakpo",
-  alternateName: "THE KRAFTER",
-  jobTitle: "Frontend Developer & UI/UX Designer",
-  email: `mailto:${profile.email}`,
-  url: SITE_URL,
-  image: `${SITE_URL}${asset("/images/portrait-hero.jpg")}`,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Cotonou",
-    addressCountry: "BJ",
-  },
-  sameAs: [profile.github],
-  knowsAbout: [
-    "Frontend development",
-    "UI/UX design",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "GSAP",
-    "Design systems",
-    "E-commerce",
-  ],
-};
+const graphJsonLd = siteGraph();
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -145,7 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(graphJsonLd) }}
         />
       </head>
       <body id="top">
