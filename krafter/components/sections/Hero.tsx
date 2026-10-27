@@ -9,7 +9,7 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { useGsap } from "@/lib/animations/gsap/useGsap";
 import { gsap } from "@/lib/animations/gsap/register";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
-import { whenIntroIdle } from "@/lib/utils/introState";
+import { isIntroPlaying, whenIntroIdle } from "@/lib/utils/introState";
 import { asset } from "@/lib/utils/asset";
 
 /**
@@ -38,7 +38,12 @@ export function Hero() {
       const place = scope.querySelector("[data-hero-place]");
       const rule = scope.querySelector("[data-hero-rule]");
 
-      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      // immediateRender: false on every `from`: nothing is hidden at creation
+      // time, so the copy is readable even if the timeline never gets to play.
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power3.out", immediateRender: false },
+      });
 
       tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.85, ease: "power3.inOut" })
         .from(lines, { yPercent: 112, duration: 1.15, stagger: 0.1 }, 0.15)
@@ -60,8 +65,12 @@ export function Hero() {
         .from(ctas, { autoAlpha: 0, y: 18, duration: 0.7, stagger: 0.08 }, 1.2)
         .from(place, { autoAlpha: 0, y: 10, duration: 0.6 }, 1.4);
 
-      // Wait for KRAFTER / ASSEMBLY so the hero never animates behind it.
-      const cancel = whenIntroIdle(() => tl.play(0));
+      // Wait for KRAFTER / ASSEMBLY so the hero never animates behind it. If the
+      // opening scene is not running, the entrance simply plays now.
+      const cancel = isIntroPlaying() ? whenIntroIdle(() => tl.play(0)) : (tl.play(0), () => undefined);
+      // Without the opening scene in front, nobody wants to wait two seconds
+      // for the copy: the same entrance, just brisker.
+      if (!isIntroPlaying()) tl.timeScale(1.7);
 
       // Desktop only: the portrait and the orbit drift against the pointer,
       // which gives the composition real depth without touching the scroll.

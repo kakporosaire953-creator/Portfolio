@@ -10,8 +10,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // Nothing secret here, but there is no point crawling the build assets.
-        disallow: ["/_next/", "/api/"],
+        // /_next must stay crawlable: Google needs the CSS and JS chunks to
+        // render the page. Only an empty API folder is pointless.
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

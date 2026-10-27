@@ -39,3 +39,22 @@ export function whenIntroIdle(callback: () => void): () => void {
   listeners.add(callback);
   return () => listeners.delete(callback);
 }
+
+/**
+ * Did the opening scene paint its first WebGL frame?
+ *
+ * Child effects run before the parent's, so the 3D scene can be ready before
+ * the overlay has attached its listener. A module flag has no such race.
+ */
+let sceneReady = false;
+
+export function markSceneReady() {
+  sceneReady = true;
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("krafter:intro-scene-ready"));
+  }
+}
+
+export function hasSceneReady() {
+  return sceneReady;
+}

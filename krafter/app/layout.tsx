@@ -9,6 +9,7 @@ import "./styles/chrome.css";
 import "./styles/pages.css";
 import "./styles/glass.css";
 import "./styles/accents.css";
+import "./styles/intro.css";
 
 import { Providers } from "@/components/layout/Providers";
 import { SkipLink } from "@/components/layout/SkipLink";
@@ -21,7 +22,7 @@ import { ScrollReveals } from "@/components/motion/ScrollReveals";
 import { CursorFollower } from "@/components/motion/CursorFollower";
 import { GlassSheen } from "@/components/motion/GlassSheen";
 import { profile } from "@/data/profile";
-import { asset } from "@/lib/utils/asset";
+import { BASE_PATH, asset } from "@/lib/utils/asset";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, OG_IMAGE, siteGraph } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -87,26 +88,37 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAF8F3" },
-    { media: "(prefers-color-scheme: dark)", color: "#05090E" },
-  ],
+  // One colour, always: the interface opens light, so the browser chrome does too.
+  themeColor: "#FAF8F3",
 };
 
 /** Applies the stored theme + language before first paint (no flash). */
 const bootScript = `(function(){try{
 var d=document.documentElement;
+/* The site opens in light mode, always: dark is a choice the visitor makes,
+   never something inherited from the operating system. */
 var t=localStorage.getItem('krafter:theme');
-if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+if(t!=='light'&&t!=='dark'){t='light';}
 d.dataset.theme=t;d.style.colorScheme=t;
 var l=localStorage.getItem('krafter:lang');
 if(l!=='fr'&&l!=='en'){l='fr';}
 d.lang=l;d.dataset.lang=l;
-/* Hide masked headlines only between first paint and GSAP setup, and only when
-   motion is welcome. A timer releases them if the bundle never runs. */
-if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+/* The opening scene belongs to the front door, once per session. Any other
+   route, a returning visit or reduced motion gets the page straight away.
+   Decided here, before the first paint, so nothing flashes. */
+var root=(document.documentElement.getAttribute('data-base')||'');
+var path=location.pathname.replace(/index\.html$/,'');
+var home=(path===root+'/'||path===root||path==='/'||path==='');
+var seen=false;try{seen=sessionStorage.getItem('krafter:intro-seen')==='1';}catch(e){}
+var noMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!home||seen||noMotion){
+  d.classList.add('intro-off');
+  d.classList.remove('js-mask-pending');
+}else{
   d.classList.add('js-mask-pending');
-  setTimeout(function(){d.classList.remove('js-mask-pending');},2600);
+  setTimeout(function(){d.classList.remove('js-mask-pending');},3200);
+  /* If any chunk fails after paint, the scroll lock must still release. */
+  setTimeout(function(){d.classList.remove('no-scroll');},9000);
 }
 }catch(e){document.documentElement.dataset.theme='light';document.documentElement.classList.remove('js-mask-pending');}})();`;
 
@@ -115,7 +127,7 @@ const graphJsonLd = siteGraph();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" data-theme="light" suppressHydrationWarning>
+    <html lang="fr" data-theme="light" data-base={BASE_PATH} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <script

@@ -1,0 +1,280 @@
+/* ==========================================================================
+   THE KRAFTER, OPENING SCENE
+   The first paint of the site: warm paper, a blueprint grid, the official
+   monogram in the middle, and a real progress line. It stays light even when
+   the visitor later chooses the dark theme, because it is the brand, not the
+   interface.
+   ========================================================================== */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 320;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: clamp(1rem, 3vh, 2.4rem);
+  padding: clamp(1.1rem, 3.2vw, 2.6rem) clamp(1.1rem, 4vw, 3.4rem)
+    clamp(1.2rem, 3vh, 2.4rem);
+  background: #f7f3ea;
+  color: #0b1a2a;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+  will-change: clip-path;
+}
+
+/* The grid and the two brand glows are decorative layers, not content. */
+.intro__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgb(11 26 42 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(11 26 42 / 0.055) 1px, transparent 1px);
+  background-size: clamp(58px, 7vw, 92px) clamp(58px, 7vw, 92px);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 45%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(120% 90% at 50% 45%, #000 25%, transparent 78%);
+  pointer-events: none;
+}
+
+.intro__glow {
+  position: absolute;
+  inset: -20% -10%;
+  background:
+    radial-gradient(42% 40% at 28% 32%, rgb(255 106 0 / 0.15), transparent 70%),
+    radial-gradient(46% 44% at 74% 64%, rgb(30 111 217 / 0.16), transparent 72%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.intro__top,
+.intro__foot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.intro__tag {
+  font-family: var(--font-mono);
+  font-size: clamp(0.56rem, 0.72vw, 0.68rem);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgb(11 26 42 / 0.58);
+}
+
+.intro__tag--right {
+  color: rgb(11 26 42 / 0.42);
+}
+
+/* --- the monogram stage -------------------------------------------------- */
+
+.intro__stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.intro__poster,
+.intro__canvas {
+  grid-area: 1 / 1;
+  width: min(56vmin, 430px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.intro__poster {
+  transition: opacity 520ms var(--ease-out-expo), transform 900ms var(--ease-out-expo);
+}
+
+.intro__poster.is-behind {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.intro__mark {
+  width: 100%;
+  height: 100%;
+  color: #10263c;
+  filter: drop-shadow(0 26px 34px rgb(11 26 42 / 0.18));
+  animation: mark-breathe 6s var(--ease-in-out-quint) infinite;
+}
+
+.intro__canvas {
+  opacity: 0;
+  transition: opacity 520ms var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.intro__canvas.is-live {
+  opacity: 1;
+}
+
+.intro__canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+@keyframes mark-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.012);
+  }
+}
+
+/* --- name, role, progress ------------------------------------------------ */
+
+.intro__mid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  text-align: center;
+}
+
+.intro__name {
+  font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.intro__role {
+  font-family: var(--font-mono);
+  font-size: clamp(0.56rem, 0.72vw, 0.68rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgb(11 26 42 / 0.5);
+}
+
+.intro__progress {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex: 1 1 220px;
+  max-width: 340px;
+}
+
+.intro__track {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgb(11 26 42 / 0.14);
+  overflow: hidden;
+}
+
+.intro__bar {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #1e6fd9, #ff6a00);
+  /* The JS updates the value ten times a second; the transition does the rest. */
+  transition: transform 260ms linear;
+}
+
+.intro__pct {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: rgb(11 26 42 / 0.6);
+  min-width: 4.4ch;
+  text-align: right;
+}
+
+.intro__skip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgb(11 26 42 / 0.18);
+  border-radius: 999px;
+  background: transparent;
+  color: #0b1a2a;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 240ms var(--ease-out-expo), background-color 240ms var(--ease-out-expo);
+}
+
+.intro__skip span {
+  padding: 0.1rem 0.32rem;
+  border-radius: 3px;
+  background: rgb(11 26 42 / 0.08);
+  font-size: 0.54rem;
+}
+
+.intro__skip:hover,
+.intro__skip:focus-visible {
+  border-color: #ff6a00;
+  background: rgb(255 106 0 / 0.06);
+}
+
+/* The boot script hides the overlay before paint when motion is reduced. */
+html.intro-off .intro {
+  display: none;
+}
+
+/* Backstop: if a chunk ever fails to load after paint, the opening scene fades
+   itself out instead of trapping the visitor behind a frozen overlay. */
+.intro {
+  animation: intro-backstop 1ms linear 9s forwards;
+}
+
+@keyframes intro-backstop {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .intro {
+    gap: 0.8rem;
+    padding: 1.1rem 1.1rem 1.3rem;
+  }
+
+  .intro__poster,
+  .intro__canvas {
+    width: min(64vmin, 300px);
+  }
+
+  .intro__foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
+  }
+
+  .intro__progress {
+    max-width: none;
+    order: 2;
+  }
+
+  .intro__skip {
+    justify-content: center;
+    order: 1;
+  }
+
+  .intro__tag--right {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro,
+  .intro__mark,
+  .intro__poster {
+    animation: none;
+    transition: none;
+  }
+}

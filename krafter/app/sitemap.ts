@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_UPDATED, SITE_URL } from "@/lib/seo";
 
 // Required so `output: "export"` can prerender this route (GitHub Pages build).
 export const dynamic = "force-static";
@@ -16,22 +16,21 @@ const ROUTES: { path: string; priority: number; changeFrequency: "monthly" | "we
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // The export is regenerated on every publish, so the build stamp is the
-  // truthful "last modified" for each document.
-  const now = new Date();
+  // One honest date for the whole site, bumped by hand when content changes.
   // Canonicals use the trailing-slash URLs the export actually serves.
+  const lastModified = new Date(`${SITE_UPDATED}T09:00:00Z`);
   const url = (route: string) => `${SITE_URL}${route}/`;
 
   return [
     ...ROUTES.map((route) => ({
       url: url(route.path),
-      lastModified: now,
+      lastModified,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })),
     ...projects.map((project) => ({
       url: url(`/projets/${project.slug}`),
-      lastModified: now,
+      lastModified,
       changeFrequency: "yearly" as const,
       priority: 0.7,
     })),

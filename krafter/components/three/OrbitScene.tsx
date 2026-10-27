@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
+import { hasIntroFinished, isIntroPlaying } from "@/lib/utils/introState";
 import { OrbitPoster } from "@/components/svg/OrbitPoster";
 
 /**
@@ -233,9 +234,13 @@ export function OrbitScene({ className }: { className?: string }) {
       renderer.render(scene, camera);
     };
 
+    // Two WebGL contexts on the first paint is one too many: the hero scene
+    // sleeps while the opening scene owns the screen, then starts warm.
+    let introBlocking = isIntroPlaying() && !hasIntroFinished();
+
     const loop = () => {
       frameId = window.requestAnimationFrame(loop);
-      if (!visible || !inView) return;
+      if (!visible || !inView || introBlocking) return;
       renderFrame();
     };
 
@@ -244,6 +249,12 @@ export function OrbitScene({ className }: { className?: string }) {
     } else {
       loop();
     }
+
+    const onIntroDone = () => {
+      introBlocking = false;
+      clock.getDelta(); // drop the paused time, no jump in the motion
+    };
+    window.addEventListener("krafter:intro-done", onIntroDone);
 
     // A lost context should not leave an empty box.
     const onContextLost = (event: Event) => {
@@ -256,6 +267,7 @@ export function OrbitScene({ className }: { className?: string }) {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("krafter:theme-change", applyTheme);
+      window.removeEventListener("krafter:intro-done", onIntroDone);
       document.removeEventListener("visibilitychange", onVisibility);
       renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
       io.disconnect();

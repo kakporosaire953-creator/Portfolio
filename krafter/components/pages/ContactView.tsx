@@ -8,6 +8,14 @@ import { profile } from "@/data/profile";
 import { ArrowRight, ArrowUpRight } from "@/components/navigation/Glyphs";
 import { asset } from "@/lib/utils/asset";
 
+/**
+ * The published site is a static export (GitHub Pages): /api/contact cannot
+ * exist there. The publish script sets NEXT_PUBLIC_STATIC_EXPORT so the form
+ * goes straight to the working mailto instead of failing first.
+ */
+const STATIC_ONLY = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
+
+
 type Status = "idle" | "sending" | "success" | "error";
 
 type Values = { name: string; email: string; type: string; message: string };
@@ -74,6 +82,14 @@ export function ContactView() {
     setErrors(found);
     if (Object.keys(found).length > 0) {
       setStatus("idle");
+      return;
+    }
+
+    // On the static export there is no server to answer: skip the doomed
+    // request and hand the brief straight to the visitor's mail client.
+    if (STATIC_ONLY) {
+      setStatus("error");
+      window.location.href = mailtoHref;
       return;
     }
 

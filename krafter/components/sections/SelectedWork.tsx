@@ -1,11 +1,11 @@
 "use client";
 
-import { ProjectReel } from "./ProjectReel";
+import { ProjectDrum } from "./ProjectDrum";
 
 /**
- * Selected work: the gallery in motion lives in its own component, so this
- * section only keeps the page rhythm.
+ * Selected work: the turntable lives in its own component, so this section
+ * only keeps the page rhythm.
  */
 export function SelectedWork() {
-  return <ProjectReel />;
+  return <ProjectDrum />;
 }

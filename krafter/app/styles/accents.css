@@ -102,3 +102,22 @@
 }
 
 /* 8. Focus stays orange everywhere: blue is never an interaction colour. */
+
+/* 9. The right-hand rail owns its lane. While it is on screen, every shell
+   keeps a right gutter wide enough for it, so no line of text ever slides
+   under the navigation. The rail is 55px wide, 20px from the edge. */
+@media (min-width: 800px) and (max-width: 1080px) {
+  /* Slim rail: 34px links, 10px from the edge, plus a little air. */
+  .shell,
+  .shell-wide {
+    padding-right: max(var(--gutter), 70px);
+  }
+}
+
+@media (min-width: 1081px) {
+  /* Full rail: 55px wide, up to 20px from the edge. */
+  .shell,
+  .shell-wide {
+    padding-right: max(var(--gutter), 86px);
+  }
+}
