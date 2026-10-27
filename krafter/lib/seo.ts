@@ -26,6 +26,14 @@ export const OG_IMAGE = {
   alt: "THE KRAFTER · Rosaire Kakpo, frontend developer × UI/UX designer",
 };
 
+/**
+ * The date the content itself last changed. Bump it when you edit copy, add a
+ * project or publish an article: the sitemap uses it as `lastModified`.
+ * Writing `new Date()` here instead would claim every page changed on every
+ * build, which is exactly what search engines learn to ignore.
+ */
+export const SITE_UPDATED = "2026-10-27";
+
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 

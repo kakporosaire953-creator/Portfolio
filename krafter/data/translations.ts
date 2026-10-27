@@ -141,8 +141,10 @@ export const fr = {
       intro:
         "Trois projets récents, entre produit étudiant, plateforme de mise en relation et univers de marque. Chaque étude de cas documente le contexte, les choix de design et le code livré.",
       meta: "2024 / 2026",
-      reelHint: "La galerie suit votre scroll : accélérez, remontez, elle vous suit.",
-      reelHintStill: "Faites glisser la galerie pour parcourir les études de cas.",
+      drumRole: "Carrousel de projets",
+      prev: "Projet précédent",
+      next: "Projet suivant",
+      hint: "Faites tourner le carrousel, ou utilisez les flèches du clavier.",
     },
     designCode: {
       index: "02",
@@ -758,8 +760,10 @@ export const en: typeof fr = {
       intro:
         "Three recent projects across a student product, a talent platform and a brand universe. Each case study documents context, design decisions and the code that shipped.",
       meta: "2024 / 2026",
-      reelHint: "The gallery follows your scroll: speed up, scroll back, it follows you.",
-      reelHintStill: "Swipe the gallery to browse the case studies.",
+      drumRole: "Project carousel",
+      prev: "Previous project",
+      next: "Next project",
+      hint: "Turn the carousel, or use the arrow keys.",
     },
     designCode: {
       index: "02",

@@ -42,6 +42,9 @@ try {
     env: {
       ...process.env,
       NEXT_STATIC_EXPORT: "1",
+      // Read by the contact form: no /api on a static host, so it goes straight
+      // to the mailto instead of posting into a 404.
+      NEXT_PUBLIC_STATIC_EXPORT: "1",
       NEXT_PUBLIC_BASE_PATH: BASE,
       NEXT_PUBLIC_SITE_URL: SITE,
     },

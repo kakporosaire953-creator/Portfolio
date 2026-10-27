@@ -1,6 +1,5 @@
 User-Agent: *
 Allow: /
-Disallow: /_next/
 Disallow: /api/
 
 Host: https://kakporosaire953-creator.github.io/Portfolio
