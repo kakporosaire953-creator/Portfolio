@@ -179,7 +179,7 @@ export function Intro() {
             {t.intro.void}
           </span>
           <span className="intro__void-right" data-intro-void>
-            01 — 08
+            01 / 08
           </span>
         </div>
 
