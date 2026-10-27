@@ -778,3 +778,67 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+/* --------------------------------------------------------------------------
+   POINTER COMPANION + SPLIT TEXT
+   -------------------------------------------------------------------------- */
+
+.only-fine-pointer {
+  display: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-ring.only-fine-pointer {
+    display: grid !important;
+  }
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 320;
+  /* Hidden until the pointer actually moves, and on touch devices entirely. */
+  opacity: 0;
+  visibility: hidden;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  border-radius: 999px;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  will-change: transform;
+}
+
+.cursor-ring__label {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* Word masks produced by splitWords(): descenders stay inside the mask. */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+
+.split-word__inner {
+  display: inline-block;
+  will-change: transform;
+}

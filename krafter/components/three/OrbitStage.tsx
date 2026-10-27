@@ -13,9 +13,14 @@ const OrbitScene = dynamic(() => import("./OrbitScene").then((mod) => mod.OrbitS
  * Hero 3D stage. The static poster is painted first (SSR), then replaced by
  * the WebGL scene once the client chunk is ready.
  */
-export function OrbitStage({ className }: { className?: string }) {
+export function OrbitStage({
+  className,
+  ...rest
+}: {
+  className?: string;
+} & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("orbit-stage", className)} aria-hidden="true">
+    <div className={cn("orbit-stage", className)} aria-hidden="true" {...rest}>
       <div className="orbit-stage__poster">
         <OrbitPoster />
       </div>

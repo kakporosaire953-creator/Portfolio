@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { DesignCodePanel } from "./DesignCodePanels";
 import { useGsap } from "@/lib/animations/gsap/useGsap";
@@ -44,6 +45,20 @@ export function DesignCode() {
             setActive(index);
           }
         };
+
+        // Progress rail: a single scrubbed tween, no layout reads in the loop.
+        const rail = scope.querySelector<HTMLElement>("[data-dc-progress]");
+        if (rail) {
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: track,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: true,
+              animation: gsap.fromTo(rail, { scaleY: 0 }, { scaleY: 1, ease: "none" }),
+            }),
+          );
+        }
 
         const trigger = ScrollTrigger.create({
           trigger: track,
@@ -91,9 +106,9 @@ export function DesignCode() {
               <span className="section-index meta">
                 {t.home.designCode.index} / {t.home.designCode.kicker}
               </span>
-              <h2 className="title-1 designcode__title" id="designcode-title">
+              <SplitHeading as="h2" className="title-1 designcode__title" id="designcode-title">
                 {t.home.designCode.title}
-              </h2>
+              </SplitHeading>
               <p className="lede designcode__intro">{t.home.designCode.intro}</p>
 
               <div className="designcode__steps">
@@ -122,6 +137,10 @@ export function DesignCode() {
               </span>
             </div>
 
+            <span className="designcode__progress" aria-hidden="true">
+              <span className="designcode__progress-fill" data-dc-progress />
+            </span>
+
             <div className="designcode__visual">
               {steps.map((step, index) => (
                 <div
@@ -144,7 +163,9 @@ export function DesignCode() {
         <span className="section-index meta">
           {t.home.designCode.index} / {t.home.designCode.kicker}
         </span>
-        <h2 className="title-1 designcode__title">{t.home.designCode.title}</h2>
+        <SplitHeading as="h2" className="title-1 designcode__title">
+          {t.home.designCode.title}
+        </SplitHeading>
         <p className="lede designcode__intro" style={{ marginBottom: "2rem" }}>
           {t.home.designCode.intro}
         </p>

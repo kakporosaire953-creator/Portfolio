@@ -28,6 +28,7 @@ export function WorkCard({
         imageSrc={projectCoverSrc(project)}
         className="work-card__cover"
         ariaLabel={`${project.title} · ${t.common.viewCase}`}
+        cursorLabel={t.common.cursorView}
       >
         <ProjectCover project={project} priority={priority} />
         <span className="work-card__index">{project.index}</span>

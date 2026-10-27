@@ -2901,3 +2901,34 @@
   background: var(--orange);
   vertical-align: middle;
 }
+
+/* Design × Code: vertical progress rail, scrubbed by the section itself */
+.designcode__progress {
+  position: absolute;
+  left: calc(var(--gutter) * -0.55);
+  top: 12%;
+  bottom: 12%;
+  width: 1px;
+  background: var(--line);
+  overflow: hidden;
+  display: none;
+}
+
+.designcode__progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--orange);
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+
+@media (min-width: 1024px) {
+  .designcode__inner {
+    position: relative;
+  }
+
+  .designcode__progress {
+    display: block;
+  }
+}

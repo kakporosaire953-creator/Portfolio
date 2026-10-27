@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLocale } from "@/components/i18n/LocaleProvider";
+import { SplitHeading } from "@/components/motion/SplitHeading";
 import { PageHead } from "@/components/layout/PageHead";
 import { SectionHead } from "@/components/sections/SectionHead";
 import { ContactBand } from "@/components/sections/ContactBand";
@@ -47,9 +48,9 @@ export function AboutView() {
             </figure>
 
             <div className="about-hero__content">
-              <h2 className="about-hero__title" data-reveal-lines>
+              <SplitHeading as="h2" className="about-hero__title">
                 {t.home.story.titleLead} <em>{t.home.story.titleEm}</em>
-              </h2>
+              </SplitHeading>
               <div className="about-preview__paragraphs">
                 {t.home.story.paragraphs.map((paragraph) => (
                   <p key={paragraph} className="body-sm">
