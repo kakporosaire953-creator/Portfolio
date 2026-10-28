@@ -12,7 +12,7 @@
 | Dossier / fichier | Rôle |
 | --- | --- |
 | **`krafter/`** | **Le code source du site** (Next.js 15, React 19, TypeScript). Tout se modifie ici. |
-| `vercel.json` | Configuration du déploiement Vercel : installation, build, dossier publié, en-têtes et réécritures des anciennes URL `/Portfolio/...`. |
+| `vercel.json` | Configuration du déploiement Vercel : installation, build, dossier publié, en-têtes et redirections des anciennes URL `/Portfolio/...`. |
 | `krafter/out/` | Export statique généré (`npm run build:export`). **Jamais commité** : Vercel le construit à chaque déploiement. |
 
 Aucun artefact de build n'est versionné : le dépôt ne contient que des sources.
@@ -56,20 +56,27 @@ https://kakpo-rosaire.vercel.app/
   "buildCommand": "cd krafter && npm run build:export",
   "outputDirectory": "krafter/out",
   "trailingSlash": true,
-  "rewrites": [
-    { "source": "/Portfolio", "destination": "/" },
-    { "source": "/Portfolio/:path*", "destination": "/:path*" }
+  "redirects": [
+    { "source": "/Portfolio", "destination": "/", "permanent": true },
+    { "source": "/Portfolio/:path*", "destination": "/:path*", "permanent": true }
   ]
 }
 ```
 
 Le script `krafter/scripts/build-export.mjs` masque `app/api` pendant le build
 (un hébergement statique n'a pas de serveur), construit sans basePath et laisse
-l'export dans `krafter/out/`. GitHub Pages n'est plus utilisé : ni workflow, ni
-`.nojekyll`, ni fichier HTML à la racine du dépôt.
+l'export dans `krafter/out/`. GitHub Pages n'est plus utilisé : plus de workflow,
+plus aucun HTML de site à la racine du dépôt.
 
-Les anciennes adresses `…github.io/Portfolio/…` et `…vercel.app/Portfolio/…`
-restent valides : `vercel.json` réécrit le préfixe `/Portfolio` vers la racine.
+Les anciennes adresses `…vercel.app/Portfolio/…` restent valides : `vercel.json`
+redirige le préfixe `/Portfolio` vers la racine (301/308), pour les liens et les
+partages déjà diffusés.
+
+Le fichier `.nojekyll` (vide) reste présent volontairement : sans lui, GitHub
+Pages afficherait le contenu de ce README comme s'il était le site. Avec lui,
+GitHub n'a plus rien à publier à la racine (aucun `index.html`) et la Page
+GitHub répond 404. Sa désactivation complète se fait en un clic dans
+**Settings → Pages** du dépôt.
 
 ## Ce qui fonctionne / ce qui dépend de vous
 

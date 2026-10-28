@@ -324,8 +324,10 @@ un iPhone/Android réel, en clair et en sombre, FR et EN, avec et sans
 ## 11. Déploiement — Vercel uniquement
 
 Le site est publié **uniquement sur Vercel** : <https://kakpo-rosaire.vercel.app/>.
-GitHub ne sert plus rien (plus de GitHub Pages, plus de workflow, plus de
-`.nojekyll`, plus d'artefact de build commité dans le dépôt).
+GitHub ne sert plus le site (plus de workflow Pages, plus aucun HTML de site
+commité à la racine). Le fichier `.nojekyll` vide est conservé uniquement pour
+empêcher GitHub d'afficher le README comme site ; sans `index.html`, la Page
+GitHub répond donc 404.
 
 ### Comment Vercel construit le site
 
@@ -353,7 +355,7 @@ GitHub ne sert plus rien (plus de GitHub Pages, plus de workflow, plus de
 
 Conséquence : le domaine racine est la racine du site (`/competences/`,
 `/projets/campusly/`, `/contact/`). Les anciennes URL préfixées `/Portfolio/...`
-sont réécrites vers `/*` par `vercel.json`, donc les liens et partages déjà
+sont redirigées vers `/*` par `vercel.json`, donc les liens et partages déjà
 diffusés continuent de fonctionner.
 
 ### Construire et vérifier en local

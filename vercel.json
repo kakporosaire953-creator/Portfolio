@@ -5,14 +5,16 @@
   "buildCommand": "cd krafter && npm run build:export",
   "outputDirectory": "krafter/out",
   "trailingSlash": true,
-  "rewrites": [
+  "redirects": [
     {
       "source": "/Portfolio",
-      "destination": "/"
+      "destination": "/",
+      "permanent": true
     },
     {
       "source": "/Portfolio/:path*",
-      "destination": "/:path*"
+      "destination": "/:path*",
+      "permanent": true
     }
   ],
   "headers": [
