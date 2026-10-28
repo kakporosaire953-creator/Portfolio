@@ -69,8 +69,10 @@ l'export dans `krafter/out/`. GitHub Pages n'est plus utilisé : plus de workflo
 plus aucun HTML de site à la racine du dépôt.
 
 Les anciennes adresses `…vercel.app/Portfolio/…` restent valides : `vercel.json`
-redirige le préfixe `/Portfolio` vers la racine (301/308), pour les liens et les
-partages déjà diffusés.
+redirige le préfixe `/Portfolio` vers la racine, et le build génère en plus de
+petites pages de redirection sous `out/Portfolio/…` (une par route), pour que
+les liens et partages déjà diffusés fonctionnent même si l'hôte ignore la
+configuration de routage.
 
 Le fichier `.nojekyll` (vide) reste présent volontairement : sans lui, GitHub
 Pages afficherait le contenu de ce README comme s'il était le site. Avec lui,
