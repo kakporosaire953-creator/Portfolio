@@ -1012,7 +1012,7 @@
   left: 50%;
   width: 1px;
   transform: translateX(-50%);
-  background: color-mix(in srgb, var(--line-strong) 70%, transparent);
+  background: color-mix(in srgb, var(--line-strong) 52%, transparent);
   z-index: 1;
 }
 
@@ -1022,9 +1022,9 @@
   display: block;
   /* The gradient belongs to the whole axis, not to the drawn part: the reveal
      is a clip, so the colour never shifts under a card as you scroll. */
-  background: linear-gradient(180deg, var(--brand-blue), var(--orange));
+  background: linear-gradient(to bottom, var(--brand-blue), var(--orange));
   clip-path: inset(0 0 100% 0);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* --- rows ---------------------------------------------------------------- */
@@ -1129,8 +1129,8 @@
   width: clamp(46px, 4.4vw, 54px);
   height: clamp(46px, 4.4vw, 54px);
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--line-strong) 80%, transparent);
-  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  border: 1px solid color-mix(in srgb, var(--line-strong) 64%, transparent);
+  background: color-mix(in srgb, var(--paper) 95%, transparent);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition:
@@ -1149,9 +1149,11 @@
 }
 
 .process-step__marker.is-active {
-  border-color: color-mix(in srgb, var(--orange) 62%, transparent);
-  background: color-mix(in srgb, var(--orange) 8%, var(--paper));
-  box-shadow: 0 12px 28px -18px color-mix(in srgb, var(--orange) 70%, transparent);
+  border-color: color-mix(in srgb, var(--orange) 82%, transparent);
+  background: color-mix(in srgb, var(--orange) 11%, var(--paper));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--orange) 7%, transparent),
+    0 14px 30px -18px color-mix(in srgb, var(--orange) 78%, transparent);
 }
 
 .process-step__marker.is-active .process-step__num {

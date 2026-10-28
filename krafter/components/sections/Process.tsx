@@ -129,7 +129,6 @@ export function Process() {
       }
 
       // 2. Each step enters from its own side, then its content settles.
-      const triggers: ScrollTrigger[] = [];
       cards.forEach((card, index) => {
         const step = card.closest<HTMLElement>("[data-step]");
         if (!step) return;
@@ -174,31 +173,47 @@ export function Process() {
           );
       });
 
-      // 3. One active marker at a time: the step crossing the reading line.
-      //    Measured per trigger, no scroll listener, no re-render.
+      // 3. One active marker at a time: the last step whose top has crossed the
+      //    reading line. Derived from the layout, never from toggle order, so a
+      //    resize or a jump down the page always lands on the right step.
       const allSteps = gsap.utils.toArray<HTMLElement>("[data-step]", flow);
+      let current = -1;
       const setCurrent = (index: number) => {
+        if (index === current) return;
+        current = index;
         allSteps.forEach((step, i) => {
           step.classList.toggle("is-current", i === index);
           step.querySelector("[data-step-marker]")?.classList.toggle("is-active", i === index);
         });
       };
 
-      allSteps.forEach((step, index) => {
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: step,
-            start: "top 58%",
-            end: "bottom 42%",
-            onToggle: (self) => {
-              if (self.isActive) setCurrent(index);
-              else if (self.direction === -1 && index > 0) setCurrent(index - 1);
-            },
-          }),
-        );
-      });
+      let frame = 0;
+      const syncCurrent = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const line = window.innerHeight * 0.58;
+          let index = 0;
+          allSteps.forEach((step, i) => {
+            if (step.getBoundingClientRect().top <= line) index = i;
+          });
+          setCurrent(index);
+        });
+      };
 
-      return () => triggers.forEach((trigger) => trigger.kill());
+      const watcher = ScrollTrigger.create({
+        trigger: flow,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: syncCurrent,
+        onRefresh: syncCurrent,
+      });
+      syncCurrent();
+
+      return () => {
+        cancelAnimationFrame(frame);
+        watcher.kill();
+      };
     },
     [locale, reduced],
     sectionRef,
