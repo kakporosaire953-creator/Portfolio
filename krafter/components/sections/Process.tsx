@@ -2,13 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
+import dynamic from "next/dynamic";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { SectionHead } from "./SectionHead";
 import { useGsap } from "@/lib/animations/gsap/useGsap";
 import { gsap, ScrollTrigger } from "@/lib/animations/gsap/register";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
-import { SculptureStage } from "@/components/three/SculptureStage";
 import { cn } from "@/lib/utils/cn";
+
+/**
+ * The atmosphere is decoration behind a timeline: it must never delay the
+ * content, so it is client-only and mounts when the section approaches.
+ */
+const ProcessAtmosphere = dynamic(
+  () => import("@/components/three/ProcessAtmosphere").then((mod) => mod.ProcessAtmosphere),
+  { ssr: false },
+);
 
 /** Fine line icons, one per step. Decorative: the label carries the meaning. */
 function StepIcon({ index }: { index: number }) {
@@ -70,15 +79,12 @@ export function Process() {
   const flowRef = useRef<HTMLDivElement>(null);
   const steps = t.home.process.steps;
 
-  // WebGL only for visitors who scroll this far: the chunk is not even
-  // requested before that, and never at all with reduced motion.
+  // WebGL only for visitors who scroll this far and accept motion: the chunk
+  // is not even requested before that, and never at all with reduced motion.
   const [atmosphere, setAtmosphere] = useState(false);
 
   useEffect(() => {
     if (reduced || !sectionRef.current) return;
-    // Phones get no second WebGL context: the section already carries its own
-    // gradients, and the timeline is what matters at that width.
-    if (window.matchMedia("(max-width: 767px)").matches) return;
     const target = sectionRef.current;
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -277,9 +283,7 @@ export function Process() {
         </SectionHead>
 
         <div className="process-flow" ref={flowRef}>
-          {atmosphere ? (
-            <SculptureStage model="liquid-core" mode="visible" className="process-flow__atmosphere" />
-          ) : null}
+          {atmosphere ? <ProcessAtmosphere className="process-flow__atmosphere" /> : null}
 
           {/* The axis is a single line for the whole flow; the fill follows scroll. */}
           <span className="process-axis" aria-hidden="true">

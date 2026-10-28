@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { useLocale } from "@/components/i18n/LocaleProvider";
-import { SculptureStage } from "@/components/three/SculptureStage";
+import { OrbitStage } from "@/components/three/OrbitStage";
 import { ArrowRight, ArrowDown } from "@/components/navigation/Glyphs";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { useGsap } from "@/lib/animations/gsap/useGsap";
@@ -33,7 +33,7 @@ export function Hero() {
       const roleLines = scope.querySelectorAll<HTMLElement>("[data-hero-role] .line-mask > span");
       const statementLines = scope.querySelectorAll<HTMLElement>("[data-hero-statement] .line-mask > span");
       const portrait = scope.querySelector("[data-hero-portrait]");
-      const orbit = scope.querySelector("[data-hero-sculpture]");
+      const orbit = scope.querySelector("[data-hero-orbit]");
       const ctas = scope.querySelectorAll<HTMLElement>("[data-hero-cta] > *");
       const place = scope.querySelector("[data-hero-place]");
       const rule = scope.querySelector("[data-hero-rule]");
@@ -72,13 +72,15 @@ export function Hero() {
       // for the copy: the same entrance, just brisker.
       if (!isIntroPlaying()) tl.timeScale(1.7);
 
-      // Desktop only: the portrait drifts against the pointer,
+      // Desktop only: the portrait and the orbit drift against the pointer,
       // which gives the composition real depth without touching the scroll.
       const mm = gsap.matchMedia();
       mm.add("(hover: hover) and (pointer: fine)", () => {
-        if (!portrait) return;
+        if (!portrait || !orbit) return;
         const portraitX = gsap.quickTo(portrait, "x", { duration: 0.9, ease: "power3.out" });
         const portraitY = gsap.quickTo(portrait, "y", { duration: 0.9, ease: "power3.out" });
+        const orbitX = gsap.quickTo(orbit, "x", { duration: 1.2, ease: "power3.out" });
+        const orbitY = gsap.quickTo(orbit, "y", { duration: 1.2, ease: "power3.out" });
 
         const onMove = (event: PointerEvent) => {
           const rect = scope.getBoundingClientRect();
@@ -87,12 +89,14 @@ export function Hero() {
           const ny = (event.clientY - rect.top) / rect.height - 0.5;
           portraitX(gsap.utils.clamp(-1, 1, nx) * 16);
           portraitY(gsap.utils.clamp(-1, 1, ny) * 12);
+          orbitX(gsap.utils.clamp(-1, 1, nx) * -9);
+          orbitY(gsap.utils.clamp(-1, 1, ny) * -7);
         };
 
         window.addEventListener("pointermove", onMove, { passive: true });
         return () => {
           window.removeEventListener("pointermove", onMove);
-          gsap.killTweensOf(portrait);
+          gsap.killTweensOf([portrait, orbit]);
         };
       });
 
@@ -156,7 +160,7 @@ export function Hero() {
         </div>
 
         <div className="hero__visual">
-          <SculptureStage model="ghost" mode="intro" className="hero__sculpture" data-hero-sculpture data-parallax="0.05" />
+          <OrbitStage className="hero__orbit" data-parallax="0.05" />
           <figure className="hero__portrait" data-hero-portrait>
             {/* eslint-disable-next-line @next/next/no-img-element -- hero asset */}
             <img
