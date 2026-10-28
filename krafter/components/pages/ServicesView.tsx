@@ -82,8 +82,10 @@ export function ServicesView() {
           <div className="service-blocks">
             {services.map((service) => (
               <article className="service-block" id={service.id} key={service.id} data-reveal>
+                <span className="num-band service-block__band" aria-hidden="true">
+                  <span className="num-band__num">{service.index}</span>
+                </span>
                 <div className="service-block__head">
-                  <span className="service-block__index">{service.index}</span>
                   <h3 className="service-block__title">{service.title[locale]}</h3>
                   <p className="service-block__tagline">{service.tagline[locale]}</p>
                   <div className="service-block__deliverables">
@@ -133,8 +135,10 @@ export function ServicesView() {
           <ol className="process-grid" data-reveal-stagger>
             {processSteps.map((step) => (
               <li className="process-card liquid" key={step.index} data-reveal-item data-glass>
-                <span className="process-card__num">{step.index}</span>
-                <div>
+                <span className="num-band process-card__band" aria-hidden="true">
+                  <span className="num-band__num">{step.index}</span>
+                </span>
+                <div className="process-card__body">
                   <h3 className="process-card__title">{step.label[locale]}</h3>
                   <p className="process-card__text">{step.text[locale]}</p>
                 </div>

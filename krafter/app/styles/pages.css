@@ -926,21 +926,44 @@
   border: 1px solid var(--line);
 }
 
+/* Services keeps four equal cards side by side: the number becomes the same
+   band as the home timeline, standing on the card's inner edge. */
 .process-card {
   background: var(--paper);
-  padding: clamp(1.1rem, 2.2vw, 1.8rem);
+  padding: clamp(1rem, 1.6vw, 1.35rem);
   display: grid;
-  gap: 1.4rem;
-  align-content: space-between;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  align-content: start;
+  align-items: stretch;
   min-height: 15rem;
 }
 
-.process-card__num {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.6vw, 3rem);
-  line-height: 1;
-  color: var(--orange);
-  font-style: italic;
+/* Two-class selectors on purpose: accents.css loads after this file, so a
+   single class would lose the cascade and the band would keep its page size. */
+.process-card .process-card__band {
+  --num-band-w: 32px;
+  height: auto;
+  align-self: stretch;
+  border-radius: 3px;
+}
+
+.process-card__band .num-band__num {
+  font-size: 0.94rem;
+  letter-spacing: 0.08em;
+}
+
+/* The band warms as the pointer crosses the card it belongs to. */
+.process-card:hover .num-band::before,
+.process-card:focus-within .num-band::before {
+  opacity: 0.5;
+}
+
+.process-card__body {
+  align-content: start;
+  display: grid;
+  gap: 0.4rem;
+  padding-block: 0.15rem;
 }
 
 .process-card__title {
@@ -1042,6 +1065,7 @@
 .process-step {
   --axis-gap: clamp(60px, 6.6vw, 100px);
   --card-gap: clamp(1.15rem, 2.4vw, 2.1rem);
+  --ribbon-w: clamp(36px, 3.4vw, 48px);
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--axis-gap) minmax(0, 1fr);
@@ -1073,11 +1097,11 @@
 /* --- connector + marker --------------------------------------------------- */
 
 .process-step__connector {
-  /* Anchored on the axis centre, not on the column: half the axis gap plus the
-     card gap is exactly the distance from the line to the card edge. */
+  /* From the edge of the spine to the edge of the card: half the axis gap plus
+     the card gap, minus the half ribbon the line now emerges from. */
   position: absolute;
   top: calc(50% - 0.5px);
-  width: calc(var(--axis-gap) / 2 + var(--card-gap));
+  width: calc(var(--axis-gap) / 2 + var(--card-gap) - var(--ribbon-w) / 2);
   height: 1px;
   z-index: 1;
   pointer-events: none;
@@ -1119,46 +1143,19 @@
   transform-origin: left center;
 }
 
-.process-step__marker {
+/* Placement of the shared number band on the timeline: centred on the axis. */
+.process-step .process-step__ribbon {
   grid-column: 2;
   grid-row: 1;
   justify-self: center;
+  align-self: center;
   z-index: 3;
-  display: grid;
-  place-items: center;
-  width: clamp(46px, 4.4vw, 54px);
-  height: clamp(46px, 4.4vw, 54px);
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--line-strong) 64%, transparent);
-  background: color-mix(in srgb, var(--paper) 95%, transparent);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transition:
-    border-color 420ms var(--ease-out-expo),
-    background-color 420ms var(--ease-out-expo),
-    box-shadow 420ms var(--ease-out-expo);
 }
 
-.process-step__num {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1rem, 1.15vw, 1.2rem);
-  line-height: 1;
-  color: var(--ink-mute);
-  transition: color 420ms var(--ease-out-expo), transform 420ms var(--ease-out-expo);
-}
-
-.process-step__marker.is-active {
-  border-color: color-mix(in srgb, var(--orange) 82%, transparent);
-  background: color-mix(in srgb, var(--orange) 11%, var(--paper));
-  box-shadow:
-    0 0 0 4px color-mix(in srgb, var(--orange) 7%, transparent),
-    0 14px 30px -18px color-mix(in srgb, var(--orange) 78%, transparent);
-}
-
-.process-step__marker.is-active .process-step__num {
-  color: var(--orange);
-  transform: translateY(-0.5px);
+/* Resting the pointer on the card warms the band it belongs to, without
+   pulling it all the way to the active state. */
+.process-step:has(.process-step__card:hover) .num-band::before {
+  opacity: 0.4;
 }
 
 /* --- the card itself ------------------------------------------------------ */
@@ -1293,18 +1290,22 @@
 
   .process-step {
     --axis-gap: 0px;
+    --ribbon-w: 46px;
     grid-template-columns: 46px minmax(0, 1fr);
     column-gap: clamp(0.85rem, 3vw, 1.25rem);
     min-height: 0;
     align-items: start;
   }
 
-  .process-step__marker {
+  .process-step .process-step__ribbon {
     grid-column: 1;
     grid-row: 1;
     justify-self: start;
-    width: 46px;
-    height: 46px;
+    --num-band-h: 4.8rem;
+  }
+
+  .process-step__ribbon .num-band__num {
+    font-size: 0.94rem;
   }
 
   .process-step__connector {
@@ -1331,16 +1332,13 @@
   }
 
   .process-step {
+    --ribbon-w: 36px;
     grid-template-columns: 36px minmax(0, 1fr);
   }
 
-  .process-step__marker {
-    width: 36px;
-    height: 36px;
-  }
-
-  .process-step__num {
+  .process-step__ribbon .num-band__num {
     font-size: 0.86rem;
+    letter-spacing: 0.1em;
   }
 
   .process-step__card {
@@ -1662,15 +1660,30 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 0.9rem;
-  align-items: baseline;
+  align-items: center;
   padding: 0.9rem 0;
   border-bottom: 1px solid var(--line);
 }
 
-.blog-upcoming__index {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  color: var(--ink-mute);
+/* Dense rows get the same band, at the smallest size it stays legible in. */
+.blog-upcoming .blog-upcoming__band {
+  --num-band-w: 24px;
+  --num-band-h: 2.7rem;
+  padding-block: 0.2rem 0.45rem;
+}
+
+.blog-upcoming .blog-upcoming__band .num-band__num {
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+/* The topic label is a single word group on wide screens; on a phone it has to
+   wrap or it runs past the row. */
+@media (max-width: 560px) {
+  .blog-upcoming__topic {
+    white-space: normal;
+    text-align: right;
+  }
 }
 
 .blog-upcoming__title {
@@ -2201,10 +2214,18 @@
 
 .case-section {
   display: grid;
-  grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
+  /* The chapter number is the same band as the home timeline: the whole site
+     counts in one voice. */
+  grid-template-columns: auto minmax(0, 0.34fr) minmax(0, 0.66fr);
   gap: clamp(1rem, 2.5vw, 2.4rem);
   padding-top: 1.2rem;
   border-top: 1px solid var(--line);
+}
+
+.case-section .case-section__band {
+  --num-band-w: 30px;
+  --num-band-h: 4.4rem;
+  align-self: start;
 }
 
 .case-section__head {
@@ -2213,12 +2234,6 @@
   align-content: start;
 }
 
-.case-section__index {
-  font-family: var(--font-mono);
-  font-size: 0.54rem;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-}
 
 .case-section__title {
   font-size: clamp(1.05rem, 1.5vw, 1.3rem);
@@ -2349,8 +2364,20 @@
   }
 
   .case-section {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.6rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem clamp(0.8rem, 2vw, 1.2rem);
+    align-items: start;
+  }
+
+  .case-section .case-section__band {
+    --num-band-w: 26px;
+    --num-band-h: 3.6rem;
+    grid-row: 1 / span 2;
+  }
+
+  .case-section .case-section__head,
+  .case-section > div:not(.case-section__head) {
+    grid-column: 2;
   }
 
   .case-hero__meta {
@@ -2598,16 +2625,24 @@
   background: var(--paper);
   padding: clamp(1.1rem, 2vw, 1.8rem);
   display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  align-items: stretch;
+  align-content: start;
+}
+
+.philosophy-card .philosophy-card__band {
+  --num-band-w: 30px;
+  height: auto;
+  align-self: stretch;
+}
+
+.philosophy-card__body {
+  display: grid;
   gap: 0.7rem;
   align-content: start;
 }
 
-.philosophy-card__num {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-}
 
 .philosophy-card__title {
   font-size: 1.05rem;
@@ -2628,10 +2663,16 @@
 
 .path-item {
   display: grid;
-  grid-template-columns: minmax(0, 0.22fr) minmax(0, 0.28fr) minmax(0, 0.5fr);
+  grid-template-columns: auto minmax(0, 0.22fr) minmax(0, 0.28fr) minmax(0, 0.5fr);
   gap: clamp(0.8rem, 2vw, 2rem);
   padding: clamp(1rem, 2vw, 1.5rem) 0;
   border-bottom: 1px solid var(--line);
+}
+
+.path-item .path-item__band {
+  --num-band-w: 26px;
+  --num-band-h: 3.4rem;
+  align-self: start;
 }
 
 .path-item__label {
@@ -2693,8 +2734,19 @@
   }
 
   .path-item {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.4rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.4rem clamp(0.8rem, 2vw, 1.2rem);
+    align-items: start;
+  }
+
+  .path-item .path-item__band {
+    --num-band-w: 24px;
+    --num-band-h: 3.2rem;
+    grid-row: 1 / span 3;
+  }
+
+  .path-item > :not(.path-item__band) {
+    grid-column: 2;
   }
 }
 
@@ -2710,10 +2762,16 @@
 
 .service-block {
   display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  grid-template-columns: auto minmax(0, 0.42fr) minmax(0, 0.58fr);
   gap: clamp(1.4rem, 3vw, 3rem);
   padding-top: 1.4rem;
   border-top: 1px solid var(--line);
+}
+
+.service-block .service-block__band {
+  --num-band-w: 32px;
+  --num-band-h: 5rem;
+  align-self: start;
 }
 
 .service-block__head {
@@ -2722,12 +2780,6 @@
   align-content: start;
 }
 
-.service-block__index {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-}
 
 .service-block__title {
   font-size: clamp(1.5rem, 2.6vw, 2.2rem);
@@ -2881,7 +2933,20 @@
 
 @media (max-width: 900px) {
   .service-block {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(0.9rem, 3vw, 1.6rem);
+    align-items: start;
+  }
+
+  .service-block .service-block__band {
+    --num-band-w: 26px;
+    --num-band-h: 3.6rem;
+    grid-row: 1 / span 2;
+  }
+
+  .service-block__head,
+  .service-block__body {
+    grid-column: 2;
   }
 }
 

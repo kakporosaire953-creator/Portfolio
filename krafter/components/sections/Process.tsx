@@ -148,11 +148,16 @@ export function Process() {
           defaults: { ease: "power3.out" },
         });
 
+        const ribbonNum = step.querySelector<HTMLElement>("[data-ribbon-num]");
+
         tl.fromTo(
           markers[index] ?? [],
-          { scale: 0.62, autoAlpha: 0 },
-          { scale: 1, autoAlpha: 1, duration: 0.5, ease: "back.out(1.55)" },
+          { scaleY: 0, autoAlpha: 0, transformOrigin: "50% 0%" },
+          { scaleY: 1, autoAlpha: 1, duration: 0.62 },
         )
+          // Opacity only: the number carries its own rotation, which a GSAP
+          // transform would overwrite.
+          .fromTo(ribbonNum, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.42 }, "-=0.3")
           .fromTo(
             connector,
             { scaleX: 0 },
@@ -295,8 +300,14 @@ export function Process() {
                   data-step
                   data-side={side}
                 >
-                  <span className="process-step__marker" data-step-marker aria-hidden="true">
-                    <span className="process-step__num">{String(index + 1).padStart(2, "0")}</span>
+                  <span
+                    className="num-band process-step__ribbon"
+                    data-step-marker
+                    aria-hidden="true"
+                  >
+                    <span className="num-band__num" data-ribbon-num>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                   </span>
 
                   <span className="process-step__connector" aria-hidden="true">

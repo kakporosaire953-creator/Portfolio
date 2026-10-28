@@ -121,3 +121,136 @@
     padding-right: max(var(--gutter), 86px);
   }
 }
+
+/* --------------------------------------------------------------------------
+   10. THE NUMBER BAND
+   One object for every numbered sequence on the site: a narrow vertical band,
+   its figure set along it, the foot notched like a bookmark. It reads as a
+   printed spine rather than a badge, and it is the only place a step number
+   is allowed to live.
+
+   Usage: <span class="num-band"><span class="num-band__num">02</span></span>
+   State: add .is-active when the step is the current one (orange body).
+   -------------------------------------------------------------------------- */
+
+.num-band {
+  --num-band-w: clamp(36px, 3.4vw, 48px);
+  --num-band-h: clamp(5.8rem, 7.6vw, 7.1rem);
+  --num-band-lift: 62%;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--num-band-w);
+  height: var(--num-band-h);
+  padding-block: 0.5rem 0.9rem;
+  border-radius: 4px;
+  overflow: hidden;
+  /* The notch is cut from the band itself, so the hairline has to be drawn
+     inside: a real border would be clipped by the same path. */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 7px),
+    50% 100%,
+    0 calc(100% - 7px)
+  );
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--line-strong) 54%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--white) 62%, transparent),
+    0 14px 26px -24px rgb(8 26 43 / 0.6);
+  transition: box-shadow 520ms var(--ease-out-expo);
+}
+
+/* The orange body fades in rather than swapping colour, so a band can warm up
+   without a repaint jump. */
+.num-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-gold) 82%, var(--orange)) 0%,
+    var(--orange) 46%,
+    var(--orange-ink) 100%
+  );
+  transition: opacity 520ms var(--ease-out-expo);
+}
+
+/* Printed depth: light at the head, shade at the foot. */
+.num-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.34) 0%,
+    rgb(255 255 255 / 0) 24%,
+    rgb(0 0 0 / 0) 68%,
+    rgb(0 0 0 / 0.2) 100%
+  );
+  transition: opacity 520ms var(--ease-out-expo);
+}
+
+/* The figure is set along the band, reading top to bottom, glyph tops towards
+   the text: the spine of a book, not a rotated label. */
+.num-band__num {
+  position: relative;
+  z-index: 2;
+  writing-mode: vertical-rl;
+  /* Reads from the foot of the band upwards, as on a spine: the figure sits
+     the same way round as the labels around it, never upside down. */
+  transform: rotate(180deg);
+  font-family: var(--font-sans);
+  font-size: clamp(1.06rem, 1.45vw, 1.34rem);
+  font-weight: 640;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-mute);
+  transition: color 460ms var(--ease-out-expo);
+}
+
+.num-band.is-active {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--orange) 46%, transparent),
+    inset 0 1px 0 rgb(255 255 255 / 0.36),
+    0 22px 42px -26px color-mix(in srgb, var(--orange) 66%, transparent);
+}
+
+.num-band.is-active::before,
+.num-band.is-active::after {
+  opacity: 1;
+}
+
+.num-band.is-active .num-band__num {
+  color: var(--white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .num-band,
+  .num-band::before,
+  .num-band::after,
+  .num-band__num {
+    transition: none;
+  }
+}
+
+/* 11. Figures line up: every numeric label on the site uses tabular figures, so
+   a counter never shifts as it changes and a column of numbers reads as one. */
+.section-index,
+.designcode__step-index,
+.service-row__index,
+.case-hero__index,
+.blog-upcoming__index,
+.project-card__index,
+.path-item__label,
+.drum__counter,
+.mobile-nav__index {
+  font-variant-numeric: tabular-nums;
+}

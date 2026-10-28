@@ -124,8 +124,10 @@ export function CaseStudyView({ project }: { project: Project }) {
           <div className="case-content">
             {sections.map((section, index) => (
               <section className="case-section" key={section.key} data-reveal>
+                <span className="num-band case-section__band" aria-hidden="true">
+                  <span className="num-band__num">0{index + 1}</span>
+                </span>
                 <div className="case-section__head">
-                  <span className="case-section__index">0{index + 1}</span>
                   <h2 className="case-section__title">{section.title}</h2>
                 </div>
                 <div className="case-section__text">
@@ -135,8 +137,10 @@ export function CaseStudyView({ project }: { project: Project }) {
             ))}
 
             <section className="case-section" data-reveal>
+              <span className="num-band case-section__band" aria-hidden="true">
+                <span className="num-band__num">07</span>
+              </span>
               <div className="case-section__head">
-                <span className="case-section__index">07</span>
                 <h2 className="case-section__title">{t.projects.caseStudy.technical}</h2>
               </div>
               <div>
@@ -158,8 +162,10 @@ export function CaseStudyView({ project }: { project: Project }) {
             </section>
 
             <section className="case-section" data-reveal>
+              <span className="num-band case-section__band" aria-hidden="true">
+                <span className="num-band__num">08</span>
+              </span>
               <div className="case-section__head">
-                <span className="case-section__index">08</span>
                 <h2 className="case-section__title">{t.projects.caseStudy.results}</h2>
               </div>
               <div className="case-section__text">
