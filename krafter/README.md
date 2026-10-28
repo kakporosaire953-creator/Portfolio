@@ -112,6 +112,18 @@ le nouveau site vit dans `krafter/`.
 ### Thème & langue
 - Clair par défaut ; sombre au choix ; `localStorage` (`krafter:theme`), respect de
   `prefers-color-scheme` en l'absence de choix ; script inline anti-flash.
+- **Atmosphère du mode sombre** : une couche fixe et purement décorative
+  (`div.atmosphere`, `globals.css`) pose un champ navy profond, un arc orange en
+  haut à droite, une respiration bleue en haut à gauche, et une trame
+  d'imprimerie (points de 6 px) masquée sur la lumière uniquement. Elle est en
+  `mix-blend-mode: screen` : elle éclaire les surfaces sans teinter le texte, et
+  vaut pour toutes les pages, cartes et sections. Invisible en mode clair
+  (`opacity: 0`, aucune peinture), désactivée pour `prefers-reduced-motion` par
+  son absence d'animation. Le verre du header est assombri en conséquence
+  (`.glass`, jetons `--glass-*`) pour rester lisible sur ce fond.
+- Le logo officiel reste affiché sans retouche de couleur : en sombre, il est
+  simplement ourlé de lumière (dropshadows blancs empilés) pour se détacher du
+  navy.
 - FR/EN : contenu réellement permuté (`data/translations.ts`, `data/projects.ts`,
   `data/services.ts`), persistance `krafter:lang`, `lang` sur `<html>`,
   raccourci `Alt + L`.

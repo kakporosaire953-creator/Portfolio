@@ -149,6 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollReveals />
           <CursorFollower />
           <GlassSheen />
+          <div className="atmosphere" aria-hidden="true" />
           <div className="noise" aria-hidden="true" />
         </Providers>
       </body>
