@@ -53,13 +53,6 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="site-header__status">
-          <span className="status-dot" aria-hidden="true" />
-          <span className="meta">{t.common.available}</span>
-          <span className="site-header__status-sep" aria-hidden="true" />
-          <span className="meta">{t.header.badge}</span>
-        </div>
-
         <div className="site-header__tools">
           <span className="site-header__locale">
             <LocaleSwitch />
