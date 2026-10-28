@@ -973,6 +973,402 @@
 }
 
 /* --------------------------------------------------------------------------
+   PROCESS — TIMELINE
+   Home only. The /services page keeps .process-grid / .process-card untouched.
+   -------------------------------------------------------------------------- */
+
+.process {
+  position: relative;
+}
+
+.process__intro {
+  max-width: 34rem;
+}
+
+.process-flow {
+  position: relative;
+  margin-top: clamp(1.8rem, 4vw, 3.2rem);
+  /* The atmosphere is a texture, not a scene: never in front of the copy. */
+  isolation: isolate;
+}
+
+.process-flow__atmosphere {
+  position: absolute;
+  inset: -4% -10% -4% -10%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  /* Fades at the edges so the canvas never shows a hard rectangle. */
+  -webkit-mask-image: radial-gradient(120% 86% at 50% 46%, #000 38%, transparent 78%);
+  mask-image: radial-gradient(120% 86% at 50% 46%, #000 38%, transparent 78%);
+}
+
+/* --- the axis ------------------------------------------------------------ */
+
+.process-axis {
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: color-mix(in srgb, var(--line-strong) 70%, transparent);
+  z-index: 1;
+}
+
+.process-axis__fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  /* The gradient belongs to the whole axis, not to the drawn part: the reveal
+     is a clip, so the colour never shifts under a card as you scroll. */
+  background: linear-gradient(180deg, var(--brand-blue), var(--orange));
+  clip-path: inset(0 0 100% 0);
+  opacity: 0.85;
+}
+
+/* --- rows ---------------------------------------------------------------- */
+
+.process-steps {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(1.4rem, 3.2vw, 2.9rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.process-step {
+  --axis-gap: clamp(60px, 6.6vw, 100px);
+  --card-gap: clamp(1.15rem, 2.4vw, 2.1rem);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--axis-gap) minmax(0, 1fr);
+  align-items: center;
+  min-height: clamp(9.5rem, 15vw, 12rem);
+}
+
+/* The turned side is empty on purpose: asymmetry, not a centred column. */
+.process-step--left .process-step__card {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.process-step--right .process-step__card {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.process-step--left .process-step__card {
+  margin-inline-end: var(--card-gap);
+}
+
+.process-step--right .process-step__card {
+  margin-inline-start: var(--card-gap);
+}
+
+/* --- connector + marker --------------------------------------------------- */
+
+.process-step__connector {
+  /* Anchored on the axis centre, not on the column: half the axis gap plus the
+     card gap is exactly the distance from the line to the card edge. */
+  position: absolute;
+  top: calc(50% - 0.5px);
+  width: calc(var(--axis-gap) / 2 + var(--card-gap));
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.process-step--left .process-step__connector {
+  right: 50%;
+}
+
+.process-step--right .process-step__connector {
+  left: 50%;
+}
+
+.process-step__connector-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--brand-blue) 55%, var(--line-strong)),
+    color-mix(in srgb, var(--orange) 45%, var(--line-strong))
+  );
+  transform: scaleX(0);
+}
+
+.process-step.is-current .process-step__connector-line {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--orange) 46%, var(--line-strong)),
+    color-mix(in srgb, var(--orange) 70%, transparent)
+  );
+}
+
+.process-step--left .process-step__connector-line {
+  transform-origin: right center;
+}
+
+.process-step--right .process-step__connector-line {
+  transform-origin: left center;
+}
+
+.process-step__marker {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 4.4vw, 54px);
+  height: clamp(46px, 4.4vw, 54px);
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line-strong) 80%, transparent);
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition:
+    border-color 420ms var(--ease-out-expo),
+    background-color 420ms var(--ease-out-expo),
+    box-shadow 420ms var(--ease-out-expo);
+}
+
+.process-step__num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.15vw, 1.2rem);
+  line-height: 1;
+  color: var(--ink-mute);
+  transition: color 420ms var(--ease-out-expo), transform 420ms var(--ease-out-expo);
+}
+
+.process-step__marker.is-active {
+  border-color: color-mix(in srgb, var(--orange) 62%, transparent);
+  background: color-mix(in srgb, var(--orange) 8%, var(--paper));
+  box-shadow: 0 12px 28px -18px color-mix(in srgb, var(--orange) 70%, transparent);
+}
+
+.process-step__marker.is-active .process-step__num {
+  color: var(--orange);
+  transform: translateY(-0.5px);
+}
+
+/* --- the card itself ------------------------------------------------------ */
+
+.process-step__card {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: min(30rem, 100%);
+  padding: clamp(1.05rem, 1.8vw, 1.5rem) clamp(1.15rem, 2vw, 1.7rem)
+    clamp(1.15rem, 2vw, 1.6rem);
+  /* Squarer than the global glass radius: an editorial sheet, not a widget. */
+  border-radius: 14px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Detail level: a slow sheen that crosses the pane once per hover. It lives
+   under the copy (z-index 0) and only exists while the pointer is on the card. */
+.process-step__card::before {
+  content: "";
+  position: absolute;
+  inset: -30% -60%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-42%) rotate(8deg);
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    color-mix(in srgb, var(--glass-rim) 52%, transparent) 50%,
+    transparent 62%
+  );
+  transition: transform 1100ms var(--ease-out-expo), opacity 420ms var(--ease-out-expo);
+}
+
+.process-step__card:hover::before,
+.process-step__card:focus-within::before {
+  opacity: 1;
+  transform: translateX(42%) rotate(8deg);
+}
+
+[data-theme="dark"] .process-step__card::before {
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgb(255 255 255 / 0.1) 50%,
+    transparent 62%
+  );
+}
+
+/* The lift itself is animated by GSAP once the section has taken over; this
+   transform is the no-JS fallback and is overridden by the inline tween. */
+.process-step__card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--brand-blue) 34%, var(--glass-rim));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--glass-rim) 80%, transparent),
+    inset 0 -1px 0 rgb(8 26 43 / 0.06),
+    0 30px 62px -38px rgb(8 26 43 / 0.55);
+}
+
+.process-step.is-current .process-step__card {
+  border-color: color-mix(in srgb, var(--brand-blue) 26%, var(--glass-rim));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--glass-rim) 80%, transparent),
+    inset 0 -1px 0 rgb(8 26 43 / 0.06),
+    0 26px 56px -40px rgb(8 26 43 / 0.5);
+}
+
+.process-step__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.15rem;
+}
+
+.process-step__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--brand-blue) 22%, var(--line));
+  background: color-mix(in srgb, var(--brand-blue) 7%, transparent);
+  color: var(--brand-blue-deep);
+  transition:
+    background-color 420ms var(--ease-out-expo),
+    border-color 420ms var(--ease-out-expo),
+    transform 520ms var(--ease-out-expo);
+}
+
+.process-step__card:hover .process-step__icon {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--brand-blue) 40%, var(--line));
+  background: color-mix(in srgb, var(--brand-blue) 12%, transparent);
+}
+
+.process-step__index {
+  color: var(--ink-mute);
+  letter-spacing: 0.18em;
+  transition: color 420ms var(--ease-out-expo);
+}
+
+.process-step__card:hover .process-step__index {
+  color: color-mix(in srgb, var(--brand-blue-deep) 70%, var(--ink-mute));
+}
+
+.process-step__title {
+  margin-top: 0.2rem;
+  font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.process-step__text {
+  font-size: 0.865rem;
+  line-height: 1.62;
+  color: var(--ink-mute);
+}
+
+/* --- tablet: one column, the axis moves to the left ---------------------- */
+
+@media (max-width: 1023px) {
+  .process-axis {
+    left: 23px;
+    transform: none;
+  }
+
+  .process-step {
+    --axis-gap: 0px;
+    grid-template-columns: 46px minmax(0, 1fr);
+    column-gap: clamp(0.85rem, 3vw, 1.25rem);
+    min-height: 0;
+    align-items: start;
+  }
+
+  .process-step__marker {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    width: 46px;
+    height: 46px;
+  }
+
+  .process-step__connector {
+    display: none;
+  }
+
+  .process-step--left .process-step__card,
+  .process-step--right .process-step__card {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    margin-inline: 0 0;
+    max-width: none;
+  }
+
+  .process-steps {
+    gap: clamp(1rem, 3vw, 1.6rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .process-axis {
+    left: 18px;
+  }
+
+  .process-step {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .process-step__marker {
+    width: 36px;
+    height: 36px;
+  }
+
+  .process-step__num {
+    font-size: 0.86rem;
+  }
+
+  .process-step__card {
+    padding: 1rem 1.05rem 1.1rem;
+  }
+}
+
+/* --- no motion: the composition, already assembled ----------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .process-axis__fill {
+    clip-path: none;
+  }
+
+  .process-step__connector-line {
+    transform: none;
+  }
+
+  .process-step__card,
+  .process-step__icon,
+  .process-step__card:hover .process-step__icon {
+    transform: none;
+  }
+
+  .process-step__card::before {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
    ABOUT PREVIEW
    -------------------------------------------------------------------------- */
 
