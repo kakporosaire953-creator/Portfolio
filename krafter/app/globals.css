@@ -93,11 +93,13 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --paper: #05090e;
-  --paper-soft: #0a1219;
-  --paper-deep: #0e1922;
-  --surface: #05090e;
-  --surface-raised: #0b141c;
+  /* Deep navy, not black: the page reads as ink in water, and the glows of the
+     atmosphere layer have somewhere to live. */
+  --paper: #061019;
+  --paper-soft: #0a1826;
+  --paper-deep: #0d2030;
+  --surface: #061019;
+  --surface-raised: #0b1b28;
 
   --ink: #f5f2ea;
   --ink-soft: #cbd5da;
@@ -112,11 +114,11 @@
   --brand-blue: #4d9bff;
   --brand-blue-deep: #8fc0ff;
 
-  --glass-bg: rgb(12 22 31 / 0.55);
-  --glass-bg-strong: rgb(9 17 24 / 0.78);
-  --glass-border: rgb(255 255 255 / 0.16);
-  --glass-shadow: 0 30px 70px -34px rgb(0 0 0 / 0.9);
-  --glass-sheen: rgb(255 255 255 / 0.3);
+  --glass-bg: rgb(6 16 25 / 0.66);
+  --glass-bg-strong: rgb(5 13 20 / 0.86);
+  --glass-border: rgb(255 255 255 / 0.14);
+  --glass-shadow: 0 30px 70px -34px rgb(0 0 0 / 0.92);
+  --glass-sheen: rgb(255 255 255 / 0.22);
 }
 
 /* --------------------------------------------------------------------------
@@ -659,6 +661,67 @@
 [data-theme="dark"] .noise {
   opacity: 0.22;
   mix-blend-mode: screen;
+}
+
+/* The dark theme atmosphere: a navy field, one orange arc, a blue breath in the
+   corner, and a halftone grain that only exists where the light is.
+   It sits above the sections and blends in screen mode, so it can lighten any
+   surface (paper, raised, a card) without tinting the text. In light mode it is
+   simply absent. */
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 620ms var(--ease-out-expo);
+  mix-blend-mode: screen;
+  background-image:
+    /* the arc: a ring, not a disc, so the corner stays open */
+    radial-gradient(
+      ellipse 84% 68% at 94% -16%,
+      transparent 32%,
+      rgb(255 106 0 / 0.44) 39%,
+      rgb(255 122 24 / 0.14) 44%,
+      transparent 50%
+    ),
+    /* the warm core, low and to the right */
+    radial-gradient(64% 54% at 82% 72%, rgb(255 92 0 / 0.26), transparent 74%),
+    /* the cold breath, high and to the left */
+    radial-gradient(46% 38% at 2% 2%, rgb(40 122 214 / 0.26), transparent 72%);
+}
+
+[data-theme="dark"] .atmosphere {
+  opacity: 1;
+}
+
+/* Halftone: the same dots as the reference, mapped onto the light. The mask is
+   what keeps it chic: dense in the glows, gone in the reading areas. */
+.atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, rgb(255 255 255 / 0.5) 0.9px, transparent 1.3px);
+  background-size: 6px 6px;
+  opacity: 0.3;
+  -webkit-mask-image:
+    radial-gradient(70% 60% at 86% 6%, #000 0%, transparent 70%),
+    radial-gradient(58% 52% at 80% 70%, #000 0%, transparent 72%),
+    radial-gradient(46% 40% at 4% 6%, #000 0%, transparent 72%);
+  -webkit-mask-composite: source-over;
+  mask-image:
+    radial-gradient(70% 60% at 86% 6%, #000 0%, transparent 70%),
+    radial-gradient(58% 52% at 80% 70%, #000 0%, transparent 72%),
+    radial-gradient(46% 40% at 4% 6%, #000 0%, transparent 72%);
+}
+
+/* A quiet vignette keeps the edges from glowing. */
+.atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 100% at 50% 40%, transparent 45%, rgb(0 0 0 / 0.55) 100%);
+  mix-blend-mode: multiply;
 }
 
 .blueprint {
