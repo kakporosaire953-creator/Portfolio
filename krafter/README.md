@@ -142,33 +142,41 @@ le nouveau site vit dans `krafter/`.
 - Repli statique SVG si WebGL absent ; aucune boucle d'animation si
   `prefers-reduced-motion`.
 
-### Intro KRAFTER / ASSEMBLY
-VOID → FIRST LINE → GEOMETRY → STRUCTURE → BRAND → LIQUID MATERIAL → PERSON →
-HOMEPAGE. ≈ 5,3 s desktop, version courte mobile, une fois par session
-(`sessionStorage`), bouton « passer » et Échap, minuterie de secours de 9,5 s pour
-que le site reste toujours accessible.
+### Scène d'ouverture
+Un portrait pleine hauteur découpé en bandes verticales qui se recalent en une
+seule image à mesure que la page est prête ; le logo officiel complet (grand K,
+arcs, « The », KRAFTER, la ligne CRÉER · INSPIRER · IMPACTER) sur papier à
+gauche, une ligne d'état « Chargement » et une jauge segmentée de 14 cellules.
+
+La jauge n'est pas décorative : typographies (30 %), événement `load` (30 %) et
+décodage du portrait (40 %) débloquent chacun une part fixe, et l'écran ne part
+qu'une fois les trois réunies. Le remplissage suit toujours le plus lent des deux
+(prêt réel, révélation), jamais plus vite. Échap, bouton « Passer » et minuterie
+de secours mettent fin à la scène ; `prefers-reduced-motion` la supprime
+entièrement (décidé avant le premier rendu, dans le script de boot).
+
+Une fois par session (`sessionStorage`), sur l'accueil uniquement. Le portrait
+est dessiné sur un canvas (`components/brand/SlicePortrait.tsx`) : une seule
+décompression d'image, pas une balise `<img>` par bande, et un repli `<img>`
+net si JavaScript est absent. La boucle s'arrête définitivement à 100 %.
 
 ---
 
 ## 4. Assets et actions requises
 
-### Logo complet — **action requise**
-Le fichier officiel complet n'était pas fourni dans le dépôt. Le composant
-`components/brand/BrandLogo.tsx` cherche :
+### Logo officiel
+Le fichier fourni par Rosaire Kakpo est utilisé tel quel, jamais redessiné :
 
 ```
-public/brand/the-krafter-logo.svg   (priorité)
-public/brand/the-krafter-logo.png
-public/brand/the-krafter-logo.webp
+public/brand/the-krafter-logo.png      lockup complet (760 × 663)
+public/brand/the-krafter-wordmark.png  wordmark seul (760 × 144)
+public/brand/the-krafter-mark.png      monogramme K (512 × 512)
 ```
 
-Tant qu'il est absent, un **emplacement identifié « LOGO SLOT »** est affiché
-(header, section Histoire, footer, intro) — aucun logo n'a été inventé, redessiné
-ou recoloré. La détection se fait côté serveur au build (pas d'image cassée).
-Déposez le fichier puis relancez `npm run build` (ou `npm run dev`).
-
-Un favicon typographique neutre (`public/favicon.svg`, lettre K) est fourni ;
-remplacez-le par l'icône officielle si elle existe.
+`components/brand/BrandLogo.tsx` les affiche aux proportions d'origine. Le header
+montre le wordmark seul (le K n'apparaît pas deux fois sur le premier écran) ;
+l'ouverture, la section Histoire et le footer montrent le lockup complet ; le
+monogramme sert au favicon et à la marque.
 
 ### Photographies
 - `public/images/portrait-hero.jpg` — portrait costume blanc / disque orange

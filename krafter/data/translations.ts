@@ -604,9 +604,11 @@ export const fr = {
   intro: {
     label: "Introduction THE KRAFTER",
     void: "THE KRAFTER / DIGITAL CRAFT",
-    skip: "Passer l’introduction",
+    skip: "Passer",
     brand: "Construction de la marque",
     person: "Rosaire Kakpo",
+    loading: "Chargement",
+    place: "Cotonou, Bénin",
   },
 
   a11y: {
@@ -1226,9 +1228,11 @@ export const en: typeof fr = {
   intro: {
     label: "THE KRAFTER introduction",
     void: "THE KRAFTER / DIGITAL CRAFT",
-    skip: "Skip the introduction",
+    skip: "Skip",
     brand: "Building the brand",
     person: "Rosaire Kakpo",
+    loading: "Loading",
+    place: "Cotonou, Benin",
   },
 
   a11y: {

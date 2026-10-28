@@ -1,33 +1,30 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MarkGlyph } from "@/components/brand/MarkGlyph";
+import { BrandLogo } from "@/components/brand/BrandLogo";
+import { SlicePortrait } from "@/components/brand/SlicePortrait";
 import { useLocale } from "@/components/i18n/LocaleProvider";
 import { gsap, registerGsap } from "@/lib/animations/gsap/register";
+import { asset } from "@/lib/utils/asset";
 import { useReducedMotion } from "@/lib/utils/useReducedMotion";
-import { hasSceneReady, markSceneReady, setIntroPlaying } from "@/lib/utils/introState";
-
-const LogoAssembly = dynamic(
-  () => import("@/components/three/LogoAssembly").then((mod) => mod.LogoAssembly),
-  { ssr: false },
-);
+import { setIntroPlaying } from "@/lib/utils/introState";
 
 /**
- * KRAFTER / ASSEMBLY, the first thing the site shows.
+ * THE KRAFTER, opening scene.
  *
- * The overlay is server rendered, so the very first paint is the loader, never
- * a flash of the homepage underneath. The monogram poster (real traced geometry)
- * is already there before any JavaScript; three.js then takes over and
- * assembles the same mark in 3D.
+ * A full-height portrait on the right, cut into vertical bands that settle into
+ * one image as the page becomes ready; the official lockup on paper at the
+ * left, one line of status and a segmented gauge. Nothing else.
  *
- * The percentage is not decorative: it moves on real readiness signals
- * (fonts, page load, first WebGL frame) and the overlay only leaves once all
- * three are in. Escape, the skip button, or a five second failsafe end it
- * early. Reduced motion never sees it.
+ * The overlay is server rendered, so the first paint is the loader and never a
+ * flash of the homepage. The gauge is not theatre: fonts, the window load event
+ * and the portrait decode each unlock a fixed share of it, and the scene only
+ * leaves once all three are in. Escape, the skip button and a failsafe end it
+ * early; reduced motion never sees it at all.
  */
 
-const MIN_VISIBLE = 2200; // ms, enough to see the mark assemble
+const BANDS = 14; // segments in the gauge
+const MIN_VISIBLE = 1900; // ms, long enough to read the mark
 const FAILSAFE = 6000;
 
 export function Intro() {
@@ -35,8 +32,8 @@ export function Intro() {
   const reduced = useReducedMotion();
   const [mounted, setMounted] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLSpanElement>(null);
-  const pctRef = useRef<HTMLSpanElement>(null);
+  const gaugeRef = useRef<HTMLDivElement>(null);
+  const progress = useRef(0);
   const exitRef = useRef<(() => void) | null>(null);
 
   const finish = useCallback(() => {
@@ -48,36 +45,34 @@ export function Intro() {
       return;
     }
     registerGsap();
-    // The timeline is the pretty exit; this timeout is the guarantee. Neither
-    // the visitor nor the page should ever depend on animation frames running.
+    // The timeline is the pretty exit; the timeout is the guarantee. The page
+    // must never depend on animation frames running.
     window.setTimeout(() => setMounted(false), 1100);
     gsap
-      .timeline({
-        onComplete: () => setMounted(false),
-      })
+      .timeline({ onComplete: () => setMounted(false) })
       .to(root.querySelectorAll("[data-intro-fade]"), {
         autoAlpha: 0,
-        y: -14,
-        duration: 0.4,
-        stagger: 0.04,
+        y: -12,
+        duration: 0.42,
+        stagger: 0.05,
         ease: "power2.in",
       })
       .to(
         root,
         {
           clipPath: "inset(0% 0% 100% 0%)",
-          duration: 0.75,
+          duration: 0.8,
           ease: "power4.inOut",
         },
-        "-=0.15",
+        "-=0.18",
       );
   }, []);
 
   exitRef.current = finish;
 
   useEffect(() => {
-    // The boot script decides before paint: non-home routes, a session that
-    // already saw the scene, and reduced motion never mount it.
+    // The boot script decides before paint: other routes, a session that has
+    // already seen the scene, and reduced motion never mount it.
     if (reduced || document.documentElement.classList.contains("intro-off")) {
       setMounted(false);
       setIntroPlaying(false);
@@ -88,14 +83,26 @@ export function Intro() {
     document.documentElement.classList.add("no-scroll");
     const start = performance.now();
 
-    // Readiness, not theatre: the bar is the sum of what is actually ready.
-    // fonts 30, page load 30, first WebGL frame 40. It never claims more.
-    const signals = { fonts: false, load: false, scene: false };
-    let promised = 0; // what is unlocked
-    let progress = 0; // what is painted, eased toward promised
+    const signals = { fonts: false, load: false, portrait: false };
+    let promised = 0;
+    let value = 0;
     let exited = false;
-    let timer = 0;
     let lastTick = performance.now();
+    let litBands = -1;
+
+    const paint = () => {
+      const filled = Math.round((value / 100) * BANDS);
+      if (filled !== litBands) {
+        litBands = filled;
+        const cells = gaugeRef.current?.children;
+        if (cells) {
+          for (let i = 0; i < cells.length; i += 1) {
+            (cells[i] as HTMLElement).dataset.on = i < filled ? "1" : "0";
+          }
+        }
+      }
+      rootRef.current?.setAttribute("aria-valuenow", String(Math.round(value)));
+    };
 
     const exit = () => {
       if (exited) return;
@@ -109,45 +116,40 @@ export function Intro() {
       finish();
     };
 
-    const paint = () => {
-      const value = Math.round(progress);
-      if (barRef.current) barRef.current.style.transform = `scaleX(${progress / 100})`;
-      if (pctRef.current) pctRef.current.textContent = `${String(value).padStart(3, "0")}%`;
-      rootRef.current?.setAttribute("aria-valuenow", String(value));
-    };
-
     const tick = () => {
       const elapsed = performance.now() - start;
-      if (hasSceneReady()) signals.scene = true;
-      promised = (signals.fonts ? 30 : 0) + (signals.load ? 30 : 0) + (signals.scene ? 40 : 0);
-      // Paint towards what is ready, with a floor that keeps the bar alive while
-      // the first chunk downloads (never above 12 % though: no fake progress).
-      const floor = Math.min((elapsed / MIN_VISIBLE) * 12, 12);
-      const target = Math.max(promised, floor);
-      // Seconds, not frames: a throttled tab must still reach the end.
-      const dt = Math.min((performance.now() - lastTick) / 1000, 1);
+      promised = (signals.fonts ? 30 : 0) + (signals.load ? 30 : 0) + (signals.portrait ? 40 : 0);
+      // The gauge never claims more than what is ready, and never fills faster
+      // than the reveal: the smaller of the two. That makes the fill legible
+      // instead of jumping to 100 % the instant every signal arrives.
+      const target = Math.min(promised, (elapsed / (MIN_VISIBLE * 0.86)) * 100);
+      // Seconds, not frames: a throttled tab must still reach the end. The
+      // per tick cap keeps a stalled main thread from snapping the gauge to
+      // its final value in one jump.
+      const dt = Math.min((performance.now() - lastTick) / 1000, 0.25);
       lastTick = performance.now();
-      progress += (target - progress) * Math.min(1, dt * 4.5);
-      if (Math.abs(target - progress) < 0.5) progress = target;
+      value += (target - value) * Math.min(1, dt * 4.5);
+      if (Math.abs(target - value) < 0.5) value = target;
+      progress.current = value;
       paint();
 
-      const ready = signals.fonts && signals.load && signals.scene;
-      if (ready && promised >= 100 && progress > 99.2 && elapsed >= MIN_VISIBLE) {
-        progress = 100;
+      if (signals.fonts && signals.load && signals.portrait && value > 99.2 && elapsed >= MIN_VISIBLE) {
+        value = 100;
+        progress.current = 100;
         paint();
         window.clearInterval(timer);
-        window.setTimeout(exit, 380);
+        window.setTimeout(exit, 420);
       }
     };
-    // setInterval, not requestAnimationFrame: a loader has to finish even when
-    // the page is not producing frames (background tab, throttled compositor).
-    timer = window.setInterval(tick, 90);
-    tick();
 
+    // setInterval, not requestAnimationFrame: a loader has to finish even when
+    // the page is not producing frames.
+    const timer = window.setInterval(tick, 90);
+    tick();
     const failsafe = window.setTimeout(exit, FAILSAFE);
 
     // Each signal is honest, and each one has a bounded wait: a slow font or a
-    // missing WebGL must never trap the visitor behind the overlay.
+    // missing image must never trap the visitor behind the overlay.
     signals.fonts = !document.fonts || document.fonts.status === "loaded";
     document.fonts?.ready.then(() => {
       signals.fonts = true;
@@ -163,13 +165,13 @@ export function Intro() {
     window.addEventListener("load", onLoad, { once: true });
     const loadTimeout = window.setTimeout(() => {
       signals.load = true;
-    }, 1800);
+    }, 2000);
 
-    const onScene = () => {
-      signals.scene = true;
+    const onPortrait = () => {
+      signals.portrait = true;
     };
-    window.addEventListener("krafter:intro-scene-ready", onScene);
-    const sceneTimeout = window.setTimeout(onScene, 2400);
+    window.addEventListener("krafter:intro-portrait-ready", onPortrait);
+    const portraitTimeout = window.setTimeout(onPortrait, 2600);
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -182,26 +184,18 @@ export function Intro() {
     return () => {
       window.clearInterval(timer);
       window.clearTimeout(failsafe);
-      window.clearTimeout(sceneTimeout);
       window.clearTimeout(fontTimeout);
       window.clearTimeout(loadTimeout);
+      window.clearTimeout(portraitTimeout);
       window.removeEventListener("load", onLoad);
-      window.removeEventListener("krafter:intro-scene-ready", onScene);
+      window.removeEventListener("krafter:intro-portrait-ready", onPortrait);
       document.removeEventListener("keydown", onKey);
       document.documentElement.classList.remove("no-scroll");
     };
   }, [reduced, finish]);
 
-  const onSceneReady = useCallback(() => {
-    // The canvas is painting: fade it over the poster.
-    const root = rootRef.current;
-    if (root) {
-      const canvas = root.querySelector(".intro__canvas");
-      const poster = root.querySelector("[data-intro-poster]");
-      if (canvas) canvas.classList.add("is-live");
-      if (poster) poster.classList.add("is-behind");
-    }
-    markSceneReady();
+  const onPortraitReady = useCallback(() => {
+    window.dispatchEvent(new Event("krafter:intro-portrait-ready"));
   }, []);
 
   if (!mounted) return null;
@@ -218,40 +212,42 @@ export function Intro() {
       aria-valuemax={100}
       aria-valuenow={0}
     >
-      <div className="intro__grid" aria-hidden="true" />
+      <div className="intro__rule" aria-hidden="true" />
       <div className="intro__glow" aria-hidden="true" />
 
-      <header className="intro__top" data-intro-fade>
-        <span className="intro__tag">{t.intro.void}</span>
-        <span className="intro__tag intro__tag--right">Portfolio · 2026</span>
-      </header>
+      <section className="intro__col">
+        <span className="intro__tag" data-intro-fade>
+          {t.intro.void}
+        </span>
 
-      <div className="intro__stage">
-        <div className="intro__poster" data-intro-poster aria-hidden="true">
-          <MarkGlyph className="intro__mark" />
+        <div className="intro__centre">
+          <BrandLogo variant="brand" className="intro__logo" />
+          <div className="intro__load" data-intro-fade>
+            <span className="intro__label">{t.intro.loading}</span>
+            <div className="intro__gauge" ref={gaugeRef} aria-hidden="true">
+              {Array.from({ length: BANDS }, (_, i) => (
+                <span className="intro__band" key={i} data-on="0" />
+              ))}
+            </div>
+          </div>
         </div>
-        <LogoAssembly className="intro__canvas" onReady={onSceneReady} />
-      </div>
 
-      <div className="intro__mid" data-intro-fade>
-        <span className="intro__name">{t.intro.person}</span>
-        <span className="intro__role">{t.hero.role}</span>
-      </div>
-
-      <footer className="intro__foot" data-intro-fade>
-        <div className="intro__progress">
-          <span className="intro__track">
-            <span className="intro__bar" ref={barRef} />
-          </span>
-          <span className="intro__pct" ref={pctRef}>
-            000%
-          </span>
+        <div className="intro__meta" data-intro-fade>
+          <span className="intro__place">{t.intro.place}</span>
+          <button type="button" className="intro__skip" onClick={() => exitRef.current?.()}>
+            {t.intro.skip}
+            <span aria-hidden="true">ESC</span>
+          </button>
         </div>
-        <button type="button" className="intro__skip" onClick={() => exitRef.current?.()}>
-          {t.intro.skip}
-          <span aria-hidden="true">ESC</span>
-        </button>
-      </footer>
+      </section>
+
+      <div className="intro__figure" aria-hidden="true">
+        <SlicePortrait
+          src={asset("/images/portrait-editorial.jpg")}
+          progress={progress}
+          onReady={onPortraitReady}
+        />
+      </div>
 
       <noscript>
         <style>{`.intro{display:none}`}</style>
