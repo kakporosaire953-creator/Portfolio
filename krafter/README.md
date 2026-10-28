@@ -65,8 +65,8 @@ krafter/
 │   ├── assistant/                 KRAFTER / GUIDANCE (assistant préprogrammé)
 │   ├── motion/                    reveals, SplitText, Magnetic, transition Flip
 │   ├── sections/                  sections de la homepage + Design × Code
-│   ├── three/                     KRAFTER / ORBIT (scène isolée, chargée en différé)
-│   ├── svg/                       géométries SVG anime.js, poster orbital statique
+│   ├── three/                     Living Ghost / Liquid Core (une scène partagée)
+│   ├── svg/                       géométries SVG anime.js, affiches statiques des sculptures
 │   ├── projects/ pages/ contact/ layout/
 ├── lib/
 │   ├── animations/gsap/           enregistrement des plugins, hook de contexte, store Flip
@@ -145,14 +145,65 @@ le nouveau site vit dans `krafter/`.
 - **Nettoyage** : `gsap.context()` + `revert()` dans chaque composant, `kill()`
   des temporisations, `dispose()` de toutes les ressources Three.js.
 
-### 3D — KRAFTER / ORBIT
-- Volume de verre translucide (transmission, `RoomEnvironment` + PMREM), deux
-  anneaux orbitaux, tracé elliptique, points géométriques, parallaxe caméra légère.
-- Canvas isolé, chargé en différé (`next/dynamic`, `ssr: false`), DPR plafonné
-  (1.75 desktop / 1.35 mobile), pause hors écran et onglet caché, `ResizeObserver`,
-  disposition complète des géométries/matériaux/textures, perte de contexte gérée.
-- Repli statique SVG si WebGL absent ; aucune boucle d'animation si
-  `prefers-reduced-motion`.
+### 3D — deux sculptures, une scène
+
+Deux objets, jamais visibles en même temps, placés dans des sections qui
+existaient déjà :
+
+| Sculpture | Où | Rôle |
+| --- | --- | --- |
+| **THE LIVING GHOST** | héros, en bas à gauche de la plaque portrait | présence calme, respiration, réaction au pointeur |
+| **THE LIQUID CORE** | section Méthode, derrière la timeline | progression au défilement, sculpture métallique |
+
+- **Géométrie procédurale, aucun asset externe.** Aucun modèle `.glb`, aucune
+  texture, aucun HDRI : la forme du fantôme est une nappe paramétrique écrite à
+  la main (dôme, ourlet à cinq lobes, plis, deux orbites creusées), les rubans du
+  noyau sont balayés le long de courbes fermées puis vrillés. Les deux objets
+  sont donc reproductibles au pixel et ne dépendent d'aucun téléchargement.
+- **Yeux du fantôme** : découpés au pixel dans le fragment shader, dans l'espace
+  UV de la nappe (pas de trou polygonal, pas d'opération booléenne), avec une
+  coque intérieure sombre pour que le trou lise une profondeur.
+- **Matières PBR uniquement** : `MeshPhysicalMaterial` (iridescence à couche
+  mince, clearcoat, sheen) et un environnement de studio construit à la volée
+  (PMREM) avec les quatre couleurs de la marque. Aucun post-traitement, aucun
+  bloom : le coût d'un second passage de rendu n'était pas justifié.
+- **Palette** : orange `#FF6A00`, navy `#081A2B`, bleu `#1E6FD9`, cyan
+  `#54CFE0`, papier `#FAF8F3`. Le violet n'existe que comme reflet secondaire de
+  l'iridescence ; il n'y a pas d'« univers violet ».
+- **Deux directions artistiques** : en clair, le fantôme est un verre navy fumé
+  qui tient sur le papier ; en sombre, une opale éclairée de l'intérieur. Le noyau
+  passe du graphite chaud au métal orange/bleu. Le changement de thème tween un
+  seul nombre (0 → 1) qui interpole couleurs, rugosités, iridescence, intensités
+  de lumières et exposition : la rotation, la pose et le contexte WebGL ne sont
+  jamais reconstruits (vérifié : même élément `<canvas>` avant/après).
+- **GSAP coordonne, sans se disputer les propriétés** : quatre objets d'état
+  distincts, composés en une seule transformation par image — `rest` (flottement,
+  rotation lente), `pointer` (amorti, retour au repos), `scroll` (une seule
+  progression 0 → 1, `scrub` amorti, réversible), `theme` (le mix). Aucune
+  timeline n'écrit sur la propriété d'une autre.
+- **Une seule boucle de rendu** pour toutes les scènes
+  (`components/three/sculptures/loop.ts`) : elle ne tourne que si un canvas est
+  visible, s'arrête quand l'onglet passe en arrière-plan et reprend sans saut.
+- **Performance** : DPR plafonné (1.75 desktop / 1.35 mobile), qualité par
+  viewport (segments de la nappe, segments des rubans), scène suspendue hors
+  écran (`IntersectionObserver`), aucun suivi du pointeur sur tactile
+  (`(hover: hover) and (pointer: fine)`), contexte unique par scène.
+- **Téléphones** : le héros garde le fantôme en définition réduite ; le noyau
+  n'est pas monté sous 768 px, pour ne pas ouvrir un second contexte WebGL sur un
+  appareil qui n'en a pas besoin. La section Méthode garde ses dégradés CSS.
+- **Repli** : affiche SVG peinte immédiatement, remplacée seulement après la
+  première image WebGL ; si WebGL est absent, refusé, ou si le contexte est
+  perdu, l'affiche reste (vérifié avec `--disable-webgl`).
+- **Mouvement réduit** : une seule image composée au repos, aucun écouteur
+  pointeur, aucun ScrollTrigger pour la scène.
+
+### Tests de la couche 3D
+`npm run test:sculptures` exécute 31 vérifications sur le code réellement publié,
+sans navigateur : fermeture de la couture de la nappe, normales unitaires, cinq
+lobes, orbites réellement creusées, rubans fermés et plats, ancrages de shader
+effectivement injectés, accolades équilibrées, uniformes déclarés, interpolation
+de thème, déterminisme du bruit. Ce sont les défauts qu'une capture ne montre
+pas.
 
 ### Scène d'ouverture
 Un portrait pleine hauteur découpé en bandes verticales qui se recalent en une
@@ -314,7 +365,7 @@ Les études de cas affichent d'ailleurs une mention explicite :
   scène 3D hors du bundle initial, `gsap`/`three` chargés uniquement côté client.
 - La qualité de rendu dépend de l'appareil : aucune promesse de fréquence
   d'images identique partout. Réduire les effets si nécessaire
-  (`components/three/OrbitScene.tsx`, section `isSmall`).
+  (`components/three/SculptureScene.tsx`, `readQuality`).
 
 ---
 
@@ -332,12 +383,24 @@ Vérifié dans cet environnement :
   sans `alternate`.
 - Revue de code des nettoyages GSAP / anime.js / Three.js et des chemins de repli.
 
-**Limite honnête** : aucun navigateur headless n'était disponible dans cet
-environnement (pas de Chromium, pas de Playwright). La validation visuelle
-automatisée (captures, tests de débordement au pixel) n'a donc pas pu être
-exécutée. Une passe manuelle est recommandée sur Chrome, Safari, Firefox et sur
-un iPhone/Android réel, en clair et en sombre, FR et EN, avec et sans
-« réduire les animations ».
+- `npm run test:sculptures` — 31/31 vérifications (géométrie, shaders, thème).
+- Captures réalisées dans Chromium headless (SwiftShader, donc rendu logiciel)
+  sur le serveur de développement, en clair et en sombre : héros 1440×900,
+  héros 820×1100, héros 390×844, section Méthode 1440×900, mouvement réduit,
+  WebGL désactivé (repli), bascule de thème par clic. Les captures servent à
+  juger la composition et la lisibilité, pas la fluidité.
+- Bascule de thème vérifiée par assertion dans le DOM : un seul `<canvas>`, le
+  même élément avant et après, état `live` conservé, thème passé à `dark`.
+
+**Limites honnêtes** :
+- Le rendu des captures est logiciel : les fréquences d'images réelles, le
+  comportement du GPU mobile et les différences Safari/Firefox n'ont pas été
+  mesurés ici. Une passe manuelle sur un iPhone et un Android réels reste
+  nécessaire.
+- Les captures du navigateur headless montrent parfois les textes de révélation
+  à mi-course : c'est la boucle GSAP qui est ralentie par le rendu logiciel, pas
+  un défaut du site (vérifié en masquant la scène : les cartes sont alors
+  entièrement lisibles).
 
 ---
 
