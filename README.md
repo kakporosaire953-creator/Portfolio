@@ -84,11 +84,10 @@ GitHub répond 404. Sa désactivation complète se fait en un clic dans
 
 - ✅ 8 pages, 3 études de cas (SkillBridge, Campusly, Blue Inova), FR/EN, thème
   clair par défaut + mode sombre, animations GSAP, SVG anime.js v4, scène Three.js
-  « KRAFTER / ORBIT », intro « KRAFTER / ASSEMBLY », assistant à réponses
+  « KRAFTER / ORBIT », ouverture « portrait découpé » avec le logo officiel, assistant à réponses
   préprogrammées (aucune IA connectée), formulaire validé avec repli `mailto`.
-- 🔸 **Logo officiel** : déposez `the-krafter-logo.svg` (ou `.png`/`.webp`) dans
-  `krafter/public/brand/` puis relancez `npm run build:export`. En attendant,
-  l'emplacement du logo officiel est affiché tel quel — aucun logo inventé.
+- ✅ **Logo officiel** : `krafter/public/brand/` contient le lockup complet, le
+  wordmark et le monogramme fournis par Rosaire Kakpo, affichés tels quels.
 - 🔸 **Envoi réel du formulaire** : sur un hôte Node (serveur Next), définir
   `RESEND_API_KEY` + `CONTACT_TO_EMAIL` (ou `CONTACT_WEBHOOK_URL`). En export
   statique sur Vercel, seul le repli `mailto` / copier-coller est actif.
