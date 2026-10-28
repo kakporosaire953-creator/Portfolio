@@ -74,7 +74,9 @@ export function BlogView() {
           <div className="blog-upcoming" data-reveal>
             {t.blog.upcoming.map((topic, index) => (
               <div className="blog-upcoming__item" key={topic.title}>
-                <span className="blog-upcoming__index">0{index + 1}</span>
+                <span className="num-band blog-upcoming__band" aria-hidden="true">
+                  <span className="num-band__num">0{index + 1}</span>
+                </span>
                 <span className="blog-upcoming__title">
                   {topic.title}
                   <span className="meta" style={{ display: "block", marginTop: "0.25rem" }}>

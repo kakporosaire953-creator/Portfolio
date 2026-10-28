@@ -926,21 +926,44 @@
   border: 1px solid var(--line);
 }
 
+/* Services keeps four equal cards side by side: the number becomes the same
+   band as the home timeline, standing on the card's inner edge. */
 .process-card {
   background: var(--paper);
-  padding: clamp(1.1rem, 2.2vw, 1.8rem);
+  padding: clamp(1rem, 1.6vw, 1.35rem);
   display: grid;
-  gap: 1.4rem;
-  align-content: space-between;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  align-content: start;
+  align-items: stretch;
   min-height: 15rem;
 }
 
-.process-card__num {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.6vw, 3rem);
-  line-height: 1;
-  color: var(--orange);
-  font-style: italic;
+/* Two-class selectors on purpose: accents.css loads after this file, so a
+   single class would lose the cascade and the band would keep its page size. */
+.process-card .process-card__band {
+  --num-band-w: 32px;
+  height: auto;
+  align-self: stretch;
+  border-radius: 3px;
+}
+
+.process-card__band .num-band__num {
+  font-size: 0.94rem;
+  letter-spacing: 0.08em;
+}
+
+/* The band warms as the pointer crosses the card it belongs to. */
+.process-card:hover .num-band::before,
+.process-card:focus-within .num-band::before {
+  opacity: 0.5;
+}
+
+.process-card__body {
+  align-content: start;
+  display: grid;
+  gap: 0.4rem;
+  padding-block: 0.15rem;
 }
 
 .process-card__title {
@@ -969,6 +992,379 @@
 
   .process-card {
     min-height: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PROCESS — TIMELINE
+   Home only. The /services page keeps .process-grid / .process-card untouched.
+   -------------------------------------------------------------------------- */
+
+.process {
+  position: relative;
+}
+
+.process__intro {
+  max-width: 34rem;
+}
+
+.process-flow {
+  position: relative;
+  margin-top: clamp(1.8rem, 4vw, 3.2rem);
+  /* The atmosphere is a texture, not a scene: never in front of the copy. */
+  isolation: isolate;
+}
+
+.process-flow__atmosphere {
+  position: absolute;
+  inset: -4% -10% -4% -10%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  /* Fades at the edges so the canvas never shows a hard rectangle. */
+  -webkit-mask-image: radial-gradient(120% 86% at 50% 46%, #000 38%, transparent 78%);
+  mask-image: radial-gradient(120% 86% at 50% 46%, #000 38%, transparent 78%);
+}
+
+/* --- the axis ------------------------------------------------------------ */
+
+.process-axis {
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: color-mix(in srgb, var(--line-strong) 52%, transparent);
+  z-index: 1;
+}
+
+.process-axis__fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  /* The gradient belongs to the whole axis, not to the drawn part: the reveal
+     is a clip, so the colour never shifts under a card as you scroll. */
+  background: linear-gradient(to bottom, var(--brand-blue), var(--orange));
+  clip-path: inset(0 0 100% 0);
+  opacity: 0.9;
+}
+
+/* --- rows ---------------------------------------------------------------- */
+
+.process-steps {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(1.4rem, 3.2vw, 2.9rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.process-step {
+  --axis-gap: clamp(60px, 6.6vw, 100px);
+  --card-gap: clamp(1.15rem, 2.4vw, 2.1rem);
+  --ribbon-w: clamp(36px, 3.4vw, 48px);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--axis-gap) minmax(0, 1fr);
+  align-items: center;
+  min-height: clamp(9.5rem, 15vw, 12rem);
+}
+
+/* The turned side is empty on purpose: asymmetry, not a centred column. */
+.process-step--left .process-step__card {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.process-step--right .process-step__card {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.process-step--left .process-step__card {
+  margin-inline-end: var(--card-gap);
+}
+
+.process-step--right .process-step__card {
+  margin-inline-start: var(--card-gap);
+}
+
+/* --- connector + marker --------------------------------------------------- */
+
+.process-step__connector {
+  /* From the edge of the spine to the edge of the card: half the axis gap plus
+     the card gap, minus the half ribbon the line now emerges from. */
+  position: absolute;
+  top: calc(50% - 0.5px);
+  width: calc(var(--axis-gap) / 2 + var(--card-gap) - var(--ribbon-w) / 2);
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.process-step--left .process-step__connector {
+  right: 50%;
+}
+
+.process-step--right .process-step__connector {
+  left: 50%;
+}
+
+.process-step__connector-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--brand-blue) 55%, var(--line-strong)),
+    color-mix(in srgb, var(--orange) 45%, var(--line-strong))
+  );
+  transform: scaleX(0);
+}
+
+.process-step.is-current .process-step__connector-line {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--orange) 46%, var(--line-strong)),
+    color-mix(in srgb, var(--orange) 70%, transparent)
+  );
+}
+
+.process-step--left .process-step__connector-line {
+  transform-origin: right center;
+}
+
+.process-step--right .process-step__connector-line {
+  transform-origin: left center;
+}
+
+/* Placement of the shared number band on the timeline: centred on the axis. */
+.process-step .process-step__ribbon {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  z-index: 3;
+}
+
+/* Resting the pointer on the card warms the band it belongs to, without
+   pulling it all the way to the active state. */
+.process-step:has(.process-step__card:hover) .num-band::before {
+  opacity: 0.4;
+}
+
+/* --- the card itself ------------------------------------------------------ */
+
+.process-step__card {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: min(30rem, 100%);
+  padding: clamp(1.05rem, 1.8vw, 1.5rem) clamp(1.15rem, 2vw, 1.7rem)
+    clamp(1.15rem, 2vw, 1.6rem);
+  /* Squarer than the global glass radius: an editorial sheet, not a widget. */
+  border-radius: 14px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Detail level: a slow sheen that crosses the pane once per hover. It lives
+   under the copy (z-index 0) and only exists while the pointer is on the card. */
+.process-step__card::before {
+  content: "";
+  position: absolute;
+  inset: -30% -60%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-42%) rotate(8deg);
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    color-mix(in srgb, var(--glass-rim) 52%, transparent) 50%,
+    transparent 62%
+  );
+  transition: transform 1100ms var(--ease-out-expo), opacity 420ms var(--ease-out-expo);
+}
+
+.process-step__card:hover::before,
+.process-step__card:focus-within::before {
+  opacity: 1;
+  transform: translateX(42%) rotate(8deg);
+}
+
+[data-theme="dark"] .process-step__card::before {
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgb(255 255 255 / 0.1) 50%,
+    transparent 62%
+  );
+}
+
+/* The lift itself is animated by GSAP once the section has taken over; this
+   transform is the no-JS fallback and is overridden by the inline tween. */
+.process-step__card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--brand-blue) 34%, var(--glass-rim));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--glass-rim) 80%, transparent),
+    inset 0 -1px 0 rgb(8 26 43 / 0.06),
+    0 30px 62px -38px rgb(8 26 43 / 0.55);
+}
+
+.process-step.is-current .process-step__card {
+  border-color: color-mix(in srgb, var(--brand-blue) 26%, var(--glass-rim));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--glass-rim) 80%, transparent),
+    inset 0 -1px 0 rgb(8 26 43 / 0.06),
+    0 26px 56px -40px rgb(8 26 43 / 0.5);
+}
+
+.process-step__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.15rem;
+}
+
+.process-step__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--brand-blue) 22%, var(--line));
+  background: color-mix(in srgb, var(--brand-blue) 7%, transparent);
+  color: var(--brand-blue-deep);
+  transition:
+    background-color 420ms var(--ease-out-expo),
+    border-color 420ms var(--ease-out-expo),
+    transform 520ms var(--ease-out-expo);
+}
+
+.process-step__card:hover .process-step__icon {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--brand-blue) 40%, var(--line));
+  background: color-mix(in srgb, var(--brand-blue) 12%, transparent);
+}
+
+.process-step__index {
+  color: var(--ink-mute);
+  letter-spacing: 0.18em;
+  transition: color 420ms var(--ease-out-expo);
+}
+
+.process-step__card:hover .process-step__index {
+  color: color-mix(in srgb, var(--brand-blue-deep) 70%, var(--ink-mute));
+}
+
+.process-step__title {
+  margin-top: 0.2rem;
+  font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.process-step__text {
+  font-size: 0.865rem;
+  line-height: 1.62;
+  color: var(--ink-mute);
+}
+
+/* --- tablet: one column, the axis moves to the left ---------------------- */
+
+@media (max-width: 1023px) {
+  .process-axis {
+    left: 23px;
+    transform: none;
+  }
+
+  .process-step {
+    --axis-gap: 0px;
+    --ribbon-w: 46px;
+    grid-template-columns: 46px minmax(0, 1fr);
+    column-gap: clamp(0.85rem, 3vw, 1.25rem);
+    min-height: 0;
+    align-items: start;
+  }
+
+  .process-step .process-step__ribbon {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    --num-band-h: 4.8rem;
+  }
+
+  .process-step__ribbon .num-band__num {
+    font-size: 0.94rem;
+  }
+
+  .process-step__connector {
+    display: none;
+  }
+
+  .process-step--left .process-step__card,
+  .process-step--right .process-step__card {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    margin-inline: 0 0;
+    max-width: none;
+  }
+
+  .process-steps {
+    gap: clamp(1rem, 3vw, 1.6rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .process-axis {
+    left: 18px;
+  }
+
+  .process-step {
+    --ribbon-w: 36px;
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .process-step__ribbon .num-band__num {
+    font-size: 0.86rem;
+    letter-spacing: 0.1em;
+  }
+
+  .process-step__card {
+    padding: 1rem 1.05rem 1.1rem;
+  }
+}
+
+/* --- no motion: the composition, already assembled ----------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .process-axis__fill {
+    clip-path: none;
+  }
+
+  .process-step__connector-line {
+    transform: none;
+  }
+
+  .process-step__card,
+  .process-step__icon,
+  .process-step__card:hover .process-step__icon {
+    transform: none;
+  }
+
+  .process-step__card::before {
+    display: none;
   }
 }
 
@@ -1264,15 +1660,30 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 0.9rem;
-  align-items: baseline;
+  align-items: center;
   padding: 0.9rem 0;
   border-bottom: 1px solid var(--line);
 }
 
-.blog-upcoming__index {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  color: var(--ink-mute);
+/* Dense rows get the same band, at the smallest size it stays legible in. */
+.blog-upcoming .blog-upcoming__band {
+  --num-band-w: 24px;
+  --num-band-h: 2.7rem;
+  padding-block: 0.2rem 0.45rem;
+}
+
+.blog-upcoming .blog-upcoming__band .num-band__num {
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+/* The topic label is a single word group on wide screens; on a phone it has to
+   wrap or it runs past the row. */
+@media (max-width: 560px) {
+  .blog-upcoming__topic {
+    white-space: normal;
+    text-align: right;
+  }
 }
 
 .blog-upcoming__title {
@@ -1803,10 +2214,18 @@
 
 .case-section {
   display: grid;
-  grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
+  /* The chapter number is the same band as the home timeline: the whole site
+     counts in one voice. */
+  grid-template-columns: auto minmax(0, 0.34fr) minmax(0, 0.66fr);
   gap: clamp(1rem, 2.5vw, 2.4rem);
   padding-top: 1.2rem;
   border-top: 1px solid var(--line);
+}
+
+.case-section .case-section__band {
+  --num-band-w: 30px;
+  --num-band-h: 4.4rem;
+  align-self: start;
 }
 
 .case-section__head {
@@ -1815,12 +2234,6 @@
   align-content: start;
 }
 
-.case-section__index {
-  font-family: var(--font-mono);
-  font-size: 0.54rem;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-}
 
 .case-section__title {
   font-size: clamp(1.05rem, 1.5vw, 1.3rem);
@@ -1951,8 +2364,20 @@
   }
 
   .case-section {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.6rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem clamp(0.8rem, 2vw, 1.2rem);
+    align-items: start;
+  }
+
+  .case-section .case-section__band {
+    --num-band-w: 26px;
+    --num-band-h: 3.6rem;
+    grid-row: 1 / span 2;
+  }
+
+  .case-section .case-section__head,
+  .case-section > div:not(.case-section__head) {
+    grid-column: 2;
   }
 
   .case-hero__meta {
@@ -2200,16 +2625,24 @@
   background: var(--paper);
   padding: clamp(1.1rem, 2vw, 1.8rem);
   display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  align-items: stretch;
+  align-content: start;
+}
+
+.philosophy-card .philosophy-card__band {
+  --num-band-w: 30px;
+  height: auto;
+  align-self: stretch;
+}
+
+.philosophy-card__body {
+  display: grid;
   gap: 0.7rem;
   align-content: start;
 }
 
-.philosophy-card__num {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-}
 
 .philosophy-card__title {
   font-size: 1.05rem;
@@ -2230,10 +2663,16 @@
 
 .path-item {
   display: grid;
-  grid-template-columns: minmax(0, 0.22fr) minmax(0, 0.28fr) minmax(0, 0.5fr);
+  grid-template-columns: auto minmax(0, 0.22fr) minmax(0, 0.28fr) minmax(0, 0.5fr);
   gap: clamp(0.8rem, 2vw, 2rem);
   padding: clamp(1rem, 2vw, 1.5rem) 0;
   border-bottom: 1px solid var(--line);
+}
+
+.path-item .path-item__band {
+  --num-band-w: 26px;
+  --num-band-h: 3.4rem;
+  align-self: start;
 }
 
 .path-item__label {
@@ -2295,8 +2734,19 @@
   }
 
   .path-item {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.4rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.4rem clamp(0.8rem, 2vw, 1.2rem);
+    align-items: start;
+  }
+
+  .path-item .path-item__band {
+    --num-band-w: 24px;
+    --num-band-h: 3.2rem;
+    grid-row: 1 / span 3;
+  }
+
+  .path-item > :not(.path-item__band) {
+    grid-column: 2;
   }
 }
 
@@ -2312,10 +2762,16 @@
 
 .service-block {
   display: grid;
-  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  grid-template-columns: auto minmax(0, 0.42fr) minmax(0, 0.58fr);
   gap: clamp(1.4rem, 3vw, 3rem);
   padding-top: 1.4rem;
   border-top: 1px solid var(--line);
+}
+
+.service-block .service-block__band {
+  --num-band-w: 32px;
+  --num-band-h: 5rem;
+  align-self: start;
 }
 
 .service-block__head {
@@ -2324,12 +2780,6 @@
   align-content: start;
 }
 
-.service-block__index {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-}
 
 .service-block__title {
   font-size: clamp(1.5rem, 2.6vw, 2.2rem);
@@ -2483,7 +2933,20 @@
 
 @media (max-width: 900px) {
   .service-block {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(0.9rem, 3vw, 1.6rem);
+    align-items: start;
+  }
+
+  .service-block .service-block__band {
+    --num-band-w: 26px;
+    --num-band-h: 3.6rem;
+    grid-row: 1 / span 2;
+  }
+
+  .service-block__head,
+  .service-block__body {
+    grid-column: 2;
   }
 }
 

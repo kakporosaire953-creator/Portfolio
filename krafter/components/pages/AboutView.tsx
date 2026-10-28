@@ -81,9 +81,13 @@ export function AboutView() {
           <div className="philosophy-grid" data-reveal-stagger>
             {t.about.philosophy.items.map((item, index) => (
               <article className="philosophy-card liquid" key={item.title} data-reveal-item data-glass>
-                <span className="philosophy-card__num">0{index + 1}</span>
-                <h3 className="philosophy-card__title">{item.title}</h3>
-                <p className="philosophy-card__text">{item.text}</p>
+                <span className="num-band philosophy-card__band" aria-hidden="true">
+                  <span className="num-band__num">0{index + 1}</span>
+                </span>
+                <div className="philosophy-card__body">
+                  <h3 className="philosophy-card__title">{item.title}</h3>
+                  <p className="philosophy-card__text">{item.text}</p>
+                </div>
               </article>
             ))}
           </div>
@@ -103,6 +107,9 @@ export function AboutView() {
           <div className="path-list" data-reveal-stagger>
             {t.about.path.chapters.map((chapter) => (
               <article className="path-item" key={chapter.label} data-reveal-item>
+                <span className="num-band path-item__band" aria-hidden="true">
+                  <span className="num-band__num">0{t.about.path.chapters.indexOf(chapter) + 1}</span>
+                </span>
                 <span className="path-item__label">{chapter.label}</span>
                 <h3 className="path-item__title">{chapter.title}</h3>
                 <p className="path-item__text">{chapter.text}</p>
