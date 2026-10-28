@@ -128,33 +128,21 @@
   isolation: isolate;
 }
 
-/* The veil sits low and to the left of the plate; the portrait keeps the
-   upper right. They overlap only at a corner, so the face stays readable and
-   neither one is hidden behind the other. */
-.hero__sculpture {
+.hero__orbit {
   position: absolute;
-  inset: 32% 38% -4% -10%;
+  inset: -8% -14% 4% -12%;
   z-index: 1;
-  opacity: 0.93;
+  opacity: 0.95;
   pointer-events: none;
-  mask-image: radial-gradient(74% 74% at 50% 50%, #000 62%, transparent 94%);
-  -webkit-mask-image: radial-gradient(74% 74% at 50% 50%, #000 62%, transparent 94%);
-}
-
-/* Light: the veil is a smoked navy glass, so it holds against paper.
-   Dark: it becomes an opal, lit from inside by the brand lights. */
-[data-theme="dark"] .hero__sculpture {
-  opacity: 1;
-  mask-image: radial-gradient(78% 78% at 50% 50%, #000 64%, transparent 96%);
-  -webkit-mask-image: radial-gradient(78% 78% at 50% 50%, #000 64%, transparent 96%);
+  mask-image: radial-gradient(circle at 55% 45%, #000 42%, transparent 76%);
 }
 
 .hero__portrait {
   position: absolute;
   z-index: 2;
-  right: clamp(0rem, 2vw, 1.5rem);
-  top: 0;
-  width: min(64%, 372px);
+  right: clamp(0rem, 3vw, 2.5rem);
+  top: 4%;
+  width: min(78%, 420px);
   aspect-ratio: 1;
   margin: 0;
   border-radius: 999px;
@@ -238,19 +226,17 @@
 
   .hero__visual {
     order: 2;
-    min-height: clamp(300px, 64vw, 400px);
+    min-height: clamp(230px, 58vw, 380px);
   }
 
   .hero__portrait {
-    width: min(52%, 220px);
+    width: min(56%, 280px);
     right: 4%;
     top: 0;
   }
 
-  /* On a phone the plate is short: the veil keeps the left half and the
-     portrait keeps the right, so the face is never hidden behind the photo. */
-  .hero__sculpture {
-    inset: 6% 36% -8% -4%;
+  .hero__orbit {
+    inset: -6% -20% 0 -20%;
   }
 
   .hero__statement {
@@ -1031,17 +1017,13 @@
 
 .process-flow__atmosphere {
   position: absolute;
-  inset: -6% -12% -6% -12%;
+  inset: -4% -10% -4% -10%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.62;
+  opacity: 0.5;
   /* Fades at the edges so the canvas never shows a hard rectangle. */
-  -webkit-mask-image: radial-gradient(120% 86% at 50% 46%, #000 40%, transparent 80%);
-  mask-image: radial-gradient(120% 86% at 50% 46%, #000 40%, transparent 80%);
-}
-
-[data-theme="dark"] .process-flow__atmosphere {
-  opacity: 0.7;
+  -webkit-mask-image: radial-gradient(120% 86% at 50% 46%, #000 38%, transparent 78%);
+  mask-image: radial-gradient(120% 86% at 50% 46%, #000 38%, transparent 78%);
 }
 
 /* --- the axis ------------------------------------------------------------ */

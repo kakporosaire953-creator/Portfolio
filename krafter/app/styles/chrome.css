@@ -1309,60 +1309,37 @@
 }
 
 /* --------------------------------------------------------------------------
-   SCULPTURE STAGE
-   Two sculptures, one stage: the wrapper holds the poster, the canvas and the
-   crossfade between them, so a slow device sees a composed still frame instead
-   of an empty box.
+   ORBIT STAGE
    -------------------------------------------------------------------------- */
 
-.sculpture-stage {
-  /* Placement belongs to the section (see .hero__orbit): the stage only owns
-     the stacking of poster, canvas and crossfade. */
-  pointer-events: none;
+.orbit-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.sculpture-stage__poster,
-.sculpture-stage__canvas {
+.orbit-stage__poster,
+.orbit-stage__canvas {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  box-sizing: border-box;
 }
 
-.sculpture-stage__poster {
-  padding: 13%;
-  opacity: 0.9;
-  transition: opacity 700ms ease;
-}
-
-.sculpture-stage__poster svg {
+.orbit-stage__poster svg {
   width: 100%;
   height: 100%;
+  opacity: 0.85;
 }
 
-.sculpture-stage__canvas {
-  opacity: 0;
-  transition: opacity 900ms ease;
-}
-
-/* The poster only steps aside once a real frame exists. */
-.sculpture-stage[data-state="live"] .sculpture-stage__canvas {
-  opacity: 1;
-}
-
-.sculpture-stage[data-state="live"] .sculpture-stage__poster {
-  opacity: 0;
-}
-
-.sculpture-scene {
+.orbit-canvas {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.sculpture-canvas {
+.orbit-canvas canvas {
   display: block;
   width: 100% !important;
   height: 100% !important;
