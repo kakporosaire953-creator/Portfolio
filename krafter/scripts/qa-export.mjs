@@ -5,7 +5,7 @@
  * They are deliberately kept out of package.json so the deploy job stays lean.
  *
  * Usage: serve the published root under the Pages path first, then run it:
- *   ln -s <repo> /tmp/serve/Portfolio && (cd /tmp/serve && python3 -m http.server 3100)
+ *   (cd krafter/out && python3 -m http.server 3100 --bind 0.0.0.0)
  *   LD_LIBRARY_PATH=/tmp/nsslib node scripts/qa-export.mjs
  * It checks the real export: motion, rail, broken assets, 4xx responses.
  */
@@ -25,7 +25,7 @@ p.on("response", (r) => { if (r.status() >= 400) failed.push(`${r.status()} ${r.
 const errs = [];
 p.on("pageerror", (e) => errs.push(e.message));
 await p.setViewport({width:1440,height:900});
-await p.goto("http://127.0.0.1:3100/Portfolio/", { waitUntil: "domcontentloaded", timeout: 90000 });
+await p.goto("http://127.0.0.1:3100/", { waitUntil: "domcontentloaded", timeout: 90000 });
 await new Promise((r) => setTimeout(r, 3500));
 const top = await p.evaluate(()=>{ const el=document.querySelector(".reel"); return window.scrollY + el.getBoundingClientRect().top; });
 await p.evaluate((t)=>window.scrollTo(0,t-90), top);
@@ -40,11 +40,11 @@ console.log(JSON.stringify({ moving: JSON.stringify(t1)!==JSON.stringify(t2), ra
 
 // inner page + case study through the base path
 for (const route of ["projets/", "projets/skillbridge/", "contact/"]) {
-  await p.goto(`http://127.0.0.1:3100/Portfolio/${route}`, { waitUntil: "domcontentloaded", timeout: 90000 });
+  await p.goto(`http://127.0.0.1:3100/${route}`, { waitUntil: "domcontentloaded", timeout: 90000 });
   await new Promise((r) => setTimeout(r, 1600));
   console.log(route, await p.evaluate(() => document.title));
 }
-await p.goto("http://127.0.0.1:3100/Portfolio/projets/campusly/", { waitUntil: "domcontentloaded", timeout: 90000 });
+await p.goto("http://127.0.0.1:3100/projets/campusly/", { waitUntil: "domcontentloaded", timeout: 90000 });
 await new Promise((r) => setTimeout(r, 1600));
 await p.screenshot({path:`${OUT}/export-case.png`});
 console.log("late failures:", failed.length);

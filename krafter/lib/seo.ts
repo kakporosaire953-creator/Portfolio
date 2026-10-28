@@ -4,12 +4,12 @@ import { profile } from "@/data/profile";
 /**
  * One place for everything search engines and social cards read.
  *
- * The canonical production URL is the GitHub Pages site. Set
+ * The canonical production URL is the Vercel deployment. Set
  * `NEXT_PUBLIC_SITE_URL` when the portfolio moves to its own domain: every
  * canonical, sitemap entry and Open Graph URL follows automatically.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kakporosaire953-creator.github.io/Portfolio"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kakpo-rosaire.vercel.app"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "THE KRAFTER";

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 import { SITE_UPDATED, SITE_URL } from "@/lib/seo";
 
-// Required so `output: "export"` can prerender this route (GitHub Pages build).
+// Required so `output: "export"` can prerender this route (static export build).
 export const dynamic = "force-static";
 
 const ROUTES: { path: string; priority: number; changeFrequency: "monthly" | "weekly" }[] = [
