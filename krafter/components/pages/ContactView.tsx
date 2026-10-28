@@ -9,7 +9,7 @@ import { ArrowRight, ArrowUpRight } from "@/components/navigation/Glyphs";
 import { asset } from "@/lib/utils/asset";
 
 /**
- * The published site is a static export (GitHub Pages): /api/contact cannot
+ * The published site is a static export on Vercel: /api/contact cannot
  * exist there. The publish script sets NEXT_PUBLIC_STATIC_EXPORT so the form
  * goes straight to the working mailto instead of failing first.
  */

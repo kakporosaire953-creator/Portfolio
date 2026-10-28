@@ -321,55 +321,68 @@ un iPhone/Android réel, en clair et en sombre, FR et EN, avec et sans
 
 ---
 
-## 11. Déploiement
+## 11. Déploiement — Vercel uniquement
 
-### GitHub Pages — c'est ce qui publie le site aujourd'hui
+Le site est publié **uniquement sur Vercel** : <https://kakpo-rosaire.vercel.app/>.
+GitHub ne sert plus rien (plus de GitHub Pages, plus de workflow, plus de
+`.nojekyll`, plus d'artefact de build commité dans le dépôt).
 
-La racine du dépôt **est** le site publié : `https://kakporosaire953-creator.github.io/Portfolio/`.
-Elle est générée depuis `krafter/`, jamais éditée à la main.
+### Comment Vercel construit le site
 
-```bash
-cd krafter
-npm run publish:pages     # build statique + copie de out/ vers la racine du dépôt
+`vercel.json`, à la racine du dépôt, décrit tout :
+
+```json
+{
+  "installCommand": "cd krafter && npm ci",
+  "buildCommand": "cd krafter && npm run build:export",
+  "outputDirectory": "krafter/out",
+  "trailingSlash": true
+}
 ```
 
-`npm run publish:pages` (`scripts/publish-pages.mjs`) :
+`npm run build:export` (`krafter/scripts/build-export.mjs`) :
 
 1. masque temporairement `app/api` — un hébergement statique n'a pas de serveur ;
    le formulaire et l'assistant proposent déjà leurs replis `mailto` / moteur local,
-2. lance `next build` avec `NEXT_STATIC_EXPORT=1`, `NEXT_PUBLIC_BASE_PATH=/Portfolio`
-   et `NEXT_PUBLIC_SITE_URL=https://kakporosaire953-creator.github.io/Portfolio`,
-3. copie `out/` (HTML, `_next/`, images, `projets/*/index.html`, sitemap, robots, 404)
-   à la racine du dépôt et réécrit `.nojekyll`,
+2. lance `next build` avec `NEXT_STATIC_EXPORT=1`, **sans basePath**
+   (`SITE_BASE_PATH` reste une surcharge pour un hôte en sous-chemin) et avec
+   `NEXT_PUBLIC_SITE_URL=https://kakpo-rosaire.vercel.app`,
+3. laisse l'export dans `krafter/out/` (ignoré par Git) : c'est le dossier que
+   Vercel publie,
 4. restaure `app/api`.
 
-`.github/workflows/deploy.yml` exécute exactement la même chose à chaque push sur
-`main` touchant `krafter/`, puis commit l'artefact : la racine ne peut pas dériver
-du code source.
+Conséquence : le domaine racine est la racine du site (`/competences/`,
+`/projets/campusly/`, `/contact/`). Les anciennes URL préfixées `/Portfolio/...`
+sont réécrites vers `/*` par `vercel.json`, donc les liens et partages déjà
+diffusés continuent de fonctionner.
 
-L'ancien site statique a été **supprimé** du dépôt (HTML/CSS/JS historiques,
-galerie photos, certificat, configurations Apache/Netlify/Jekyll) : une seule
-version est en ligne. Il reste consultable dans l'historique Git
-(`git show <commit>:about.html`, ou `git archive <commit>`) et une copie de
-sauvegarde est conservée hors du dépôt.
-
-> Le basePath `/Portfolio` correspond à une **GitHub Page de projet**. Si le site
-> passe un jour sur un domaine racine, relancez avec `PAGES_BASE_PATH=""`.
-
-### Vercel / Netlify (optionnel, avec serveur)
-
-Sur Vercel : importer le dépôt, `Root Directory = krafter`, build `npm run build`.
-Les routes `/api/contact` et `/api/assistant` fonctionnent alors réellement dès
-que `RESEND_API_KEY`/`CONTACT_TO_EMAIL` (ou `CONTACT_WEBHOOK_URL`) et
-`ASSISTANT_API_URL` sont définis. Le `vercel.json` de la racine réécrit
-`/Portfolio/*` vers `/*` afin que l'artefact statique publié reste valide si ce
-dépôt est aussi servi à la racine d'un domaine.
-
-**Node auto-hébergé :**
+### Construire et vérifier en local
 
 ```bash
-npm ci && npm run build && npm run start
+cd krafter
+npm ci
+npm run typecheck        # tsc --noEmit
+npm run build:export     # export statique dans krafter/out
+cd out && python3 -m http.server 3100 --bind 0.0.0.0
+# http://localhost:3100/
 ```
+
+`npm run dev` lance le serveur Next complet (avec `/api`) sur le port 3000.
+
+### Serveur complet (optionnel)
+
+Sur un hôte Node (VPS, Vercel en mode serveur), `npm run build && npm run start`
+active réellement `/api/contact` et `/api/assistant` dès que `RESEND_API_KEY` +
+`CONTACT_TO_EMAIL` (ou `CONTACT_WEBHOOK_URL`) et `ASSISTANT_API_URL` sont
+définis. Avec l'export statique actuel, le formulaire valide puis bascule sur
+`mailto` / copier-coller, et l'assistant répond depuis son moteur local : aucune
+IA n'est connectée.
+
+L'ancien site statique (HTML/CSS/JS historiques, galerie photos, certificat,
+configurations Apache/Netlify/Jekyll) a été **supprimé** du dépôt : une seule
+version existe. Il reste consultable dans l'historique Git
+(`git show <commit>:about.html`, ou `git archive <commit>`) et une copie de
+sauvegarde est conservée hors du dépôt.
 
 ---
 

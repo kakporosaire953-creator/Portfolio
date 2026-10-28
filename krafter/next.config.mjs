@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const basePath = process.env.SITE_BASE_PATH ?? "";
 const staticExport = process.env.NEXT_STATIC_EXPORT === "1";
 
 const nextConfig = {
@@ -7,8 +7,8 @@ const nextConfig = {
   poweredByHeader: false,
   images: { formats: ["image/webp"], unoptimized: staticExport },
   allowedDevOrigins: ["*.e2b.app", "*.vercel.app", "localhost", "127.0.0.1"],
-  // GitHub Pages serves this project from /Portfolio; `npm run build:static`
-  // sets NEXT_PUBLIC_BASE_PATH so links, bundles and public assets agree.
+  // The site is served from the domain root on Vercel, so there is no base
+  // path. SITE_BASE_PATH remains an override for a sub-path host only.
   ...(basePath ? { basePath, assetPrefix: basePath } : {}),
   ...(staticExport ? { output: "export", trailingSlash: true } : {}),
 };

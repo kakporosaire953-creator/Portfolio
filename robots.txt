@@ -1,6 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /api/
-
-Host: https://kakporosaire953-creator.github.io/Portfolio
-Sitemap: https://kakporosaire953-creator.github.io/Portfolio/sitemap.xml

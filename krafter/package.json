@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
     "typecheck": "tsc --noEmit",
-    "build:static": "NEXT_STATIC_EXPORT=1 NEXT_PUBLIC_BASE_PATH=/Portfolio next build",
-    "publish:pages": "node scripts/publish-pages.mjs"
+    "build:static": "NEXT_STATIC_EXPORT=1 next build",
+    "build:export": "node scripts/build-export.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bodoni-moda": "^5.3.0",
