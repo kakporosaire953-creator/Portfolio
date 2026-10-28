@@ -350,13 +350,15 @@ GitHub répond donc 404.
    (`SITE_BASE_PATH` reste une surcharge pour un hôte en sous-chemin) et avec
    `NEXT_PUBLIC_SITE_URL=https://kakpo-rosaire.vercel.app`,
 3. laisse l'export dans `krafter/out/` (ignoré par Git) : c'est le dossier que
-   Vercel publie,
+   Vercel publie, avec les pages de redirection des anciennes URL,
 4. restaure `app/api`.
 
 Conséquence : le domaine racine est la racine du site (`/competences/`,
 `/projets/campusly/`, `/contact/`). Les anciennes URL préfixées `/Portfolio/...`
-sont redirigées vers `/*` par `vercel.json`, donc les liens et partages déjà
-diffusés continuent de fonctionner.
+sont redirigées vers `/*` par `vercel.json` ; le build génère en plus, sous
+`out/Portfolio/…`, une page de redirection par route (canonical + rafraîchissement
+immédiat), donc les liens et partages déjà diffusés continuent de fonctionner
+même si l'hôte ignore la configuration de routage.
 
 ### Construire et vérifier en local
 
