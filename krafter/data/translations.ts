@@ -401,6 +401,10 @@ export const fr = {
       "Je n’affiche pas de barres de progression ni de “niveau 92 %” : cela ne veut rien dire. Voici les technologies que j’utilise réellement, avec le contexte dans lequel je les mobilise.",
     coreTitle: "Cœur de métier",
     toolsTitle: "Outils et environnement",
+    usedHere: "Utilisé sur ce site",
+    toolsLabel: "outils",
+    familiesLabel: "familles",
+    usedLabel: "utilisés ici",
     methodTitle: "Méthode",
     methodItems: [
       "Architecture de l’information et wireframes",
@@ -1020,6 +1024,10 @@ export const en: typeof fr = {
       "I do not show progress bars or “92 % level”: that means nothing. Below are the technologies I actually use, with the context in which I use them.",
     coreTitle: "Core craft",
     toolsTitle: "Tools and environment",
+    usedHere: "Used on this site",
+    toolsLabel: "tools",
+    familiesLabel: "families",
+    usedLabel: "used here",
     methodTitle: "Method",
     methodItems: [
       "Information architecture and wireframes",
