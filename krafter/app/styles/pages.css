@@ -2394,74 +2394,212 @@
 }
 
 /* --------------------------------------------------------------------------
-   SKILLS
+   SKILLS — THE TOOL WALL
+   One card per tool, in a thin lattice, numbered, with the tools that actually
+   ship on this site flagged. Counts instead of invented levels: every figure
+   on this page can be checked by looking at the page itself.
    -------------------------------------------------------------------------- */
 
-.skills-layout {
+.tool-counts {
   display: grid;
-  gap: clamp(2rem, 4vw, 3.4rem);
-  padding-block: clamp(2rem, 4vw, 3.6rem);
-}
-
-.skill-group {
-  display: grid;
-  grid-template-columns: minmax(0, 0.28fr) minmax(0, 0.72fr);
-  gap: clamp(1rem, 3vw, 3rem);
-  padding-top: 1.2rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 0 clamp(2rem, 4vw, 3.2rem);
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-.skill-group__title {
-  font-size: 0.8rem;
+.tool-counts__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 1rem 0;
+}
+
+.tool-counts__item + .tool-counts__item {
+  padding-inline: clamp(0.9rem, 2vw, 1.6rem);
+  border-left: 1px solid var(--line);
+}
+
+.tool-counts__label {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  order: 2;
+}
+
+.tool-counts__value {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 620;
+  font-size: clamp(1.7rem, 2.6vw, 2.15rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  order: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tool-counts__item--accent .tool-counts__value {
+  color: var(--orange);
+}
+
+.tool-wall {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.2rem);
+}
+
+.tool-group__head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding-bottom: 0.7rem;
+}
+
+.tool-group__index {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  color: var(--orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.tool-group__title {
+  font-size: 0.78rem;
   font-family: var(--font-mono);
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.tool-group__count {
   color: var(--ink-mute);
 }
 
-.skill-group__items {
+/* The lattice: 1px gaps over a hairline ground, so the wall reads as one
+   drawn surface rather than a pile of loose cards. */
+.tool-grid {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   background: var(--line);
   border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.skill-item {
+.tool-card {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
-  gap: 1rem;
+  align-content: start;
+  gap: 0.5rem;
+  padding: clamp(1rem, 1.6vw, 1.35rem);
   background: var(--paper);
-  padding: 0.85rem 1rem;
-  transition: background-color 320ms var(--ease-out-expo);
+  isolation: isolate;
+  transition: background-color 420ms var(--ease-out-expo);
 }
 
-.skill-item:hover {
+/* The spotlight: a single delegated listener moves --mx / --my, nothing
+   re-renders, and the light is capped so it never becomes a glowing card. */
+.tool-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    220px 220px at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--brand-blue) 12%, transparent),
+    transparent 70%
+  );
+  transition: opacity 320ms var(--ease-out-expo);
+}
+
+.tool-card[data-lit]::after {
+  opacity: 1;
+}
+
+.tool-card[data-lit] {
   background: var(--paper-soft);
 }
 
-.skill-item__name {
-  font-size: 0.98rem;
-  font-weight: 540;
-  letter-spacing: -0.01em;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.tool-card > * {
+  position: relative;
+  z-index: 1;
 }
 
-.skill-item__name::before {
-  content: "";
-  width: 4px;
-  height: 4px;
+.tool-card__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.tool-card__name {
+  font-size: 0.98rem;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.tool-card__num {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--ink-mute) 70%, transparent);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.tool-card__context {
+  font-size: 0.835rem;
+  line-height: 1.55;
+  color: var(--ink-mute);
+  max-width: 30ch;
+}
+
+/* The flag is the only element allowed to carry the accent, so the eye reads
+   the shipped tools first. */
+.tool-card__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--orange) 82%, var(--ink-mute));
+}
+
+.tool-card__flag-dot {
+  width: 5px;
+  height: 5px;
   border-radius: 999px;
   background: var(--orange);
   flex: none;
 }
 
-.skill-item__context {
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: var(--ink-mute);
+/* Keyboard users get the same signal as the pointer. */
+.tool-card:focus-within {
+  outline: 1px solid color-mix(in srgb, var(--orange) 60%, transparent);
+  outline-offset: -1px;
+}
+
+[data-theme="dark"] .tool-card::after {
+  background: radial-gradient(
+    220px 220px at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--brand-blue) 22%, transparent),
+    transparent 70%
+  );
 }
 
 .skills-aside {
@@ -2508,23 +2646,80 @@
 }
 
 .skills-note {
+  margin-top: clamp(1.8rem, 3vw, 2.6rem);
   padding: 1rem 1.1rem;
   border-left: 2px solid var(--orange);
   background: color-mix(in srgb, var(--orange) 5%, transparent);
   font-size: 0.88rem;
   line-height: 1.6;
   color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+/* A row is never left with a hole: the last card of an incomplete row closes
+   it, and being wider, it simply breathes more. */
+.tool-card:last-child:nth-child(3n + 1) {
+  grid-column: 1 / -1;
+}
+
+.tool-card:last-child:nth-child(3n + 1) .tool-card__top {
+  justify-content: flex-start;
+  gap: 1.1rem;
+}
+
+.tool-card:last-child:nth-child(3n + 1) .tool-card__context {
+  max-width: 68ch;
+}
+
+@media (max-width: 1023px) {
+  .tool-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tool-card:last-child:nth-child(3n + 1) {
+    grid-column: auto;
+  }
+
+  .tool-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .tool-card:last-child:nth-child(odd) .tool-card__context {
+    max-width: 68ch;
+  }
 }
 
 @media (max-width: 860px) {
-  .skill-group,
   .skills-aside {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .skill-item {
+  .tool-counts {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0.3rem;
+  }
+
+  .tool-counts__item + .tool-counts__item {
+    padding-inline: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .tool-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tool-card:last-child:nth-child(odd),
+  .tool-card:last-child:nth-child(3n + 1) {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card,
+  .tool-card::after {
+    transition: none;
   }
 }
 
