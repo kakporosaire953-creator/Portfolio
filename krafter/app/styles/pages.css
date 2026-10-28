@@ -58,12 +58,20 @@
 .hero__copy {
   position: relative;
   z-index: 3;
-  max-width: 34rem;
+  /* The display name is sized against this box (see the cqw rules below), so
+     the box has to be wide enough to hold ROSAIRE at its full size: at 34rem
+     the reveal masks clipped the last letters on wide desktops. */
+  max-width: 40rem;
+  container-type: inline-size;
 }
 
 .hero__name {
   display: grid;
   font-size: var(--step-display);
+  /* Fallback for engines without container queries, then the real cap: the
+     name can never be wider than the column that masks it. ROSAIRE measures
+     3.96em at weight 620, so 24cqw keeps a margin under the mask edge. */
+  font-size: min(var(--step-display), 24cqw);
   line-height: 0.82;
   letter-spacing: -0.055em;
   font-weight: 620;
@@ -77,6 +85,8 @@
   text-transform: none;
   letter-spacing: -0.03em;
   font-size: clamp(3.4rem, 10.4vw, 10.4rem);
+  /* Kakpo. measures 3.57em with its optical left padding. */
+  font-size: min(clamp(3.4rem, 10.4vw, 10.4rem), 27cqw);
   line-height: 0.92;
   padding-left: 0.06em;
 }
