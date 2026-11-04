@@ -1502,7 +1502,7 @@
   background: var(--navy);
   color: #f5f2ea;
   overflow: hidden;
-  padding-block: clamp(4rem, 8vw, 8rem);
+  padding-block: var(--space-section);
   --line: rgb(255 255 255 / 0.14);
   --line-strong: rgb(255 255 255 / 0.3);
   --ink: #f5f2ea;
@@ -1723,7 +1723,7 @@
 
 .contact-band {
   position: relative;
-  padding-block: clamp(4rem, 8vw, 8rem);
+  padding-block: var(--space-section);
   overflow: hidden;
   border-top: 1px solid var(--line);
 }
@@ -3500,7 +3500,7 @@
   .designcode__track {
     display: block;
     position: relative;
-    height: calc(var(--dc-steps, 5) * 88vh);
+    height: calc(var(--dc-steps, 5) * 74vh);
   }
 
   .designcode__sticky {
@@ -3510,6 +3510,10 @@
        is expanded; 100vh cropped the last panel on phones. */
     height: 100svh;
     display: grid;
+    /* The base rule splits this box in two columns for phones; once sticky, it
+       only holds the inner shell, so the empty second column was eating 60% of
+       the viewport and squeezing the stage into the left third. */
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     min-height: 0;
     padding-block: 0;
