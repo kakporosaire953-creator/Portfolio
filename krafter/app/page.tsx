@@ -5,9 +5,7 @@ import { SelectedWork } from "@/components/sections/SelectedWork";
 import { DesignCode } from "@/components/sections/DesignCode";
 import { ServicesPreview } from "@/components/sections/ServicesPreview";
 import { Process } from "@/components/sections/Process";
-import { AboutPreview } from "@/components/sections/AboutPreview";
 import { Story } from "@/components/sections/Story";
-import { BlogPreview } from "@/components/sections/BlogPreview";
 import { ContactBand } from "@/components/sections/ContactBand";
 import { fr } from "@/data/translations";
 import { pageMetadata } from "@/lib/seo";
@@ -36,9 +34,7 @@ export default function HomePage() {
       <DesignCode />
       <ServicesPreview />
       <Process />
-      <AboutPreview />
       <Story />
-      <BlogPreview />
       <ContactBand />
     </>
   );

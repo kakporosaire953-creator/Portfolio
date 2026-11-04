@@ -77,6 +77,10 @@
 
   /* Layout */
   --shell: 1560px;
+  /* One vertical rhythm for the whole site. Every band breathes on the same
+     two beats instead of its own ad-hoc padding. */
+  --space-section: clamp(5rem, 9vw, 9.5rem);
+  --space-tight: clamp(3rem, 5.2vw, 5.6rem);
   --gutter: clamp(1.15rem, 4vw, 4.5rem);
   --rail-w: 76px;
   --header-h: 76px;
@@ -420,11 +424,11 @@
 
 .section {
   position: relative;
-  padding-block: clamp(6rem, 11vw, 12.5rem);
+  padding-block: var(--space-section);
 }
 
 .section-tight {
-  padding-block: clamp(3.5rem, 7vw, 7rem);
+  padding-block: var(--space-tight);
 }
 
 .hairline {

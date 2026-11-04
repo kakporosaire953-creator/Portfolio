@@ -245,7 +245,7 @@ export const fr = {
       ],
     },
     story: {
-      index: "06",
+      index: "05",
       kicker: "La marque",
       titleLead: "L’histoire de",
       titleEm: "THE KRAFTER",
@@ -870,7 +870,7 @@ export const en: typeof fr = {
       ],
     },
     story: {
-      index: "06",
+      index: "05",
       kicker: "The brand",
       titleLead: "The story of",
       titleEm: "THE KRAFTER",
